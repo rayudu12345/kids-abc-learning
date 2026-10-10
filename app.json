@@ -1,0 +1,20 @@
+{
+  "expo": {
+    "name": "Kids ABC Learning",
+    "slug": "kids-abc-learning",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.rayudu12345.kidsabclearning"
+    },
+    "android": {
+      "package": "com.rayudu12345.kidsabclearning",
+      "adaptiveIcon": {
+        "backgroundColor": "#FFFDF7"
+      }
+    }
+  }
+}
