@@ -1,5 +1,5 @@
-import React from "react";
-import { SafeAreaView, ScrollView, StyleSheet, Text, Pressable, View } from "react-native";
+import React, { useRef, useState } from "react";
+import { Animated, SafeAreaView, ScrollView, StyleSheet, Text, Pressable, View } from "react-native";
 import * as Speech from "expo-speech";
 
 const alphabet = [
@@ -17,6 +17,19 @@ const alphabet = [
 const colors = ["#FFE3E3", "#DFF4FF", "#E6F8E7", "#FFF0C9", "#F0E5FF", "#FFE5F3"];
 
 export default function App() {
+  const [activeLetter, setActiveLetter] = useState<string | null>(null);
+  const bounce = useRef(new Animated.Value(1)).current;
+
+  const playLetter = (letter: string, word: string) => {
+    setActiveLetter(letter);
+    bounce.setValue(1);
+    Animated.sequence([
+      Animated.spring(bounce, { toValue: 1.28, useNativeDriver: true, speed: 18, bounciness: 12 }),
+      Animated.spring(bounce, { toValue: 1, useNativeDriver: true, speed: 12, bounciness: 8 }),
+    ]).start();
+    speak(letter, word);
+  };
+
   const speak = (letter: string, word: string) => {
     Speech.stop();
     Speech.speak(`${letter}. ${letter} is for ${word}!`, {
@@ -31,7 +44,7 @@ export default function App() {
       <View style={styles.header}>
         <Text style={styles.eyebrow}>LET'S LEARN TOGETHER</Text>
         <Text style={styles.title}>Kids ABC Learning 🌈</Text>
-        <Text style={styles.subtitle}>Tap a letter to hear it!</Text>
+        <Text style={styles.subtitle}>Tap a letter to hear it bounce and speak!</Text>
       </View>
       <ScrollView contentContainerStyle={styles.grid}>
         {alphabet.map(([letter, word, emoji], index) => (
@@ -39,17 +52,19 @@ export default function App() {
             accessibilityRole="button"
             accessibilityLabel={`${letter}, ${word}. Tap to hear it`}
             key={letter}
-            onPress={() => speak(letter, word)}
+            onPress={() => playLetter(letter, word)}
             style={({ pressed }) => [
               styles.card,
               { backgroundColor: colors[index % colors.length] },
               pressed && styles.pressed,
             ]}
           >
-            <Text style={styles.letter}>{letter}</Text>
-            <Text style={styles.emoji}>{emoji}</Text>
-            <Text style={styles.word}>{word}</Text>
-            <Text style={styles.tap}>🔊 Tap to listen</Text>
+            <Animated.View style={{ alignItems: "center", transform: [{ scale: activeLetter === letter ? bounce : 1 }] }}>
+              <Text style={styles.letter}>{letter}</Text>
+              <Text style={styles.emoji}>{emoji}</Text>
+              <Text style={styles.word}>{word}</Text>
+              <Text style={styles.tap}>🔊 Tap to listen</Text>
+            </Animated.View>
           </Pressable>
         ))}
       </ScrollView>
