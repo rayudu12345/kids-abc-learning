@@ -6,8 +6,8 @@ export const animalLetters: Record<string, string> = { '🐱': 'C', '🐶': 'D',
 export function AnimalArt({ letter, size = 100 }: { letter: string; size?: number }) {
   const cell = cells[letter];
   if (cell === undefined) return null;
-  const source = Image.resolveAssetSource(atlas);
-  const sourceWidth = source?.width ?? 1774, sourceHeight = source?.height ?? 887;
+  // Intrinsic atlas dimensions; web Image does not expose resolveAssetSource.
+  const sourceWidth = 1774, sourceHeight = 887;
   const cellWidth = sourceWidth / 4, cellHeight = sourceHeight / 2;
   const scale = Math.min(size / cellWidth, size / cellHeight);
   const w = cellWidth * scale, h = cellHeight * scale;
