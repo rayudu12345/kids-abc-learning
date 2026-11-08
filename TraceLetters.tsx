@@ -23,6 +23,7 @@ export default function TraceLetters({ onExit, initialMode = 'letter' }: { onExi
   const [hint, setHint] = useState('Start at the purple dot and follow the colorful path.');
   const items = mode === 'letter' ? letterTraces : animalTraces;
   const item = items[index];
+  const article = /^[aeiou]/i.test(item.name) ? "an" : "a";
   const strokes = useMemo(() => sampledStrokes(item), [item]);
   const current = strokes[stroke] ?? strokes[0];
   const visitedRef = useRef(0);
@@ -94,7 +95,7 @@ export default function TraceLetters({ onExit, initialMode = 'letter' }: { onExi
       <Pressable accessibilityRole="button" onPress={() => select(0)} style={s.primary}><Text style={s.primaryText}>Explore again</Text></Pressable>
       <Pressable accessibilityRole="button" onPress={() => select(0, mode === 'letter' ? 'animal' : 'letter')} style={s.button}><Text style={s.buttonText}>{mode === 'letter' ? 'Try animal tracing 🐾' : 'Try letter tracing 🔤'}</Text></Pressable>
     </> : <>
-      <Text style={[s.itemTitle, { color: inks[index % inks.length] }]}>{mode === 'letter' ? `Let's trace ${item.name}` : `${item.icon} Let's draw a ${item.name.toLowerCase()}!`}</Text>
+      <Text style={[s.itemTitle, { color: inks[index % inks.length] }]}>{mode === 'letter' ? `Let's trace ${item.name}` : `${item.icon} Let's draw ${article} ${item.name.toLowerCase()}!`}</Text>
       <Text style={s.subtitle}>{index + 1} / {items.length} · Stroke {stroke + 1} of {strokes.length}{completed.includes(item.id) ? ' · Traced before ✓' : ''}</Text>
       <View accessibilityRole="progressbar" accessibilityValue={{ min: 0, max: 100, now: percent }} accessibilityLabel="Tracing progress" style={s.progress}><View style={{ width: `${percent}%`, height: 10, borderRadius: 6, backgroundColor: '#27A783' }} /></View>
       <Pressable accessibilityRole="button" onPress={() => say(`Trace ${item.name}. Start at the purple dot, and follow the path with your finger.`)} style={s.button}><Text style={s.buttonText}>🔊 Hear how to trace</Text></Pressable>
@@ -113,7 +114,7 @@ export default function TraceLetters({ onExit, initialMode = 'letter' }: { onExi
     </>}
     <Text style={s.section}>🎨 Choose any {mode === 'letter' ? 'letter' : 'animal'}</Text>
     <View style={s.grid}>{items.map((entry, i) => <Pressable key={entry.id} accessibilityRole="button" accessibilityLabel={`Trace ${entry.name}`} accessibilityState={{ selected: index === i }} onPress={() => select(i)} style={[s.card, { backgroundColor: colors[i % colors.length], borderColor: i === index ? inks[i % inks.length] : 'transparent', width: mode === 'letter' ? width >= 600 ? '11%' : '18%' : '43%' }]}><Text style={[s.cardLabel, { color: inks[i % inks.length] }]}>{entry.icon}</Text>{mode === 'animal' && <Text style={s.buttonText}>{entry.name}</Text>}{completed.includes(entry.id) && <Text style={s.check}>✓</Text>}</Pressable>)}</View>
-    <Text style={s.subtitle}>{saveError ? 'Your latest reward could not be saved. Try saving again from My sticker book.' : `Saved: ${progress.tracedLetters.length}/26 letters · ${progress.tracedAnimals.length}/4 animal outlines`}</Text>
+    <Text style={s.subtitle}>{saveError ? 'Your latest reward could not be saved. Try saving again from My sticker book.' : `Saved: ${progress.tracedLetters.length}/26 letters · ${progress.tracedAnimals.length}/{animalTraces.length} animal outlines`}</Text>
   </ScrollView>;
 }
 const s = StyleSheet.create({

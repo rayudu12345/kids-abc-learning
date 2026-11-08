@@ -13,6 +13,7 @@ import {
 import * as Speech from "expo-speech";
 import { ProgressProvider } from "./ProgressStore";
 import { AnimalArt, animalLetters } from "./AnimalArt";
+import SideMenu, { activities, Screen } from "./SideMenu";
 import AdvancedLetters from "./AdvancedLetters";
 import LetterPairs from "./LetterPairs";
 import TraceLetters from "./TraceLetters";
@@ -28,14 +29,9 @@ export default function App() {
 }
 
 function LearningApp() {
-  const [advanced, setAdvanced] = useState(false);
-  const [pairs, setPairs] = useState(false);
-  const [traceMode, setTraceMode] = useState<"letter" | "animal">("letter");
-  const [tracing, setTracing] = useState(false);
-  const [stickerBook, setStickerBook] = useState(false);
+  const [screen, setScreen] = useState<Screen>('home');
+  const [menuOpen, setMenuOpen] = useState(false);
   const { width, height } = useWindowDimensions();
-  const [matching, setMatching] = useState(false);
-  const [adventure, setAdventure] = useState(false);
   const [expanded, setExpanded] = useState(false);
   const sceneWidth = Math.max(180, width - 40);
   const sceneHeight = Math.min(height * 0.38, sceneWidth * 0.67);
@@ -74,20 +70,23 @@ function LearningApp() {
     });
   };
 
-  if (advanced) return <SafeAreaView style={styles.safe}><AdvancedLetters onExit={() => { Speech.stop(); setAdvanced(false); }} /></SafeAreaView>;
-
-  if (pairs) return <SafeAreaView style={styles.safe}><LetterPairs onExit={() => { Speech.stop(); setPairs(false); }} /></SafeAreaView>;
-
-  if (tracing) return <SafeAreaView style={styles.safe}><TraceLetters initialMode={traceMode} onExit={() => { Speech.stop(); setTracing(false); }} /></SafeAreaView>;
-
-  if (stickerBook) return <SafeAreaView style={styles.safe}><StickerBook onExit={() => setStickerBook(false)} /></SafeAreaView>;
-
-  if (matching) return <SafeAreaView style={styles.safe}><MatchAnimals onExit={() => { Speech.stop(); setMatching(false); }} /></SafeAreaView>;
-
-  if (adventure) return <SafeAreaView style={styles.safe}><FindLetter onExit={() => { Speech.stop(); setAdventure(false); }} /></SafeAreaView>;
+  const navigate = (next: Screen) => {
+    Speech.stop(); setExpanded(false); setMenuOpen(false); setScreen(next);
+  };
+  const exitActivity = () => navigate('home');
+  const activity = screen === 'advanced' ? <AdvancedLetters onExit={exitActivity} />
+    : screen === 'pairs' ? <LetterPairs onExit={exitActivity} />
+    : screen === 'traceLetters' || screen === 'traceAnimals' ? <TraceLetters key={screen} initialMode={screen === 'traceAnimals' ? 'animal' : 'letter'} onExit={exitActivity} />
+    : screen === 'stickers' ? <StickerBook onExit={exitActivity} />
+    : screen === 'match' ? <MatchAnimals onExit={exitActivity} />
+    : screen === 'find' ? <FindLetter onExit={exitActivity} /> : null;
+  const menuHeader = <View style={styles.menuHeader}><Pressable accessibilityRole="button" accessibilityLabel="Open activity menu" onPress={() => setMenuOpen(true)} style={styles.menuButton}><Text style={styles.menuButtonText}>☰ Menu</Text></Pressable><Text style={styles.menuTitle}>{activities.find(a => a.id === screen)?.title}</Text></View>;
+  const drawer = <SideMenu visible={menuOpen} current={screen} onClose={() => setMenuOpen(false)} onNavigate={navigate} />;
+  if (screen !== 'home') return <SafeAreaView style={styles.safe}>{menuHeader}{activity}{drawer}</SafeAreaView>;
 
   return (
     <SafeAreaView style={styles.safe}>
+      {menuHeader}
       <ScrollView style={{ flex: 1 }} contentContainerStyle={{ paddingBottom: 12 }}>
       <View style={styles.header}>
         <Text style={styles.eyebrow}>LET'S LEARN TOGETHER</Text>
@@ -95,19 +94,19 @@ function LearningApp() {
         <Text style={styles.subtitle}>Tap a letter to start its mini animation!</Text>
       </View>
 
-      <Pressable accessibilityRole="button" onPress={() => { Speech.stop(); setExpanded(false); setAdventure(true); }} style={[styles.expandButton, { alignSelf: "center" }]}><Text style={styles.expandText}>🐾 Play: Find the letter!</Text></Pressable>
+      <Pressable accessibilityRole="button" onPress={() => navigate("find")} style={[styles.expandButton, { alignSelf: "center" }]}><Text style={styles.expandText}>🐾 Play: Find the letter!</Text></Pressable>
 
-      <Pressable accessibilityRole="button" onPress={() => { Speech.stop(); setExpanded(false); setMatching(true); }} style={[styles.expandButton, { alignSelf: "center", backgroundColor: "#287F67" }]}><Text style={styles.expandText}>🐶 Play: Match the animals!</Text></Pressable>
+      <Pressable accessibilityRole="button" onPress={() => navigate("match")} style={[styles.expandButton, { alignSelf: "center", backgroundColor: "#287F67" }]}><Text style={styles.expandText}>🐶 Play: Match the animals!</Text></Pressable>
 
-      <Pressable accessibilityRole="button" onPress={() => { Speech.stop(); setExpanded(false); setStickerBook(true); }} style={[styles.expandButton, { alignSelf: "center", backgroundColor: "#9B711D" }]}><Text style={styles.expandText}>⭐ My sticker book</Text></Pressable>
+      <Pressable accessibilityRole="button" onPress={() => navigate("stickers")} style={[styles.expandButton, { alignSelf: "center", backgroundColor: "#9B711D" }]}><Text style={styles.expandText}>⭐ My sticker book</Text></Pressable>
 
-      <Pressable accessibilityRole="button" onPress={() => { Speech.stop(); setExpanded(false); setTraceMode("letter"); setTracing(true); }} style={[styles.expandButton, { alignSelf: "center", backgroundColor: "#A0567C" }]}><Text style={styles.expandText}>✍️ Trace letters A–Z!</Text></Pressable>
+      <Pressable accessibilityRole="button" onPress={() => navigate("traceLetters")} style={[styles.expandButton, { alignSelf: "center", backgroundColor: "#A0567C" }]}><Text style={styles.expandText}>✍️ Trace letters A–Z!</Text></Pressable>
 
-      <Pressable accessibilityRole="button" onPress={() => { Speech.stop(); setExpanded(false); setPairs(true); }} style={[styles.expandButton, { alignSelf: "center", backgroundColor: "#367B9B" }]}><Text style={styles.expandText}>🔤 Play: Big &amp; little letters!</Text></Pressable>
+      <Pressable accessibilityRole="button" onPress={() => navigate("pairs")} style={[styles.expandButton, { alignSelf: "center", backgroundColor: "#367B9B" }]}><Text style={styles.expandText}>🔤 Play: Big &amp; little letters!</Text></Pressable>
 
-      <Pressable accessibilityRole="button" onPress={() => { Speech.stop(); setExpanded(false); setAdvanced(true); }} style={[styles.expandButton, { alignSelf: "center", backgroundColor: "#5559A8" }]}><Text style={styles.expandText}>🚀 Advanced Letters</Text></Pressable>
+      <Pressable accessibilityRole="button" onPress={() => navigate("advanced")} style={[styles.expandButton, { alignSelf: "center", backgroundColor: "#5559A8" }]}><Text style={styles.expandText}>🚀 Advanced Letters</Text></Pressable>
 
-      <Pressable accessibilityRole="button" onPress={() => { Speech.stop(); setExpanded(false); setTraceMode("animal"); setTracing(true); }} style={[styles.expandButton, { alignSelf: "center", backgroundColor: "#A76128" }]}><Text style={styles.expandText}>🐾 Play: Trace animals!</Text></Pressable>
+      <Pressable accessibilityRole="button" onPress={() => navigate("traceAnimals")} style={[styles.expandButton, { alignSelf: "center", backgroundColor: "#A76128" }]}><Text style={styles.expandText}>🐾 Play: Trace animals!</Text></Pressable>
 
       {activeItem ? (
         <View style={[styles.scene, { flexShrink: 1 }]}>
@@ -178,12 +177,17 @@ function LearningApp() {
           <Text style={styles.heroHint}>{activeItem?.[3]}</Text>
         </SafeAreaView>
       </Modal>
+      {drawer}
       <Text style={styles.footer}>Little letters, big discoveries! ⭐</Text>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
+  menuHeader: { minHeight: 58, paddingHorizontal: 12, paddingVertical: 6, flexDirection: 'row', alignItems: 'center', gap: 12, backgroundColor: '#F0FBFF', borderBottomWidth: 1, borderBottomColor: '#DCECF1' },
+  menuButton: { minHeight: 46, justifyContent: 'center', backgroundColor: '#6946BC', borderRadius: 16, paddingHorizontal: 16 },
+  menuButtonText: { color: 'white', fontSize: 18, fontWeight: '800' },
+  menuTitle: { flex: 1, color: '#57388E', fontWeight: '800', fontSize: 17 },
   fullScreen: { flex: 1, backgroundColor: "#EEE8FF", alignItems: "center", justifyContent: "center" },
   expandButton: { backgroundColor: "#6946BC", borderRadius: 20, paddingHorizontal: 20, paddingVertical: 10, marginVertical: 6 },
   expandText: { color: "white", fontSize: 16, fontWeight: "800" },
