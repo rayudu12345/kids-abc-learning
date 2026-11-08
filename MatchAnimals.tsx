@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Animated, PanResponder, Pressable, ScrollView, StyleSheet, Text, View, useWindowDimensions } from 'react-native';
 import * as Speech from 'expo-speech';
+import { useProgress } from './ProgressStore';
 import { Animal, animals, shuffle } from './quizLogic';
 
 import { DropBox, findDropTarget } from './matchLogic';
@@ -34,6 +35,7 @@ function Draggable({ animal, disabled, selected, onDrop, onSelect, onDrag }: {
 }
 function newRounds() { return Array.from({ length: 3 }, () => shuffle(animals).slice(0, 3)); }
 export default function MatchAnimals({ onExit }: { onExit: () => void }) {
+  const { recordAnswer, saveError } = useProgress();
   const { width } = useWindowDimensions();
   const [rounds, setRounds] = useState(newRounds);
   const [round, setRound] = useState(0);
@@ -75,6 +77,7 @@ export default function MatchAnimals({ onExit }: { onExit: () => void }) {
       say(`Find the other ${animal.word}.`); return;
     }
     matchedRef.current = [...matchedRef.current, animal.letter];
+    recordAnswer(animal.letter, "matching", matchedRef.current.length === 3 && round === rounds.length - 1);
     setMatched([...matchedRef.current]); setSelected(null);
     setMessage(matchedRef.current.length === 3 ? 'All three matched! Next adventure is coming…' : `Yes! Two ${animal.word.toLowerCase()} friends! ⭐`);
     say(`Hooray! ${animal.word}!`);
@@ -89,6 +92,7 @@ export default function MatchAnimals({ onExit }: { onExit: () => void }) {
   };
   return <ScrollView scrollEnabled={!dragging} onScrollBeginDrag={() => { boxes.current = {}; }} style={s.page} contentContainerStyle={s.content}>
     <View style={s.toolbar}><Pressable accessibilityRole="button" onPress={onExit} style={s.button}><Text style={s.buttonText}>‹ Alphabet</Text></Pressable><Pressable accessibilityRole="switch" accessibilityLabel="Spoken instructions" accessibilityState={{ checked: !muted }} onPress={() => { Speech.stop(); setMuted(m => !m); }} style={s.button}><Text style={s.buttonText}>{muted ? '🔇 Sound off' : '🔊 Sound on'}</Text></Pressable></View>
+    {saveError && <Text style={s.subtitle}>Rewards could not be saved yet. Try saving from My sticker book.</Text>}
     <Text style={s.title}>{finished ? 'Animal matching champion!' : 'Match the animals 🐾'}</Text>
     <Text style={s.subtitle}>{finished ? 'Nine matches! Wonderful exploring.' : `Animal adventure ${round + 1} of 3`}</Text>
     <Text style={s.stars}>{'⭐'.repeat(round * 3 + matched.length) || '☆ ☆ ☆'}</Text>
