@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import {
   Animated,
+  Modal,
+  useWindowDimensions,
   SafeAreaView,
   ScrollView,
   StyleSheet,
@@ -14,6 +16,11 @@ import LetterScene, { alphabet } from "./LetterScene";
 const colors = ["#FFE3E3", "#DFF4FF", "#E6F8E7", "#FFF0C9", "#F0E5FF", "#FFE5F3"];
 
 export default function App() {
+  const { width, height } = useWindowDimensions();
+  const [expanded, setExpanded] = useState(false);
+  const sceneWidth = Math.max(180, width - 40);
+  const sceneHeight = Math.min(height * 0.38, sceneWidth * 0.67);
+  const tablet = width >= 600;
   const [sceneVersion, setSceneVersion] = useState(0);
   const [activeLetter, setActiveLetter] = useState<string | null>(null);
   const cardBounce = useRef(new Animated.Value(1)).current;
@@ -57,7 +64,7 @@ export default function App() {
       </View>
 
       {activeItem ? (
-        <View style={styles.scene}>
+        <View style={[styles.scene, { flexShrink: 1 }]}>
           <Text style={styles.sceneStars}>✨ ⭐ ✨</Text>
           <Animated.View
             style={[
@@ -70,7 +77,8 @@ export default function App() {
             ]}
           >
             <Text style={styles.heroLetter}>{activeItem[0]}</Text>
-            <LetterScene key={`${activeLetter}-${sceneVersion}`} letter={activeItem[0]} />
+            <LetterScene key={`${activeLetter}-${sceneVersion}`} letter={activeItem[0]} width={sceneWidth} height={sceneHeight} />
+            <Pressable accessibilityRole="button" accessibilityLabel="Show animation full screen" onPress={() => setExpanded(true)} style={styles.expandButton}><Text style={styles.expandText}>⛶ Make it BIG!</Text></Pressable>
             <Text style={styles.heroHint}>{activeItem[3]}</Text>
             <Text style={styles.heroWord}>{activeItem[0]} is for {activeItem[1]}!</Text>
             <Text style={styles.heroHint}>🔊 Listen and say it with me!</Text>
@@ -95,6 +103,7 @@ export default function App() {
             onPress={() => playLetter(letter, word)}
             style={({ pressed }) => [
               styles.card,
+              tablet && { width: "14%", minHeight: 125 },
               { backgroundColor: colors[index % colors.length] },
               activeLetter === letter && styles.selectedCard,
               pressed && styles.pressed,
@@ -107,18 +116,30 @@ export default function App() {
               }}
             >
               <Text style={styles.letter}>{letter}</Text>
-              <Text style={styles.emoji}>{emoji}</Text>
+              <Text style={[styles.emoji, tablet && { fontSize: 48 }]}>{emoji}</Text>
               <Text style={styles.word}>{word}</Text>
             </Animated.View>
           </Pressable>
         ))}
       </ScrollView>
+      <Modal visible={expanded && !!activeItem} animationType="fade" onRequestClose={() => setExpanded(false)}>
+        <SafeAreaView style={styles.fullScreen}>
+          <Pressable accessibilityRole="button" onPress={() => setExpanded(false)} style={styles.expandButton}><Text style={styles.expandText}>✕ Back to letters</Text></Pressable>
+          <Text style={styles.heroLetter}>{activeItem?.[0]}</Text>
+          {activeItem && <LetterScene key={`big-${activeLetter}-${sceneVersion}`} letter={activeItem[0]} width={width - 24} height={Math.max(160, height - 230)} />}
+          <Text style={styles.heroWord}>{activeItem?.[0]} is for {activeItem?.[1]}!</Text>
+          <Text style={styles.heroHint}>{activeItem?.[3]}</Text>
+        </SafeAreaView>
+      </Modal>
       <Text style={styles.footer}>Little letters, big discoveries! ⭐</Text>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
+  fullScreen: { flex: 1, backgroundColor: "#EEE8FF", alignItems: "center", justifyContent: "center" },
+  expandButton: { backgroundColor: "#6946BC", borderRadius: 20, paddingHorizontal: 20, paddingVertical: 10, marginVertical: 6 },
+  expandText: { color: "white", fontSize: 16, fontWeight: "800" },
   safe: { flex: 1, backgroundColor: "#FFFDF7" },
   header: { paddingTop: 12, paddingHorizontal: 18, paddingBottom: 10, alignItems: "center" },
   eyebrow: { color: "#7C63C9", fontSize: 11, fontWeight: "800", letterSpacing: 2 },
@@ -138,7 +159,7 @@ const styles = StyleSheet.create({
   },
   emptyScene: { backgroundColor: "#FFF0C9", borderColor: "#FFE2A0" },
   sceneStars: { fontSize: 22 },
-  heroContent: { alignItems: "center", justifyContent: "center" },
+  heroContent: { flexShrink: 1, alignItems: "center", justifyContent: "center" },
   heroLetter: { fontSize: 48, lineHeight: 54, fontWeight: "900", color: "#5A3CB5" },
   heroWord: { color: "#292348", fontSize: 21, fontWeight: "900", marginTop: 5 },
   heroHint: { color: "#6B5C9D", fontSize: 12, fontWeight: "700", marginTop: 5 },
