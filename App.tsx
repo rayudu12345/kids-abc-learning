@@ -11,12 +11,14 @@ import {
   View,
 } from "react-native";
 import * as Speech from "expo-speech";
+import FindLetter from "./FindLetter";
 import LetterScene, { alphabet } from "./LetterScene";
 
 const colors = ["#FFE3E3", "#DFF4FF", "#E6F8E7", "#FFF0C9", "#F0E5FF", "#FFE5F3"];
 
 export default function App() {
   const { width, height } = useWindowDimensions();
+  const [adventure, setAdventure] = useState(false);
   const [expanded, setExpanded] = useState(false);
   const sceneWidth = Math.max(180, width - 40);
   const sceneHeight = Math.min(height * 0.38, sceneWidth * 0.67);
@@ -55,6 +57,8 @@ export default function App() {
     });
   };
 
+  if (adventure) return <SafeAreaView style={styles.safe}><FindLetter onExit={() => { Speech.stop(); setAdventure(false); }} /></SafeAreaView>;
+
   return (
     <SafeAreaView style={styles.safe}>
       <View style={styles.header}>
@@ -62,6 +66,8 @@ export default function App() {
         <Text style={styles.title}>Kids ABC Learning 🌈</Text>
         <Text style={styles.subtitle}>Tap a letter to start its mini animation!</Text>
       </View>
+
+      <Pressable accessibilityRole="button" onPress={() => { Speech.stop(); setExpanded(false); setAdventure(true); }} style={[styles.expandButton, { alignSelf: "center" }]}><Text style={styles.expandText}>🐾 Play: Find the letter!</Text></Pressable>
 
       {activeItem ? (
         <View style={[styles.scene, { flexShrink: 1 }]}>
