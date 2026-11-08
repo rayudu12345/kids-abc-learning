@@ -1,3 +1,4 @@
+import { AnimalArt } from "./AnimalArt";
 import React, { useEffect, useRef, useState } from 'react';
 import { Animated, PanResponder, Pressable, ScrollView, StyleSheet, Text, View, useWindowDimensions } from 'react-native';
 import * as Speech from 'expo-speech';
@@ -30,7 +31,7 @@ function Draggable({ animal, disabled, selected, onDrop, onSelect, onDrag }: {
   })).current;
   useEffect(() => () => { position.stopAnimation(); }, [position]);
   return <Animated.View {...responder.panHandlers} accessible accessibilityRole="button" accessibilityLabel={`${animal.word}. Select, then tap its matching picture.`} accessibilityState={{ disabled, selected }} accessibilityActions={[{ name: 'activate', label: 'Select animal' }]} onAccessibilityAction={() => { if (!disabled) onSelect(animal); }} style={[s.tile, s.source, selected && s.selected, disabled && s.done, { zIndex: dragging ? 100 : 1, elevation: dragging ? 12 : 0, transform: position.getTranslateTransform() }]}>
-    <Text style={s.animal}>{disabled ? '⭐' : animal.emoji}</Text><Text style={s.name}>{animal.word}</Text>
+    {disabled ? <Text style={s.animal}>⭐</Text> : <AnimalArt letter={animal.letter} size={70} />}<Text style={s.name}>{animal.word}</Text>
   </Animated.View>;
 }
 function newRounds() { return Array.from({ length: 3 }, () => shuffle(animals).slice(0, 3)); }
@@ -107,7 +108,7 @@ export default function MatchAnimals({ onExit }: { onExit: () => void }) {
       <View style={[s.board, { maxWidth: Math.min(width - 24, 750) }]}>
         <View style={[s.row, { zIndex: 10 }]}>{rounds[round].map(a => <Draggable key={`${round}-${a.letter}`} animal={a} disabled={matched.includes(a.letter)} selected={selected?.letter === a.letter} onDrop={drop} onSelect={animal => { setSelected(animal); say(`Find the other ${animal.word}.`); }} onDrag={active => { setDragging(active); if (active) measureTargets(); }} />)}</View>
         <Text pointerEvents="none" style={s.arrow}>↓     ↓     ↓</Text>
-        <View style={s.row}>{targets.map(a => <View key={`${round}-${a.letter}`} ref={view => { targetRefs.current[a.letter] = view; }} collapsable={false} onLayout={measureTargets} style={s.targetWrap}><Pressable accessibilityRole="button" accessibilityLabel={`Matching ${a.word} picture`} accessibilityState={{ disabled: matched.includes(a.letter) }} disabled={matched.includes(a.letter)} onPress={() => { if (selected) match(selected, a.letter); else { setMessage('First tap or drag an animal from the top row.'); say('Choose an animal from the top row first.'); } }} style={[s.tile, s.target, matched.includes(a.letter) && s.matched, selected?.letter === a.letter && s.selected]}><Text style={[s.animal, !matched.includes(a.letter) && { opacity: 0.55 }]}>{a.emoji}</Text><Text style={s.name}>{matched.includes(a.letter) ? 'Matched! ⭐' : a.word}</Text></Pressable></View>)}</View>
+        <View style={s.row}>{targets.map(a => <View key={`${round}-${a.letter}`} ref={view => { targetRefs.current[a.letter] = view; }} collapsable={false} onLayout={measureTargets} style={s.targetWrap}><Pressable accessibilityRole="button" accessibilityLabel={`Matching ${a.word} picture`} accessibilityState={{ disabled: matched.includes(a.letter) }} disabled={matched.includes(a.letter)} onPress={() => { if (selected) match(selected, a.letter); else { setMessage('First tap or drag an animal from the top row.'); say('Choose an animal from the top row first.'); } }} style={[s.tile, s.target, matched.includes(a.letter) && s.matched, selected?.letter === a.letter && s.selected]}><View style={{ opacity: matched.includes(a.letter) ? 1 : 0.7 }}><AnimalArt letter={a.letter} size={70} /></View><Text style={s.name}>{matched.includes(a.letter) ? 'Matched! ⭐' : a.word}</Text></Pressable></View>)}</View>
       </View>
       <Text accessibilityLiveRegion="polite" style={s.message}>{message}</Text>
       <Text style={s.subtitle}>You can also tap an animal, then tap its friend.</Text>

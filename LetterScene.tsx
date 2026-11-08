@@ -1,3 +1,4 @@
+import { AnimatedAnimal, animalLetters } from './AnimalArt';
 import React, { useEffect, useRef } from 'react';
 import { Animated, Easing, StyleSheet, Text, View } from 'react-native';
 
@@ -47,7 +48,9 @@ export default function LetterScene({ letter, width = 300, height = 200 }: { let
   const turn = (values: string[]) => progress.interpolate({
     inputRange: values.map((_, i) => i / (values.length - 1)), outputRange: values,
   });
-  const sprite = (symbol: string, x = 0, y = 0, size = 65, style: object = {}, key = symbol) => (
+  const sprite = (symbol: string, x = 0, y = 0, size = 65, style: object = {}, key = symbol) => animalLetters[symbol] ? (
+    <Animated.View key={key} style={[{ position: 'absolute', left: 112 + x, top: 17 + y }, style]}><AnimatedAnimal letter={animalLetters[symbol]} size={size * 1.55} /></Animated.View>
+  ) : (
     <Animated.Text key={key} style={[s.sprite, { left: 110 + x, top: 35 + y, fontSize: size }, style]}>{symbol}</Animated.Text>
   );
   let content: React.ReactNode;
@@ -63,8 +66,9 @@ export default function LetterScene({ letter, width = 300, height = 200 }: { let
       </>; break;
     }
     case 'B': content = <><Animated.View style={[s.ballShadow, { opacity: motion([0.3, 0.12, 0.3, 0.18, 0.3]), transform: [{ scaleX: motion([1, 0.6, 1, 0.75, 1]) }] }]} /><Animated.View style={[s.ball, { transform: [{ translateY: motion([45, -20, 45, 0, 45]) }, { scaleX: motion([1.12, 0.98, 1.12, 1, 1.12]) }, { scaleY: motion([0.86, 1.05, 0.86, 1, 0.86]) }, { rotate: turn(['-15deg', '15deg', '-15deg']) }] }]}><View style={s.ballStripe} /><View style={s.ballSeam} /><View style={s.ballShine} /></Animated.View><View style={s.ground} /></>; break;
-    case 'C': case 'Q': content = <>{sprite(letter === 'C' ? '🐱' : '👸')}{sprite('👋', 55, 5, 37, { transform: [{ rotate: turn(['-25deg', '25deg', '-25deg', '25deg', '-25deg']) }] })}{letter === 'C' && <Text style={s.bubble}>Meow!</Text>}</>; break;
-    case 'D': content = <>{sprite('〰️', 48, 12, 44, { transform: [{ rotate: turn(['-35deg', '35deg', '-35deg', '35deg', '-35deg']) }] })}{sprite('🐶')}</>; break;
+    case 'C': content = <>{sprite('🐱')}<Text style={s.bubble}>Meow! ♡</Text></>; break;
+    case 'Q': content = <>{sprite('👸')}{sprite('👋', 55, 5, 37, { transform: [{ rotate: turn(['-25deg', '25deg', '-25deg', '25deg', '-25deg']) }] })}</>; break;
+    case 'D': content = sprite('🐶', 0, 0, 72, { transform: [{ rotate: turn(['-3deg', '3deg', '-3deg', '3deg', '-3deg']) }] }); break;
     case 'E': content = <>{sprite('🐘', -25)}{[0, 1, 2].map(i => sprite('💧', 55 + i * 17, -i * 12, 24, { opacity: motion([0, 1, 1, 0]), transform: [{ translateX: motion([0, 22, 44]) }, { translateY: motion([0, -20, 30]) }] }, `drop${i}`))}</>; break;
     case 'F': content = <>{[0, 1, 2, 3].map(i => sprite('🫧', i * 55 - 85, 25, 28, { opacity: motion([0, 1, 0]), transform: [{ translateY: motion([30, -75]) }] }, `bubble${i}`))}{sprite('🐠', 0, 0, 65, { transform: [{ translateX: motion([-85, 85, -85]) }, { translateY: motion([0, -15, 0]) }] })}</>; break;
     case 'G': content = <>{sprite('🥣', 35, 33)}{[0, 1, 2].map(i => sprite('🍇', -75 - i * 18, -i * 8, 32, { transform: [{ translateX: motion([0, 45, 110 + i * 18, 110 + i * 18]) }, { translateY: motion([0, 0, 35, 35]) }, { rotate: turn(['0deg', '360deg']) }] }, `grape${i}`))}</>; break;
@@ -74,7 +78,7 @@ export default function LetterScene({ letter, width = 300, height = 200 }: { let
     case 'K': content = sprite('🪁', 0, 0, 70, { transform: [{ translateX: motion([-70, 25, 70, -70]) }, { translateY: motion([15, -30, -15, 15]) }, { rotate: turn(['-15deg', '15deg', '-15deg']) }] }); break;
     case 'L': content = <>{sprite('🦁', 0, 0, 70, { transform: [{ scale: motion([1, 1.13, 1, 1.08, 1]) }] })}<Text style={s.bubble}>Roaaar! ♡</Text></>; break;
     case 'N': content = <>{[0, 1].map(i => sprite('🐤', i * 38 - 5, 5, 35, { transform: [{ translateY: motion([35, -12 - i * 5, 35]) }] }, `bird${i}`))}{sprite('🪹', 0, 34, 75)}</>; break;
-    case 'P': content = <>{sprite('🦜')}{[-1, 1].map(i => <Animated.View key={i} style={[s.wing, { left: i < 0 ? 99 : 165, transform: [{ rotate: turn(i < 0 ? ['-55deg', '35deg', '-55deg', '35deg', '-55deg'] : ['55deg', '-35deg', '55deg', '-35deg', '55deg']) }] }]} />)}</>; break;
+    case 'P': content = sprite('🦜', 0, 0, 72, { transform: [{ translateY: motion([0, -12, 0, -12, 0]) }] }); break;
     case 'R': content = sprite('🐇', 0, 0, 65, { transform: [{ translateX: motion([-80, -40, 0, 40, 80]) }, { translateY: motion([15, -30, 15, -30, 15]) }] }); break;
     case 'S': content = <>{sprite('☀️', 0, 0, 85, { transform: [{ translateY: motion([70, 0, -22, -22]) }] })}{sprite('😊', 22, 20, 35, { transform: [{ translateY: motion([70, 0, -22, -22]) }] })}<View style={[s.ground, { backgroundColor: '#8ad3a3', height: 16 }]} /></>; break;
     case 'T': case 'V': content = <><View style={[s.track, { borderStyle: letter === 'T' ? 'dashed' : 'solid' }]} />{sprite(letter === 'T' ? '🚂' : '🚐', 0, 12, 65, { transform: [{ translateX: motion([120, -120]) }] })}</>; break;

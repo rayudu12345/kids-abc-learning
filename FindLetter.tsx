@@ -1,3 +1,4 @@
+import { AnimatedAnimal, AnimalArt } from "./AnimalArt";
 import React, { useEffect, useRef, useState } from 'react';
 import { Animated, Pressable, ScrollView, StyleSheet, Text, View, useWindowDimensions } from 'react-native';
 import * as Speech from 'expo-speech';
@@ -78,7 +79,7 @@ export default function FindLetter({ onExit }: { onExit: () => void }) {
     {finished ? <>
       <Text style={s.celebrate}>🎉</Text>
       <Text style={s.message}>You found five letters! Time for a little break?</Text>
-      <View style={s.collection}>{lesson.map(animal => <View key={animal.letter} style={s.sticker}><Text style={s.stickerEmoji}>{animal.emoji}</Text><Text style={s.stickerLabel}>{animal.letter} · {animal.word}</Text></View>)}</View>
+      <View style={s.collection}>{lesson.map(animal => <View key={animal.letter} style={s.sticker}><AnimalArt letter={animal.letter} size={85} /><Text style={s.stickerLabel}>{animal.letter} · {animal.word}</Text></View>)}</View>
       <Pressable accessibilityRole="button" onPress={restart} style={s.primary}><Text style={s.primaryText}>Play another adventure</Text></Pressable>
       <Pressable accessibilityRole="button" onPress={onExit} style={s.button}><Text style={s.buttonText}>Back to exploring</Text></Pressable>
     </> : <>
@@ -88,7 +89,7 @@ export default function FindLetter({ onExit }: { onExit: () => void }) {
       {won ? <Animated.View style={{ transform: [{ scale: pop }], alignItems: 'center' }}>
         <LetterScene key={target.letter} letter={target.letter} width={Math.min(width - 40, 550)} height={Math.min(width * 0.55, 270)} />
         <Text style={s.message}>Hooray! Your {target.word.toLowerCase()} sticker! {target.emoji}</Text>
-      </Animated.View> : <Text style={s.animal}>{target.emoji}</Text>}
+      </Animated.View> : <View style={{ marginVertical: 14 }}><AnimatedAnimal letter={target.letter} size={160} /></View>}
       <View style={s.choices}>{choices.map(animal => <Pressable key={animal.letter} accessibilityRole="button" accessibilityLabel={`Letter ${animal.letter}`} accessibilityState={{ disabled: won }} disabled={won} onPress={() => choose(animal.letter)} style={({ pressed }) => [s.choice, (hint || won) && animal.letter === target.letter && s.highlight, pressed && { opacity: 0.7 }]}><Text style={s.letter}>{animal.letter}</Text></Pressable>)}</View>
       <Text accessibilityLiveRegion="polite" style={s.message}>{won ? 'One star and one sticker for you! ⭐' : hint ? `Let's try together! Tap ${target.letter} in the purple border.` : 'Tap a letter. Take your time! ♡'}</Text>
       {won && <Text style={s.subtitle}>{round === lesson.length - 1 ? "Your sticker collection is coming…" : "Next animal is coming…"}</Text>}

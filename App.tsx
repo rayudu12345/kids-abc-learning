@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import * as Speech from "expo-speech";
 import { ProgressProvider } from "./ProgressStore";
+import { AnimalArt, animalLetters } from "./AnimalArt";
 import TraceLetters from "./TraceLetters";
 import StickerBook from "./StickerBook";
 import MatchAnimals from "./MatchAnimals";
@@ -145,7 +146,7 @@ function LearningApp() {
               }}
             >
               <Text style={styles.letter}>{letter}</Text>
-              <Text style={[styles.emoji, tablet && { fontSize: 48 }]}>{emoji}</Text>
+              <View style={{ height: tablet ? 65 : 40, justifyContent: "center" }}>{animalLetters[emoji] ? <AnimalArt letter={letter} size={tablet ? 65 : 40} /> : <Text style={[styles.emoji, tablet && { fontSize: 48 }]}>{emoji}</Text>}</View>
               <Text style={styles.word}>{word}</Text>
             </Animated.View>
           </Pressable>

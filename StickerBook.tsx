@@ -1,3 +1,4 @@
+import { AnimalArt } from "./AnimalArt";
 import React from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { animals } from './quizLogic';
@@ -11,7 +12,7 @@ export default function StickerBook({ onExit }: { onExit: () => void }) {
     <Text style={s.subtitle}>{progress.stickers.length} of {animals.length} animal stickers collected</Text>
     <View style={s.grid}>{animals.map(animal => {
       const earned = progress.stickers.includes(animal.letter);
-      return <View key={animal.letter} accessible accessibilityLabel={earned ? `${animal.word} sticker collected` : `${animal.word} sticker waiting to be collected`} style={[s.sticker, !earned && s.locked]}><Text style={s.emoji}>{earned ? animal.emoji : '🐾'}</Text><Text style={s.label}>{animal.letter} · {animal.word}</Text><Text style={s.hint}>{earned ? 'Collected! ⭐' : 'Find me in a game'}</Text></View>;
+      return <View key={animal.letter} accessible accessibilityLabel={earned ? `${animal.word} sticker collected` : `${animal.word} sticker waiting to be collected`} style={[s.sticker, !earned && s.locked]}>{earned ? <AnimalArt letter={animal.letter} size={90} /> : <Text style={s.emoji}>🐾</Text>}<Text style={s.label}>{animal.letter} · {animal.word}</Text><Text style={s.hint}>{earned ? 'Collected! ⭐' : 'Find me in a game'}</Text></View>;
     })}</View>
     <Text style={s.subtitle}>Completed letter adventures: {progress.completed.letters}</Text>
     <Text style={s.subtitle}>Completed matching adventures: {progress.completed.matching}</Text>
