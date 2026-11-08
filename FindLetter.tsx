@@ -35,19 +35,29 @@ export default function FindLetter({ onExit }: { onExit: () => void }) {
     }
     wonRef.current = true;
     setWon(true);
-    say(`Hooray! ${target.letter} is for ${target.word}. You earned an animal sticker!`);
+    say(`Hooray! ${target.word}!`);
     pop.setValue(0.6);
     Animated.spring(pop, { toValue: 1, useNativeDriver: true, bounciness: 12 }).start();
   };
-  const next = () => {
-    if (!wonRef.current) return;
-    wonRef.current = false;
-    Speech.stop();
-    if (round === lesson.length - 1) { setFinished(true); return; }
-    setChoices(choicesFor(lesson[round + 1]));
-    setRound(r => r + 1);
-    setWon(false); setHint(false); wonRef.current = false;
-  };
+  // Keep the reward visible briefly, then advance once. Cleanup cancels
+  // pending advancement when the child leaves the game or restarts.
+  useEffect(() => {
+    if (!won || finished) return;
+    const timer = setTimeout(() => {
+      if (!wonRef.current) return;
+      wonRef.current = false;
+      Speech.stop();
+      if (round === lesson.length - 1) {
+        setFinished(true);
+        return;
+      }
+      setChoices(choicesFor(lesson[round + 1]));
+      setRound(round + 1);
+      setWon(false);
+      setHint(false);
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, [won, finished, round, lesson]);
   const restart = () => {
     const fresh = newLesson();
     Speech.stop(); setLesson(fresh); setRound(0); setChoices(choicesFor(fresh[0]));
@@ -78,10 +88,10 @@ export default function FindLetter({ onExit }: { onExit: () => void }) {
       </Animated.View> : <Text style={s.animal}>{target.emoji}</Text>}
       <View style={s.choices}>{choices.map(animal => <Pressable key={animal.letter} accessibilityRole="button" accessibilityLabel={`Letter ${animal.letter}`} accessibilityState={{ disabled: won }} disabled={won} onPress={() => choose(animal.letter)} style={({ pressed }) => [s.choice, (hint || won) && animal.letter === target.letter && s.highlight, pressed && { opacity: 0.7 }]}><Text style={s.letter}>{animal.letter}</Text></Pressable>)}</View>
       <Text accessibilityLiveRegion="polite" style={s.message}>{won ? 'One star and one sticker for you! ⭐' : hint ? `Let's try together! Tap ${target.letter} in the purple border.` : 'Tap a letter. Take your time! ♡'}</Text>
-      {won && <Pressable accessibilityRole="button" onPress={next} style={s.primary}><Text style={s.primaryText}>{round === 4 ? 'See my stickers! 🐾' : 'Next animal →'}</Text></Pressable>}
+      {won && <Text style={s.subtitle}>{round === lesson.length - 1 ? "Your sticker collection is coming…" : "Next animal is coming…"}</Text>}
       <View style={s.collection}>{lesson.slice(0, earned).map(animal => <Text key={animal.letter} accessibilityLabel={`${animal.word} sticker`} style={s.smallSticker}>{animal.emoji}</Text>)}</View>
     </>}
-    <Text style={s.note}>Stickers stay for this adventure. No timer—play at your own pace.</Text>
+    <Text style={s.note}>Stickers stay for this adventure. Take your time choosing; correct answers move on automatically.</Text>
   </ScrollView>;
 }
 const s = StyleSheet.create({
