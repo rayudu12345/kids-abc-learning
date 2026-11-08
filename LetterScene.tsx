@@ -1,0 +1,117 @@
+import React, { useEffect, useRef } from 'react';
+import { Animated, Easing, StyleSheet, Text, View } from 'react-native';
+
+export const alphabet = [
+  ['A', 'Apple', '🍎', 'Apple cuts into slices'],
+  ['B', 'Ball', '⚽', 'Ball bounces'],
+  ['C', 'Cat', '🐱', 'Cat waves and meows'],
+  ['D', 'Dog', '🐶', 'Dog wags its tail'],
+  ['E', 'Elephant', '🐘', 'Elephant sprays water'],
+  ['F', 'Fish', '🐠', 'Fish swims through bubbles'],
+  ['G', 'Grapes', '🍇', 'Grapes roll into a bowl'],
+  ['H', 'Hat', '🎩', 'Hat spins and lands'],
+  ['I', 'Ice cream', '🍦', 'Scoops stack onto a cone'],
+  ['J', 'Jelly', '🍮', 'Jelly wiggles'],
+  ['K', 'Kite', '🪁', 'Kite flies'],
+  ['L', 'Lion', '🦁', 'Friendly lion gives a soft roar'],
+  ['M', 'Mango', '🥭', 'Mango cuts open'],
+  ['N', 'Nest', '🪺', 'Baby birds peek out'],
+  ['O', 'Orange', '🍊', 'Orange peels into segments'],
+  ['P', 'Parrot', '🦜', 'Parrot flaps its wings'],
+  ['Q', 'Queen', '👸', 'Queen waves'],
+  ['R', 'Rabbit', '🐇', 'Rabbit hops'],
+  ['S', 'Sun', '☀️', 'Smiling sun rises'],
+  ['T', 'Train', '🚂', 'Train moves along a track'],
+  ['U', 'Umbrella', '☂️', 'Umbrella opens'],
+  ['V', 'Van', '🚐', 'Van drives along a road'],
+  ['W', 'Watch', '⌚', 'Watch hands move'],
+  ['X', 'X-ray', '🩻', 'Cartoon hand reveals its bones'],
+  ['Y', 'Yo-yo', '🪀', 'Yo-yo moves up and down'],
+  ['Z', 'Zebra', '🦓', 'Zebra trots'],
+];
+
+// Each scene owns its timeline, so selecting a new letter stops the old loop.
+export default function LetterScene({ letter }: { letter: string }) {
+  const progress = useRef(new Animated.Value(0)).current;
+  useEffect(() => {
+    const loop = Animated.loop(Animated.timing(progress, {
+      toValue: 1, duration: 3000, easing: Easing.linear, useNativeDriver: true,
+    }));
+    loop.start();
+    return () => { loop.stop(); progress.stopAnimation(); };
+  }, [progress]);
+  const motion = (values: number[]) => progress.interpolate({
+    inputRange: values.map((_, i) => i / (values.length - 1)), outputRange: values,
+  });
+  const turn = (values: string[]) => progress.interpolate({
+    inputRange: values.map((_, i) => i / (values.length - 1)), outputRange: values,
+  });
+  const sprite = (symbol: string, x = 0, y = 0, size = 65, style: object = {}, key = symbol) => (
+    <Animated.Text key={key} style={[s.sprite, { left: 110 + x, top: 35 + y, fontSize: size }, style]}>{symbol}</Animated.Text>
+  );
+  const bounce = motion([0, -45, 0, -25, 0]);
+  let content: React.ReactNode;
+  switch (letter) {
+    case 'A': case 'M': case 'O': {
+      const color = letter === 'A' ? '#ef5350' : letter === 'M' ? '#ffbd3e' : '#ff922b';
+      const spread = motion([0, 0, 1, 1, 0]);
+      content = <>
+        {sprite(letter === 'A' ? '🍎' : letter === 'M' ? '🥭' : '🍊', 0, 0, 70, { opacity: motion([1, 1, 0, 0, 1]) })}
+        {[0, 1, 2, 3].map(i => <Animated.View key={i} style={[s.slice, { backgroundColor: color, left: 130, opacity: spread,
+          transform: [{ translateX: Animated.multiply(spread, (i - 1.5) * 38) }, { rotate: `${(i - 1.5) * 18}deg` }] }]} />)}
+        {letter !== 'O' && sprite('🔪', 5, -28, 32, { opacity: motion([0, 1, 0, 0, 0]), transform: [{ translateY: motion([-15, 30, 30, -15, -15]) }] })}
+      </>; break;
+    }
+    case 'B': content = <>{sprite('⚽', 0, 0, 65, { transform: [{ translateY: bounce }, { scaleY: motion([0.85, 1, 0.85, 1, 0.85]) }] })}<View style={s.ground} /></>; break;
+    case 'C': case 'Q': content = <>{sprite(letter === 'C' ? '🐱' : '👸')}{sprite('👋', 55, 5, 37, { transform: [{ rotate: turn(['-25deg', '25deg', '-25deg', '25deg', '-25deg']) }] })}{letter === 'C' && <Text style={s.bubble}>Meow!</Text>}</>; break;
+    case 'D': content = <>{sprite('〰️', 48, 12, 44, { transform: [{ rotate: turn(['-35deg', '35deg', '-35deg', '35deg', '-35deg']) }] })}{sprite('🐶')}</>; break;
+    case 'E': content = <>{sprite('🐘', -25)}{[0, 1, 2].map(i => sprite('💧', 55 + i * 17, -i * 12, 24, { opacity: motion([0, 1, 1, 0]), transform: [{ translateX: motion([0, 22, 44]) }, { translateY: motion([0, -20, 30]) }] }, `drop${i}`))}</>; break;
+    case 'F': content = <>{[0, 1, 2, 3].map(i => sprite('🫧', i * 55 - 85, 25, 28, { opacity: motion([0, 1, 0]), transform: [{ translateY: motion([30, -75]) }] }, `bubble${i}`))}{sprite('🐠', 0, 0, 65, { transform: [{ translateX: motion([-85, 85, -85]) }, { translateY: motion([0, -15, 0]) }] })}</>; break;
+    case 'G': content = <>{sprite('🥣', 35, 33)}{[0, 1, 2].map(i => sprite('🍇', -75 - i * 18, -i * 8, 32, { transform: [{ translateX: motion([0, 45, 110 + i * 18, 110 + i * 18]) }, { translateY: motion([0, 0, 35, 35]) }, { rotate: turn(['0deg', '360deg']) }] }, `grape${i}`))}</>; break;
+    case 'H': content = sprite('🎩', 0, 0, 65, { transform: [{ translateY: motion([-45, -25, 25, 25]) }, { rotate: turn(['0deg', '360deg', '720deg', '720deg']) }] }); break;
+    case 'I': content = <><View style={s.cone} />{['#f498b5', '#aa7150', '#fff4cb'].map((color, i) => <Animated.View key={color} style={[s.scoop, { backgroundColor: color, top: 66 - i * 23, opacity: motion([0, i === 0 ? 1 : 0, 1, 1]), transform: [{ translateY: motion([-65 - i * 20, -i * 20, 0, 0]) }] }]} />)}</>; break;
+    case 'J': content = sprite('🍮', 0, 0, 75, { transform: [{ scaleX: motion([1, 1.22, 0.85, 1.15, 1]) }, { scaleY: motion([1, 0.85, 1.15, 0.9, 1]) }, { rotate: turn(['0deg', '-8deg', '8deg', '-5deg', '0deg']) }] }); break;
+    case 'K': content = sprite('🪁', 0, 0, 70, { transform: [{ translateX: motion([-70, 25, 70, -70]) }, { translateY: motion([15, -30, -15, 15]) }, { rotate: turn(['-15deg', '15deg', '-15deg']) }] }); break;
+    case 'L': content = <>{sprite('🦁', 0, 0, 70, { transform: [{ scale: motion([1, 1.13, 1, 1.08, 1]) }] })}<Text style={s.bubble}>Roaaar! ♡</Text></>; break;
+    case 'N': content = <>{[0, 1].map(i => sprite('🐤', i * 38 - 5, 5, 35, { transform: [{ translateY: motion([35, -12 - i * 5, 35]) }] }, `bird${i}`))}{sprite('🪹', 0, 34, 75)}</>; break;
+    case 'P': content = <>{sprite('🦜')}{[-1, 1].map(i => <Animated.View key={i} style={[s.wing, { left: i < 0 ? 99 : 165, transform: [{ rotate: turn(i < 0 ? ['-55deg', '35deg', '-55deg', '35deg', '-55deg'] : ['55deg', '-35deg', '55deg', '-35deg', '55deg']) }] }]} />)}</>; break;
+    case 'R': content = sprite('🐇', 0, 0, 65, { transform: [{ translateX: motion([-80, -40, 0, 40, 80]) }, { translateY: motion([15, -30, 15, -30, 15]) }] }); break;
+    case 'S': content = <>{sprite('☀️', 0, 0, 85, { transform: [{ translateY: motion([70, 0, -22, -22]) }] })}{sprite('😊', 22, 20, 35, { transform: [{ translateY: motion([70, 0, -22, -22]) }] })}<View style={[s.ground, { backgroundColor: '#8ad3a3', height: 16 }]} /></>; break;
+    case 'T': case 'V': content = <><View style={[s.track, { borderStyle: letter === 'T' ? 'dashed' : 'solid' }]} />{sprite(letter === 'T' ? '🚂' : '🚐', 0, 12, 65, { transform: [{ translateX: motion([120, -120]) }] })}</>; break;
+    case 'U': content = <><View style={s.handle} />{sprite('☂️', -10, -18, 90, { transform: [{ scaleX: motion([0.15, 1, 1, 0.15]) }] })}</>; break;
+    case 'W': content = <><View style={s.strap} /><View style={s.clock}><Text style={s.twelve}>12</Text><Animated.View style={[s.handPivot, { transform: [{ rotate: turn(['0deg', '360deg']) }] }]}><View style={s.minute} /></Animated.View><Animated.View style={[s.handPivot, { transform: [{ rotate: turn(['35deg', '65deg']) }] }]}><View style={s.hour} /></Animated.View><View style={s.clockDot} /></View></>; break;
+    case 'X': content = <><View style={s.xray}><Text style={s.palm}>✋</Text><Animated.View style={[s.bones, { opacity: motion([0, 1, 1, 0]) }]}><View style={s.fingers}>{[0, 1, 2, 3, 4].map(i => <View key={i} style={[s.bone, { height: 23 + (2 - Math.abs(i - 2)) * 7 }]} />)}</View><View style={s.wrist} /></Animated.View><Animated.View style={[s.scan, { transform: [{ translateY: motion([0, 110, 0]) }] }]} /></View></>; break;
+    case 'Y': content = <><Animated.View style={[s.string, { transform: [{ scaleY: motion([0.2, 1, 0.2]) }] }]} />{sprite('🪀', 0, 0, 55, { transform: [{ translateY: motion([-30, 55, -30]) }, { rotate: turn(['0deg', '360deg', '0deg']) }] })}</>; break;
+    case 'Z': content = <>{sprite('🦓', 0, 5, 65, { transform: [{ translateX: motion([100, -100]) }, { translateY: motion([0, -10, 0, -10, 0, -10, 0]) }, { rotate: turn(['-4deg', '4deg', '-4deg', '4deg', '-4deg']) }] })}<View style={s.ground} /></>; break;
+    default: content = null;
+  }
+  return <View style={s.stage} accessible accessibilityLabel={alphabet.find(item => item[0] === letter)?.[3]}>{content}</View>;
+}
+
+const s = StyleSheet.create({
+  stage: { width: 300, height: 155, overflow: 'hidden' },
+  sprite: { position: 'absolute', width: 110, textAlign: 'center' },
+  slice: { position: 'absolute', top: 45, width: 28, height: 65, borderRadius: 18, borderWidth: 3, borderColor: '#fff4cb' },
+  ground: { position: 'absolute', bottom: 8, left: 15, right: 15, height: 3, backgroundColor: '#b3a3d7', borderRadius: 15 },
+  bubble: { position: 'absolute', top: 4, right: 12, backgroundColor: 'white', borderRadius: 12, padding: 6, color: '#61449a', fontWeight: '800' },
+  cone: { position: 'absolute', top: 84, left: 134, width: 0, height: 0, borderLeftWidth: 24, borderRightWidth: 24, borderTopWidth: 62, borderLeftColor: 'transparent', borderRightColor: 'transparent', borderTopColor: '#d99b56' },
+  scoop: { position: 'absolute', left: 132, width: 52, height: 38, borderRadius: 26 },
+  wing: { position: 'absolute', top: 60, width: 40, height: 20, borderRadius: 20, backgroundColor: '#4ab872', borderWidth: 2, borderColor: '#268557' },
+  track: { position: 'absolute', left: 0, right: 0, bottom: 16, borderBottomWidth: 5, borderColor: '#837b91' },
+  handle: { position: 'absolute', top: 68, left: 156, width: 18, height: 58, borderRightWidth: 4, borderBottomWidth: 4, borderColor: '#715392', borderBottomRightRadius: 14 },
+  strap: { position: 'absolute', top: 4, left: 136, height: 145, width: 38, backgroundColor: '#8874d1', borderRadius: 12 },
+  clock: { position: 'absolute', top: 29, left: 108, width: 95, height: 95, borderRadius: 48, backgroundColor: '#fffdf2', borderWidth: 6, borderColor: '#5b458f' },
+  twelve: { position: 'absolute', top: 3, alignSelf: 'center', color: '#5b458f', fontWeight: '800' },
+  handPivot: { position: 'absolute', left: 40, top: 7, height: 70, width: 3 },
+  minute: { width: 3, height: 34, backgroundColor: '#5b458f', borderRadius: 3 },
+  hour: { marginTop: 12, width: 4, height: 22, backgroundColor: '#ef839b', borderRadius: 3 },
+  clockDot: { position: 'absolute', top: 37, left: 37, width: 9, height: 9, backgroundColor: '#5b458f', borderRadius: 5 },
+  xray: { position: 'absolute', top: 4, left: 103, width: 105, height: 143, backgroundColor: '#23334e', borderRadius: 14, overflow: 'hidden' },
+  palm: { position: 'absolute', fontSize: 92, top: 12, left: 0, opacity: 0.55 },
+  bones: { position: 'absolute', top: 29, left: 15, width: 78, height: 100, backgroundColor: '#23334e' },
+  fingers: { flexDirection: 'row', alignItems: 'flex-end', gap: 5 },
+  bone: { width: 9, borderRadius: 6, backgroundColor: '#e0faff', borderWidth: 1, borderColor: '#a9d9f2' },
+  wrist: { width: 12, height: 49, backgroundColor: '#e0faff', alignSelf: 'center', marginTop: 5, borderRadius: 6 },
+  scan: { position: 'absolute', top: 12, width: 105, height: 3, backgroundColor: '#73edf0' },
+  string: { position: 'absolute', left: 164, top: 0, width: 2, height: 105, backgroundColor: '#8971b6' },
+});
