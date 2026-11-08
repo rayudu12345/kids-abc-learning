@@ -11,6 +11,7 @@ import {
   View,
 } from "react-native";
 import * as Speech from "expo-speech";
+import MatchAnimals from "./MatchAnimals";
 import FindLetter from "./FindLetter";
 import LetterScene, { alphabet } from "./LetterScene";
 
@@ -18,6 +19,7 @@ const colors = ["#FFE3E3", "#DFF4FF", "#E6F8E7", "#FFF0C9", "#F0E5FF", "#FFE5F3"
 
 export default function App() {
   const { width, height } = useWindowDimensions();
+  const [matching, setMatching] = useState(false);
   const [adventure, setAdventure] = useState(false);
   const [expanded, setExpanded] = useState(false);
   const sceneWidth = Math.max(180, width - 40);
@@ -57,6 +59,8 @@ export default function App() {
     });
   };
 
+  if (matching) return <SafeAreaView style={styles.safe}><MatchAnimals onExit={() => { Speech.stop(); setMatching(false); }} /></SafeAreaView>;
+
   if (adventure) return <SafeAreaView style={styles.safe}><FindLetter onExit={() => { Speech.stop(); setAdventure(false); }} /></SafeAreaView>;
 
   return (
@@ -68,6 +72,8 @@ export default function App() {
       </View>
 
       <Pressable accessibilityRole="button" onPress={() => { Speech.stop(); setExpanded(false); setAdventure(true); }} style={[styles.expandButton, { alignSelf: "center" }]}><Text style={styles.expandText}>🐾 Play: Find the letter!</Text></Pressable>
+
+      <Pressable accessibilityRole="button" onPress={() => { Speech.stop(); setExpanded(false); setMatching(true); }} style={[styles.expandButton, { alignSelf: "center", backgroundColor: "#287F67" }]}><Text style={styles.expandText}>🐶 Play: Match the animals!</Text></Pressable>
 
       {activeItem ? (
         <View style={[styles.scene, { flexShrink: 1 }]}>
