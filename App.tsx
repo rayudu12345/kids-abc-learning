@@ -9,52 +9,22 @@ import {
   View,
 } from "react-native";
 import * as Speech from "expo-speech";
-
-const alphabet = [
-  ["A", "Apple", "🍎"], ["B", "Ball", "⚽"], ["C", "Cat", "🐱"],
-  ["D", "Dog", "🐶"], ["E", "Elephant", "🐘"], ["F", "Fish", "🐠"],
-  ["G", "Giraffe", "🦒"], ["H", "House", "🏠"], ["I", "Ice cream", "🍦"],
-  ["J", "Juice", "🧃"], ["K", "Kite", "🪁"], ["L", "Lion", "🦁"],
-  ["M", "Moon", "🌙"], ["N", "Nest", "🪺"], ["O", "Orange", "🍊"],
-  ["P", "Panda", "🐼"], ["Q", "Queen", "👑"], ["R", "Rainbow", "🌈"],
-  ["S", "Sun", "☀️"], ["T", "Tiger", "🐯"], ["U", "Umbrella", "☂️"],
-  ["V", "Violin", "🎻"], ["W", "Whale", "🐳"], ["X", "Xylophone", "🎼"],
-  ["Y", "Yo-yo", "🪀"], ["Z", "Zebra", "🦓"],
-];
+import LetterScene, { alphabet } from "./LetterScene";
 
 const colors = ["#FFE3E3", "#DFF4FF", "#E6F8E7", "#FFF0C9", "#F0E5FF", "#FFE5F3"];
 
 export default function App() {
+  const [sceneVersion, setSceneVersion] = useState(0);
   const [activeLetter, setActiveLetter] = useState<string | null>(null);
   const cardBounce = useRef(new Animated.Value(1)).current;
-  const heroFloat = useRef(new Animated.Value(0)).current;
   const heroScale = useRef(new Animated.Value(0.4)).current;
   const activeItem = alphabet.find(([letter]) => letter === activeLetter);
 
-  useEffect(() => {
-    if (!activeLetter) return;
-
-    heroFloat.setValue(0);
-    const floating = Animated.loop(
-      Animated.sequence([
-        Animated.timing(heroFloat, {
-          toValue: -15,
-          duration: 420,
-          useNativeDriver: true,
-        }),
-        Animated.timing(heroFloat, {
-          toValue: 0,
-          duration: 420,
-          useNativeDriver: true,
-        }),
-      ])
-    );
-    floating.start();
-    return () => floating.stop();
-  }, [activeLetter, heroFloat]);
+  useEffect(() => () => { Speech.stop(); }, []);
 
   const playLetter = (letter: string, word: string) => {
     setActiveLetter(letter);
+    setSceneVersion(value => value + 1);
     heroScale.setValue(0.4);
     Animated.spring(heroScale, {
       toValue: 1,
@@ -70,7 +40,8 @@ export default function App() {
     ]).start();
 
     Speech.stop();
-    Speech.speak(`${letter}! ${letter} is for ${word}!`, {
+    const sound = letter === "C" ? " Meow!" : letter === "L" ? " A soft roar!" : "";
+    Speech.speak(`${letter}! ${letter} is for ${word}!${sound}`, {
       language: "en-US",
       rate: 0.78,
       pitch: 1.08,
@@ -93,14 +64,14 @@ export default function App() {
               styles.heroContent,
               {
                 transform: [
-                  { translateY: heroFloat },
                   { scale: heroScale },
                 ],
               },
             ]}
           >
             <Text style={styles.heroLetter}>{activeItem[0]}</Text>
-            <Text style={styles.heroEmoji}>{activeItem[2]}</Text>
+            <LetterScene key={`${activeLetter}-${sceneVersion}`} letter={activeItem[0]} />
+            <Text style={styles.heroHint}>{activeItem[3]}</Text>
             <Text style={styles.heroWord}>{activeItem[0]} is for {activeItem[1]}!</Text>
             <Text style={styles.heroHint}>🔊 Listen and say it with me!</Text>
           </Animated.View>
@@ -155,7 +126,7 @@ const styles = StyleSheet.create({
   subtitle: { color: "#68647A", fontSize: 13, marginTop: 4, textAlign: "center" },
   scene: {
     marginHorizontal: 14,
-    minHeight: 220,
+    minHeight: 300,
     borderRadius: 26,
     backgroundColor: "#EEE8FF",
     borderWidth: 2,
@@ -169,7 +140,6 @@ const styles = StyleSheet.create({
   sceneStars: { fontSize: 22 },
   heroContent: { alignItems: "center", justifyContent: "center" },
   heroLetter: { fontSize: 48, lineHeight: 54, fontWeight: "900", color: "#5A3CB5" },
-  heroEmoji: { fontSize: 66, marginTop: 1 },
   heroWord: { color: "#292348", fontSize: 21, fontWeight: "900", marginTop: 5 },
   heroHint: { color: "#6B5C9D", fontSize: 12, fontWeight: "700", marginTop: 5 },
   emptyEmoji: { fontSize: 42 },
@@ -185,3 +155,4 @@ const styles = StyleSheet.create({
   word: { color: "#39334D", fontSize: 10, fontWeight: "800", marginTop: 3, textAlign: "center" },
   footer: { textAlign: "center", paddingVertical: 7, color: "#7C63C9", fontSize: 11, fontWeight: "700" },
 });
+
