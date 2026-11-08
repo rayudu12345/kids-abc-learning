@@ -11,6 +11,8 @@ import {
   View,
 } from "react-native";
 import * as Speech from "expo-speech";
+import { ProgressProvider } from "./ProgressStore";
+import StickerBook from "./StickerBook";
 import MatchAnimals from "./MatchAnimals";
 import FindLetter from "./FindLetter";
 import LetterScene, { alphabet } from "./LetterScene";
@@ -18,6 +20,11 @@ import LetterScene, { alphabet } from "./LetterScene";
 const colors = ["#FFE3E3", "#DFF4FF", "#E6F8E7", "#FFF0C9", "#F0E5FF", "#FFE5F3"];
 
 export default function App() {
+  return <ProgressProvider><LearningApp /></ProgressProvider>;
+}
+
+function LearningApp() {
+  const [stickerBook, setStickerBook] = useState(false);
   const { width, height } = useWindowDimensions();
   const [matching, setMatching] = useState(false);
   const [adventure, setAdventure] = useState(false);
@@ -59,6 +66,8 @@ export default function App() {
     });
   };
 
+  if (stickerBook) return <SafeAreaView style={styles.safe}><StickerBook onExit={() => setStickerBook(false)} /></SafeAreaView>;
+
   if (matching) return <SafeAreaView style={styles.safe}><MatchAnimals onExit={() => { Speech.stop(); setMatching(false); }} /></SafeAreaView>;
 
   if (adventure) return <SafeAreaView style={styles.safe}><FindLetter onExit={() => { Speech.stop(); setAdventure(false); }} /></SafeAreaView>;
@@ -74,6 +83,8 @@ export default function App() {
       <Pressable accessibilityRole="button" onPress={() => { Speech.stop(); setExpanded(false); setAdventure(true); }} style={[styles.expandButton, { alignSelf: "center" }]}><Text style={styles.expandText}>🐾 Play: Find the letter!</Text></Pressable>
 
       <Pressable accessibilityRole="button" onPress={() => { Speech.stop(); setExpanded(false); setMatching(true); }} style={[styles.expandButton, { alignSelf: "center", backgroundColor: "#287F67" }]}><Text style={styles.expandText}>🐶 Play: Match the animals!</Text></Pressable>
+
+      <Pressable accessibilityRole="button" onPress={() => { Speech.stop(); setExpanded(false); setStickerBook(true); }} style={[styles.expandButton, { alignSelf: "center", backgroundColor: "#9B711D" }]}><Text style={styles.expandText}>⭐ My sticker book</Text></Pressable>
 
       {activeItem ? (
         <View style={[styles.scene, { flexShrink: 1 }]}>
