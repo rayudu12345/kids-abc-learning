@@ -16,8 +16,13 @@ export default function StickerBook({ onExit }: { onExit: () => void }) {
     })}</View>
     <Text style={s.subtitle}>Completed letter adventures: {progress.completed.letters}</Text>
     <Text style={s.subtitle}>Completed matching adventures: {progress.completed.matching}</Text>
+    <Text style={s.subtitle}>Traced letters: {progress.tracedLetters.length} / 26</Text>
+    <View style={s.grid}>{'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').map(letter => <Text key={letter} accessibilityLabel={`${letter}${progress.tracedLetters.includes(letter) ? ' traced' : ' waiting to trace'}`} style={{ fontSize: 25, fontWeight: '900', padding: 10, borderRadius: 12, backgroundColor: progress.tracedLetters.includes(letter) ? '#C6F1DF' : '#EEEAF3', color: '#39334D' }}>{letter}{progress.tracedLetters.includes(letter) ? ' ✓' : ''}</Text>)}</View>
+    <Text style={s.subtitle}>Animal outlines traced: {progress.tracedAnimals.length} / 4</Text>
+    <View style={s.grid}>{[{ id: 'cat', icon: '🐱' }, { id: 'fish', icon: '🐠' }, { id: 'rabbit', icon: '🐇' }, { id: 'butterfly', icon: '🦋' }].map(animal => <Text key={animal.id} accessibilityLabel={`${animal.id}${progress.tracedAnimals.includes(animal.id) ? ' traced' : ' waiting to trace'}`} style={{ fontSize: 40, padding: 12, borderRadius: 16, backgroundColor: progress.tracedAnimals.includes(animal.id) ? '#FFE7AC' : '#EEEAF3' }}>{animal.icon}{progress.tracedAnimals.includes(animal.id) ? ' ✓' : ''}</Text>)}</View>
+    <Text style={s.subtitle}>Completed tracings: {progress.completed.tracing}</Text>
     {saveError ? <View><Text accessibilityLiveRegion="polite" style={s.error}>Your latest rewards could not be saved. You can keep playing and try saving again.</Text><Pressable accessibilityRole="button" onPress={retrySave} style={s.button}><Text style={s.buttonText}>Try saving again</Text></Pressable></View> : <Text style={s.hint}>Saved on this tablet. Your stickers will be here next time!</Text>}
-    <Text style={s.note}>Play either animal game to earn stickers. Repeated matches earn more stars. Removing the app or clearing its data removes saved rewards.</Text>
+    <Text style={s.note}>Play games and trace to earn rewards. Completed tracings earn stars; tracing a cat, fish or rabbit also unlocks its sticker. Removing the app or clearing its data removes saved rewards.</Text>
   </ScrollView>;
 }
 const s = StyleSheet.create({

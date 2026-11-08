@@ -30,6 +30,7 @@ export default function App() {
 function LearningApp() {
   const [advanced, setAdvanced] = useState(false);
   const [pairs, setPairs] = useState(false);
+  const [traceMode, setTraceMode] = useState<"letter" | "animal">("letter");
   const [tracing, setTracing] = useState(false);
   const [stickerBook, setStickerBook] = useState(false);
   const { width, height } = useWindowDimensions();
@@ -77,7 +78,7 @@ function LearningApp() {
 
   if (pairs) return <SafeAreaView style={styles.safe}><LetterPairs onExit={() => { Speech.stop(); setPairs(false); }} /></SafeAreaView>;
 
-  if (tracing) return <SafeAreaView style={styles.safe}><TraceLetters onExit={() => { Speech.stop(); setTracing(false); }} /></SafeAreaView>;
+  if (tracing) return <SafeAreaView style={styles.safe}><TraceLetters initialMode={traceMode} onExit={() => { Speech.stop(); setTracing(false); }} /></SafeAreaView>;
 
   if (stickerBook) return <SafeAreaView style={styles.safe}><StickerBook onExit={() => setStickerBook(false)} /></SafeAreaView>;
 
@@ -100,11 +101,13 @@ function LearningApp() {
 
       <Pressable accessibilityRole="button" onPress={() => { Speech.stop(); setExpanded(false); setStickerBook(true); }} style={[styles.expandButton, { alignSelf: "center", backgroundColor: "#9B711D" }]}><Text style={styles.expandText}>⭐ My sticker book</Text></Pressable>
 
-      <Pressable accessibilityRole="button" onPress={() => { Speech.stop(); setExpanded(false); setTracing(true); }} style={[styles.expandButton, { alignSelf: "center", backgroundColor: "#A0567C" }]}><Text style={styles.expandText}>✍️ Play: Trace letters!</Text></Pressable>
+      <Pressable accessibilityRole="button" onPress={() => { Speech.stop(); setExpanded(false); setTraceMode("letter"); setTracing(true); }} style={[styles.expandButton, { alignSelf: "center", backgroundColor: "#A0567C" }]}><Text style={styles.expandText}>✍️ Trace letters A–Z!</Text></Pressable>
 
       <Pressable accessibilityRole="button" onPress={() => { Speech.stop(); setExpanded(false); setPairs(true); }} style={[styles.expandButton, { alignSelf: "center", backgroundColor: "#367B9B" }]}><Text style={styles.expandText}>🔤 Play: Big &amp; little letters!</Text></Pressable>
 
       <Pressable accessibilityRole="button" onPress={() => { Speech.stop(); setExpanded(false); setAdvanced(true); }} style={[styles.expandButton, { alignSelf: "center", backgroundColor: "#5559A8" }]}><Text style={styles.expandText}>🚀 Advanced Letters</Text></Pressable>
+
+      <Pressable accessibilityRole="button" onPress={() => { Speech.stop(); setExpanded(false); setTraceMode("animal"); setTracing(true); }} style={[styles.expandButton, { alignSelf: "center", backgroundColor: "#A76128" }]}><Text style={styles.expandText}>🐾 Play: Trace animals!</Text></Pressable>
 
       {activeItem ? (
         <View style={[styles.scene, { flexShrink: 1 }]}>

@@ -1,10 +1,10 @@
 import React, { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { Text, View } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Activity, Progress, addReward, emptyProgress, readProgress } from './progressLogic';
+import { Activity, Progress, addReward, addTracingReward, emptyProgress, readProgress } from './progressLogic';
 
 const KEY = '@kids-abc/progress/v1';
-type Store = { progress: Progress; saveError: boolean; recordAnswer: (letter: string, activity: Activity, completed: boolean) => void; retrySave: () => void };
+type Store = { progress: Progress; saveError: boolean; recordAnswer: (letter: string, activity: Activity, completed: boolean) => void; recordTracing: (id: string, kind: "letter" | "animal") => void; retrySave: () => void };
 const Context = createContext<Store | null>(null);
 export function ProgressProvider({ children }: { children: React.ReactNode }) {
   const [progress, setProgress] = useState(emptyProgress);
@@ -31,9 +31,13 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
     const next = addReward(current.current, letter, activity, completed);
     current.current = next; setProgress(next); save(next);
   }, [save]);
+  const recordTracing = useCallback((id: string, kind: 'letter' | 'animal') => {
+    const next = addTracingReward(current.current, id, kind);
+    current.current = next; setProgress(next); save(next);
+  }, [save]);
   const retrySave = useCallback(() => save(current.current), [save]);
   if (!ready) return <View style={{ flex: 1, backgroundColor: '#FFFDF7', alignItems: 'center', justifyContent: 'center' }}><Text style={{ fontSize: 22, color: '#59359b' }}>Opening your sticker book… 🐾</Text></View>;
-  return <Context.Provider value={{ progress, saveError, recordAnswer, retrySave }}>{children}</Context.Provider>;
+  return <Context.Provider value={{ progress, saveError, recordAnswer, recordTracing, retrySave }}>{children}</Context.Provider>;
 }
 export function useProgress(): Store {
   const store = useContext(Context);

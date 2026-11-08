@@ -1,21 +1,12 @@
-export type Point = { x: number; y: number };
-export const tracingLetters = ['L', 'T', 'I'] as const;
-export type TraceLetter = typeof tracingLetters[number];
-const paths: Record<TraceLetter, Point[][]> = {
-  L: [[{ x: 80, y: 45 }, { x: 80, y: 245 }, { x: 225, y: 245 }]],
-  T: [[{ x: 55, y: 55 }, { x: 245, y: 55 }], [{ x: 150, y: 55 }, { x: 150, y: 245 }]],
-  I: [[{ x: 80, y: 55 }, { x: 220, y: 55 }], [{ x: 150, y: 55 }, { x: 150, y: 245 }], [{ x: 80, y: 245 }, { x: 220, y: 245 }]],
-};
+import { letterTraces, sampledStrokes } from './traceCatalog';
+import type { Point } from './traceCatalog';
+export type { Point } from './traceCatalog';
+export const tracingLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+export type TraceLetter = string;
 export function strokePoints(letter: TraceLetter): Point[][] {
-  return paths[letter].map(vertices => {
-    const points = [vertices[0]];
-    for (let i = 1; i < vertices.length; i++) {
-      const a = vertices[i - 1], b = vertices[i];
-      const steps = Math.ceil(Math.hypot(b.x - a.x, b.y - a.y) / 10);
-      for (let step = 1; step <= steps; step++) points.push({ x: a.x + (b.x - a.x) * step / steps, y: a.y + (b.y - a.y) * step / steps });
-    }
-    return points;
-  });
+  const item = letterTraces.find(item => item.id === letter);
+  if (!item) throw new Error(`Unknown tracing letter: ${letter}`);
+  return sampledStrokes(item);
 }
 // Accept nearby points in order. A fast finger movement is sampled so it
 // works between native touch events without accepting a distant scribble.
