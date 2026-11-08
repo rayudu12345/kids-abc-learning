@@ -13,6 +13,7 @@ import {
 import * as Speech from "expo-speech";
 import { ProgressProvider } from "./ProgressStore";
 import { AnimalArt, animalLetters } from "./AnimalArt";
+import LetterPairs from "./LetterPairs";
 import TraceLetters from "./TraceLetters";
 import StickerBook from "./StickerBook";
 import MatchAnimals from "./MatchAnimals";
@@ -26,6 +27,7 @@ export default function App() {
 }
 
 function LearningApp() {
+  const [pairs, setPairs] = useState(false);
   const [tracing, setTracing] = useState(false);
   const [stickerBook, setStickerBook] = useState(false);
   const { width, height } = useWindowDimensions();
@@ -69,6 +71,8 @@ function LearningApp() {
     });
   };
 
+  if (pairs) return <SafeAreaView style={styles.safe}><LetterPairs onExit={() => { Speech.stop(); setPairs(false); }} /></SafeAreaView>;
+
   if (tracing) return <SafeAreaView style={styles.safe}><TraceLetters onExit={() => { Speech.stop(); setTracing(false); }} /></SafeAreaView>;
 
   if (stickerBook) return <SafeAreaView style={styles.safe}><StickerBook onExit={() => setStickerBook(false)} /></SafeAreaView>;
@@ -79,6 +83,7 @@ function LearningApp() {
 
   return (
     <SafeAreaView style={styles.safe}>
+      <ScrollView style={{ flex: 1 }} contentContainerStyle={{ paddingBottom: 12 }}>
       <View style={styles.header}>
         <Text style={styles.eyebrow}>LET'S LEARN TOGETHER</Text>
         <Text style={styles.title}>Kids ABC Learning 🌈</Text>
@@ -92,6 +97,8 @@ function LearningApp() {
       <Pressable accessibilityRole="button" onPress={() => { Speech.stop(); setExpanded(false); setStickerBook(true); }} style={[styles.expandButton, { alignSelf: "center", backgroundColor: "#9B711D" }]}><Text style={styles.expandText}>⭐ My sticker book</Text></Pressable>
 
       <Pressable accessibilityRole="button" onPress={() => { Speech.stop(); setExpanded(false); setTracing(true); }} style={[styles.expandButton, { alignSelf: "center", backgroundColor: "#A0567C" }]}><Text style={styles.expandText}>✍️ Play: Trace letters!</Text></Pressable>
+
+      <Pressable accessibilityRole="button" onPress={() => { Speech.stop(); setExpanded(false); setPairs(true); }} style={[styles.expandButton, { alignSelf: "center", backgroundColor: "#367B9B" }]}><Text style={styles.expandText}>🔤 Play: Big &amp; little letters!</Text></Pressable>
 
       {activeItem ? (
         <View style={[styles.scene, { flexShrink: 1 }]}>
@@ -124,7 +131,7 @@ function LearningApp() {
       )}
 
       <Text style={styles.sectionTitle}>Choose a letter A–Z</Text>
-      <ScrollView contentContainerStyle={styles.grid}>
+      <View style={styles.grid}>
         {alphabet.map(([letter, word, emoji], index) => (
           <Pressable
             accessibilityRole="button"
@@ -151,6 +158,7 @@ function LearningApp() {
             </Animated.View>
           </Pressable>
         ))}
+      </View>
       </ScrollView>
       <Modal visible={expanded && !!activeItem} animationType="fade" onRequestClose={() => setExpanded(false)}>
         <SafeAreaView style={styles.fullScreen}>
