@@ -18,7 +18,19 @@ A colorful, beginner-friendly alphabet learning app for children, built with Rea
 
 ## Expo SDK compatibility
 
-Use an Expo SDK version supported by your installed Expo Go app. If an SDK compatibility error appears, check the Expo SDK version in `package.json` and follow the upgrade guide: https://docs.expo.dev/workflow/upgrading-expo-sdk-walkthrough/.
+This project uses **Expo SDK 58**. Open it with Expo Go for SDK 58.
+
+After pulling this upgrade, stop the old Expo server and run:
+
+```sh
+git pull
+npm install
+npx expo start --clear
+```
+
+Scan the new QR code with Expo Go. If Expo Go still reports SDK 57, make sure the terminal is in this repository and that an older Expo server is not still running.
+
+For future upgrades, follow https://docs.expo.dev/workflow/upgrading-expo-sdk-walkthrough/ and run `npx expo install --fix` to align dependencies.
 
 ## Planned next steps
 - Add letter tracing
