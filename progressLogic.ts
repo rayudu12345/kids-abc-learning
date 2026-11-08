@@ -1,0 +1,16 @@
+export type Activity = 'letters' | 'matching';
+export type Progress = { version: 1; stars: number; stickers: string[]; completed: Record<Activity, number> };
+const allowedLetters = new Set(['C', 'D', 'E', 'F', 'L', 'P', 'R', 'Z']);
+export function emptyProgress(): Progress { return { version: 1, stars: 0, stickers: [], completed: { letters: 0, matching: 0 } }; }
+function count(value: unknown): number { return typeof value === 'number' && Number.isSafeInteger(value) && value >= 0 ? value : 0; }
+export function readProgress(raw: string | null): Progress {
+  if (!raw) return emptyProgress();
+  const value: unknown = JSON.parse(raw);
+  if (!value || typeof value !== 'object' || !('version' in value) || value.version !== 1) throw new Error('Unsupported progress data');
+  const data = value as Partial<Progress>;
+  return { version: 1, stars: count(data.stars), stickers: Array.isArray(data.stickers) ? [...new Set(data.stickers.filter((letter): letter is string => typeof letter === 'string' && allowedLetters.has(letter)))] : [], completed: { letters: count(data.completed?.letters), matching: count(data.completed?.matching) } };
+}
+export function addReward(progress: Progress, letter: string, activity: Activity, completed: boolean): Progress {
+  if (!allowedLetters.has(letter)) return progress;
+  return { ...progress, stars: progress.stars + 1, stickers: [...new Set([...progress.stickers, letter])], completed: { ...progress.completed, [activity]: progress.completed[activity] + (completed ? 1 : 0) } };
+}
