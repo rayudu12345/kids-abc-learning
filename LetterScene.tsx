@@ -31,7 +31,8 @@ export const alphabet = [
 ];
 
 // Each scene owns its timeline, so selecting a new letter stops the old loop.
-export default function LetterScene({ letter }: { letter: string }) {
+export default function LetterScene({ letter, width = 300, height = 200 }: { letter: string; width?: number; height?: number }) {
+  const scale = Math.min(width / 300, height / 200);
   const progress = useRef(new Animated.Value(0)).current;
   useEffect(() => {
     const loop = Animated.loop(Animated.timing(progress, {
@@ -49,20 +50,19 @@ export default function LetterScene({ letter }: { letter: string }) {
   const sprite = (symbol: string, x = 0, y = 0, size = 65, style: object = {}, key = symbol) => (
     <Animated.Text key={key} style={[s.sprite, { left: 110 + x, top: 35 + y, fontSize: size }, style]}>{symbol}</Animated.Text>
   );
-  const bounce = motion([0, -45, 0, -25, 0]);
   let content: React.ReactNode;
   switch (letter) {
     case 'A': case 'M': case 'O': {
       const color = letter === 'A' ? '#ef5350' : letter === 'M' ? '#ffbd3e' : '#ff922b';
       const spread = motion([0, 0, 1, 1, 0]);
       content = <>
-        {sprite(letter === 'A' ? '🍎' : letter === 'M' ? '🥭' : '🍊', 0, 0, 70, { opacity: motion([1, 1, 0, 0, 1]) })}
+        {letter === 'A' ? <Animated.View style={[s.apple, { opacity: motion([1, 1, 0, 0, 1]) }]}><View style={s.appleLobe} /><View style={s.appleStem} /><View style={s.appleLeaf} /><View style={s.appleShine} /></Animated.View> : sprite(letter === 'M' ? '🥭' : '🍊', 0, 0, 70, { opacity: motion([1, 1, 0, 0, 1]) })}
         {[0, 1, 2, 3].map(i => <Animated.View key={i} style={[s.slice, { backgroundColor: color, left: 130, opacity: spread,
           transform: [{ translateX: Animated.multiply(spread, (i - 1.5) * 38) }, { rotate: `${(i - 1.5) * 18}deg` }] }]} />)}
         {letter !== 'O' && sprite('🔪', 5, -28, 32, { opacity: motion([0, 1, 0, 0, 0]), transform: [{ translateY: motion([-15, 30, 30, -15, -15]) }] })}
       </>; break;
     }
-    case 'B': content = <>{sprite('⚽', 0, 0, 65, { transform: [{ translateY: bounce }, { scaleY: motion([0.85, 1, 0.85, 1, 0.85]) }] })}<View style={s.ground} /></>; break;
+    case 'B': content = <><Animated.View style={[s.ballShadow, { opacity: motion([0.3, 0.12, 0.3, 0.18, 0.3]), transform: [{ scaleX: motion([1, 0.6, 1, 0.75, 1]) }] }]} /><Animated.View style={[s.ball, { transform: [{ translateY: motion([45, -20, 45, 0, 45]) }, { scaleX: motion([1.12, 0.98, 1.12, 1, 1.12]) }, { scaleY: motion([0.86, 1.05, 0.86, 1, 0.86]) }, { rotate: turn(['-15deg', '15deg', '-15deg']) }] }]}><View style={s.ballStripe} /><View style={s.ballSeam} /><View style={s.ballShine} /></Animated.View><View style={s.ground} /></>; break;
     case 'C': case 'Q': content = <>{sprite(letter === 'C' ? '🐱' : '👸')}{sprite('👋', 55, 5, 37, { transform: [{ rotate: turn(['-25deg', '25deg', '-25deg', '25deg', '-25deg']) }] })}{letter === 'C' && <Text style={s.bubble}>Meow!</Text>}</>; break;
     case 'D': content = <>{sprite('〰️', 48, 12, 44, { transform: [{ rotate: turn(['-35deg', '35deg', '-35deg', '35deg', '-35deg']) }] })}{sprite('🐶')}</>; break;
     case 'E': content = <>{sprite('🐘', -25)}{[0, 1, 2].map(i => sprite('💧', 55 + i * 17, -i * 12, 24, { opacity: motion([0, 1, 1, 0]), transform: [{ translateX: motion([0, 22, 44]) }, { translateY: motion([0, -20, 30]) }] }, `drop${i}`))}</>; break;
@@ -85,11 +85,21 @@ export default function LetterScene({ letter }: { letter: string }) {
     case 'Z': content = <>{sprite('🦓', 0, 5, 65, { transform: [{ translateX: motion([100, -100]) }, { translateY: motion([0, -10, 0, -10, 0, -10, 0]) }, { rotate: turn(['-4deg', '4deg', '-4deg', '4deg', '-4deg']) }] })}<View style={s.ground} /></>; break;
     default: content = null;
   }
-  return <View style={s.stage} accessible accessibilityLabel={alphabet.find(item => item[0] === letter)?.[3]}>{content}</View>;
+  return <View style={{ width, height, overflow: 'hidden' }} accessible accessibilityLabel={alphabet.find(item => item[0] === letter)?.[3]}><View style={[s.stage, { position: 'absolute', left: (width - 300) / 2, top: (height - 200) / 2, transform: [{ scale }] }]}>{content}</View></View>;
 }
 
 const s = StyleSheet.create({
-  stage: { width: 300, height: 155, overflow: 'hidden' },
+  stage: { width: 300, height: 200, overflow: 'hidden' },
+  apple: { position: 'absolute', left: 104, top: 35, width: 106, height: 103, borderRadius: 43, backgroundColor: '#d5212f', borderBottomWidth: 9, borderRightWidth: 7, borderColor: '#9c1725', transform: [{ rotate: '-6deg' }] },
+  appleLobe: { position: 'absolute', top: -5, left: 9, width: 80, height: 38, borderRadius: 30, backgroundColor: '#e52f3a' },
+  appleStem: { position: 'absolute', top: -19, left: 51, width: 7, height: 25, backgroundColor: '#6c4327', borderRadius: 4, transform: [{ rotate: '20deg' }] },
+  appleLeaf: { position: 'absolute', top: -19, left: 60, width: 32, height: 15, borderTopLeftRadius: 20, borderBottomRightRadius: 20, backgroundColor: '#4a9835', transform: [{ rotate: '-20deg' }] },
+  appleShine: { position: 'absolute', top: 18, left: 16, width: 13, height: 38, borderRadius: 10, backgroundColor: '#ffadb0', opacity: 0.75, transform: [{ rotate: '18deg' }] },
+  ball: { position: 'absolute', left: 106, top: 34, width: 94, height: 94, borderRadius: 47, backgroundColor: '#f58b2b', borderRightWidth: 7, borderBottomWidth: 7, borderColor: '#b94a1c', overflow: 'hidden' },
+  ballStripe: { position: 'absolute', left: 36, top: -8, width: 18, height: 108, borderRadius: 12, backgroundColor: '#fff2ce', transform: [{ rotate: '28deg' }] },
+  ballSeam: { position: 'absolute', top: 37, left: -7, width: 103, height: 28, borderRadius: 30, borderWidth: 3, borderColor: '#b94a1c', transform: [{ rotate: '-15deg' }] },
+  ballShine: { position: 'absolute', top: 12, left: 15, width: 18, height: 27, borderRadius: 12, backgroundColor: '#ffd8a0', opacity: 0.8, transform: [{ rotate: '30deg' }] },
+  ballShadow: { position: 'absolute', left: 102, top: 173, width: 108, height: 12, borderRadius: 55, backgroundColor: '#554078' },
   sprite: { position: 'absolute', width: 110, textAlign: 'center' },
   slice: { position: 'absolute', top: 45, width: 28, height: 65, borderRadius: 18, borderWidth: 3, borderColor: '#fff4cb' },
   ground: { position: 'absolute', bottom: 8, left: 15, right: 15, height: 3, backgroundColor: '#b3a3d7', borderRadius: 15 },
