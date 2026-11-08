@@ -1,10 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Animated, Pressable, ScrollView, StyleSheet, Text, View, useWindowDimensions } from 'react-native';
 import * as Speech from 'expo-speech';
+import { useProgress } from './ProgressStore';
 import LetterScene from './LetterScene';
 import { choicesFor, newLesson } from './quizLogic';
 
 export default function FindLetter({ onExit }: { onExit: () => void }) {
+  const { recordAnswer, saveError } = useProgress();
   const { width } = useWindowDimensions();
   const [lesson, setLesson] = useState(newLesson);
   const [round, setRound] = useState(0);
@@ -34,6 +36,7 @@ export default function FindLetter({ onExit }: { onExit: () => void }) {
       return;
     }
     wonRef.current = true;
+    recordAnswer(target.letter, "letters", round === lesson.length - 1);
     setWon(true);
     say(`Hooray! ${target.word}!`);
     pop.setValue(0.6);
@@ -91,7 +94,7 @@ export default function FindLetter({ onExit }: { onExit: () => void }) {
       {won && <Text style={s.subtitle}>{round === lesson.length - 1 ? "Your sticker collection is coming…" : "Next animal is coming…"}</Text>}
       <View style={s.collection}>{lesson.slice(0, earned).map(animal => <Text key={animal.letter} accessibilityLabel={`${animal.word} sticker`} style={s.smallSticker}>{animal.emoji}</Text>)}</View>
     </>}
-    <Text style={s.note}>Stickers stay for this adventure. Take your time choosing; correct answers move on automatically.</Text>
+    <Text style={s.note}>{saveError ? "Rewards could not be saved yet. Try saving from My sticker book." : "Your stars and stickers are saved in My sticker book."} Take your time choosing; correct answers move on automatically.</Text>
   </ScrollView>;
 }
 const s = StyleSheet.create({
