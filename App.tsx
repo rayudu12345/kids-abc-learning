@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import * as Speech from "expo-speech";
 import { ProgressProvider } from "./ProgressStore";
+import TraceLetters from "./TraceLetters";
 import StickerBook from "./StickerBook";
 import MatchAnimals from "./MatchAnimals";
 import FindLetter from "./FindLetter";
@@ -24,6 +25,7 @@ export default function App() {
 }
 
 function LearningApp() {
+  const [tracing, setTracing] = useState(false);
   const [stickerBook, setStickerBook] = useState(false);
   const { width, height } = useWindowDimensions();
   const [matching, setMatching] = useState(false);
@@ -66,6 +68,8 @@ function LearningApp() {
     });
   };
 
+  if (tracing) return <SafeAreaView style={styles.safe}><TraceLetters onExit={() => { Speech.stop(); setTracing(false); }} /></SafeAreaView>;
+
   if (stickerBook) return <SafeAreaView style={styles.safe}><StickerBook onExit={() => setStickerBook(false)} /></SafeAreaView>;
 
   if (matching) return <SafeAreaView style={styles.safe}><MatchAnimals onExit={() => { Speech.stop(); setMatching(false); }} /></SafeAreaView>;
@@ -85,6 +89,8 @@ function LearningApp() {
       <Pressable accessibilityRole="button" onPress={() => { Speech.stop(); setExpanded(false); setMatching(true); }} style={[styles.expandButton, { alignSelf: "center", backgroundColor: "#287F67" }]}><Text style={styles.expandText}>🐶 Play: Match the animals!</Text></Pressable>
 
       <Pressable accessibilityRole="button" onPress={() => { Speech.stop(); setExpanded(false); setStickerBook(true); }} style={[styles.expandButton, { alignSelf: "center", backgroundColor: "#9B711D" }]}><Text style={styles.expandText}>⭐ My sticker book</Text></Pressable>
+
+      <Pressable accessibilityRole="button" onPress={() => { Speech.stop(); setExpanded(false); setTracing(true); }} style={[styles.expandButton, { alignSelf: "center", backgroundColor: "#A0567C" }]}><Text style={styles.expandText}>✍️ Play: Trace letters!</Text></Pressable>
 
       {activeItem ? (
         <View style={[styles.scene, { flexShrink: 1 }]}>
