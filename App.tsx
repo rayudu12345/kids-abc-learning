@@ -13,6 +13,7 @@ import {
 import * as Speech from "expo-speech";
 import { ProgressProvider } from "./ProgressStore";
 import { AnimalArt, animalLetters } from "./AnimalArt";
+import AdvancedLetters from "./AdvancedLetters";
 import LetterPairs from "./LetterPairs";
 import TraceLetters from "./TraceLetters";
 import StickerBook from "./StickerBook";
@@ -27,6 +28,7 @@ export default function App() {
 }
 
 function LearningApp() {
+  const [advanced, setAdvanced] = useState(false);
   const [pairs, setPairs] = useState(false);
   const [tracing, setTracing] = useState(false);
   const [stickerBook, setStickerBook] = useState(false);
@@ -71,6 +73,8 @@ function LearningApp() {
     });
   };
 
+  if (advanced) return <SafeAreaView style={styles.safe}><AdvancedLetters onExit={() => { Speech.stop(); setAdvanced(false); }} /></SafeAreaView>;
+
   if (pairs) return <SafeAreaView style={styles.safe}><LetterPairs onExit={() => { Speech.stop(); setPairs(false); }} /></SafeAreaView>;
 
   if (tracing) return <SafeAreaView style={styles.safe}><TraceLetters onExit={() => { Speech.stop(); setTracing(false); }} /></SafeAreaView>;
@@ -99,6 +103,8 @@ function LearningApp() {
       <Pressable accessibilityRole="button" onPress={() => { Speech.stop(); setExpanded(false); setTracing(true); }} style={[styles.expandButton, { alignSelf: "center", backgroundColor: "#A0567C" }]}><Text style={styles.expandText}>✍️ Play: Trace letters!</Text></Pressable>
 
       <Pressable accessibilityRole="button" onPress={() => { Speech.stop(); setExpanded(false); setPairs(true); }} style={[styles.expandButton, { alignSelf: "center", backgroundColor: "#367B9B" }]}><Text style={styles.expandText}>🔤 Play: Big &amp; little letters!</Text></Pressable>
+
+      <Pressable accessibilityRole="button" onPress={() => { Speech.stop(); setExpanded(false); setAdvanced(true); }} style={[styles.expandButton, { alignSelf: "center", backgroundColor: "#5559A8" }]}><Text style={styles.expandText}>🚀 Advanced Letters</Text></Pressable>
 
       {activeItem ? (
         <View style={[styles.scene, { flexShrink: 1 }]}>
