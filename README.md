@@ -3,6 +3,7 @@
 A colorful, beginner-friendly alphabet learning app for children, built with React Native and Expo.
 
 ## Features
+
 - Learn letters A–Z with colorful cards
 - Tap a letter to hear it spoken
 - Learn simple words such as “A is for Apple”
@@ -33,6 +34,17 @@ Scan the new QR code with Expo Go. If Expo Go still reports SDK 57, make sure th
 For future upgrades, follow https://docs.expo.dev/workflow/upgrading-expo-sdk-walkthrough/ and run `npx expo install --fix` to align dependencies.
 
 ## Planned next steps
+
 - Add letter tracing
 - Add quizzes and progress tracking
 - Add optional recorded pronunciation and sound effects
+
+## Working with the code
+
+See [CODE_GUIDE.md](./CODE_GUIDE.md) for the screen map, saved-progress flow, and instructions for changing activities.
+
+```sh
+npm run format
+npm run format:check
+npm run typecheck
+```

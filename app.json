@@ -16,8 +16,6 @@
         "backgroundColor": "#FFFDF7"
       }
     },
-    "plugins": [
-      "expo-status-bar"
-    ]
+    "plugins": ["expo-status-bar"]
   }
 }
