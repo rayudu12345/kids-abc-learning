@@ -4,3 +4,6 @@ assets/
 package-lock.json
 dist/
 build/
+coverage/
+playwright-report/
+test-results/

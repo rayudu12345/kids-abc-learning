@@ -1,14 +1,7 @@
+import SceneModal from "./components/ui/SceneModal";
+import ActivityToolbar from "./components/ui/ActivityToolbar";
 import React, { useEffect, useState } from "react";
-import {
-  Modal,
-  Pressable,
-  SafeAreaView,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-  useWindowDimensions,
-} from "react-native";
+import { Pressable, ScrollView, StyleSheet, Text, View, useWindowDimensions } from "react-native";
 import * as Speech from "expo-speech";
 import { advancedAlphabet } from "./advancedAlphabet";
 import AdvancedScene from "./AdvancedScene";
@@ -50,23 +43,15 @@ export default function AdvancedLetters({ onExit }: { onExit: () => void }) {
   return (
     <>
       <ScrollView style={styles.page} contentContainerStyle={styles.content}>
-        <View style={styles.toolbar}>
-          <Pressable accessibilityRole="button" onPress={onExit} style={styles.button}>
-            <Text style={styles.buttonText}>‹ Alphabet</Text>
-          </Pressable>
-          <Pressable
-            accessibilityRole="switch"
-            accessibilityLabel="Spoken explanations"
-            accessibilityState={{ checked: !muted }}
-            onPress={() => {
-              Speech.stop();
-              setMuted((m) => !m);
-            }}
-            style={styles.button}
-          >
-            <Text style={styles.buttonText}>{muted ? "🔇 Sound off" : "🔊 Sound on"}</Text>
-          </Pressable>
-        </View>
+        <ActivityToolbar
+          onExit={onExit}
+          muted={muted}
+          soundLabel="Spoken explanations"
+          onToggleSound={() => {
+            Speech.stop();
+            setMuted((value) => !value);
+          }}
+        />
         <Text style={styles.headerEmoji}>🌈 🚀 ✨</Text>
         <Text accessibilityLabel="Advanced Letters" style={styles.title}>
           {"Advanced Letters".split("").map((char, i) => (
@@ -187,27 +172,16 @@ export default function AdvancedLetters({ onExit }: { onExit: () => void }) {
           ))}
         </View>
       </ScrollView>
-      <Modal visible={expanded} animationType="fade" onRequestClose={() => setExpanded(false)}>
-        <SafeAreaView style={[styles.fullScreen, { backgroundColor: theme.soft }]}>
-          <ScrollView contentContainerStyle={{ alignItems: "center", padding: 12 }}>
-            <Pressable
-              accessibilityRole="button"
-              onPress={() => setExpanded(false)}
-              style={styles.button}
-            >
-              <Text style={styles.buttonText}>✕ Back to Advanced Letters</Text>
-            </Pressable>
-            <Text style={[styles.word, { color: theme.ink }]}>
-              {item.letter} is for {item.word}
-            </Text>
-            <AdvancedScene item={item} width={width - 24} height={Math.max(150, height - 260)} />
-            <View style={styles.factCard}>
-              <Text style={styles.factLabel}>💡 A little discovery</Text>
-              <Text style={styles.meaning}>{item.meaning}</Text>
-            </View>
-          </ScrollView>
-        </SafeAreaView>
-      </Modal>
+      <SceneModal
+        backgroundColor={theme.soft}
+        visible={expanded}
+        onClose={() => setExpanded(false)}
+        closeLabel="✕ Back to Advanced Letters"
+        title={`${item.letter} is for ${item.word}`}
+        description={item.meaning}
+      >
+        <AdvancedScene item={item} width={width - 24} height={Math.max(150, height - 260)} />
+      </SceneModal>
     </>
   );
 }
@@ -248,12 +222,6 @@ const styles = StyleSheet.create({
   cardIcon: { fontSize: 32, marginVertical: 5 },
   page: { flex: 1, backgroundColor: "#F0FBFF" },
   content: { alignItems: "center", padding: 12, paddingBottom: 30 },
-  toolbar: {
-    width: "100%",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    flexWrap: "wrap",
-  },
   button: {
     padding: 13,
     minHeight: 48,
@@ -325,5 +293,4 @@ const styles = StyleSheet.create({
   selected: { borderWidth: 4, transform: [{ scale: 1.03 }] },
   cardLetter: { fontSize: 34, fontWeight: "900", color: "#59359b" },
   cardWord: { fontSize: 12, fontWeight: "700", color: "#514361", textAlign: "center" },
-  fullScreen: { flex: 1, backgroundColor: "#EEE8FF" },
 });

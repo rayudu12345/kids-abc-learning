@@ -1,3 +1,8 @@
+import useAutoAdvance from "./hooks/useAutoAdvance";
+import StarProgress from "./components/ui/StarProgress";
+import LetterChoice from "./components/ui/LetterChoice";
+import FeedbackMessage from "./components/ui/FeedbackMessage";
+import ActivityToolbar from "./components/ui/ActivityToolbar";
 import { AnimatedAnimal, AnimalArt } from "./AnimalArt";
 import React, { useEffect, useRef, useState } from "react";
 import {
@@ -60,9 +65,9 @@ export default function FindLetter({ onExit }: { onExit: () => void }) {
   };
   // Keep the reward visible briefly, then advance once. Cleanup cancels
   // pending advancement when the child leaves the game or restarts.
-  useEffect(() => {
-    if (!won || finished) return;
-    const timer = setTimeout(() => {
+  useAutoAdvance(
+    won && !finished,
+    () => {
       if (!wonRef.current) return;
       wonRef.current = false;
       Speech.stop();
@@ -74,9 +79,9 @@ export default function FindLetter({ onExit }: { onExit: () => void }) {
       setRound(round + 1);
       setWon(false);
       setHint(false);
-    }, 3000);
-    return () => clearTimeout(timer);
-  }, [won, finished, round, lesson]);
+    },
+    3000,
+  );
   const restart = () => {
     const fresh = newLesson();
     Speech.stop();
@@ -91,23 +96,15 @@ export default function FindLetter({ onExit }: { onExit: () => void }) {
   const earned = round + (won ? 1 : 0);
   return (
     <ScrollView style={styles.page} contentContainerStyle={styles.content}>
-      <View style={styles.toolbar}>
-        <Pressable accessibilityRole="button" onPress={onExit} style={styles.button}>
-          <Text style={styles.buttonText}>‹ Alphabet</Text>
-        </Pressable>
-        <Pressable
-          accessibilityRole="switch"
-          accessibilityState={{ checked: !muted }}
-          accessibilityLabel="Spoken prompts"
-          onPress={() => {
-            Speech.stop();
-            setMuted((m) => !m);
-          }}
-          style={styles.button}
-        >
-          <Text style={styles.buttonText}>{muted ? "🔇 Sound off" : "🔊 Sound on"}</Text>
-        </Pressable>
-      </View>
+      <ActivityToolbar
+        onExit={onExit}
+        muted={muted}
+        soundLabel="Spoken prompts"
+        onToggleSound={() => {
+          Speech.stop();
+          setMuted((value) => !value);
+        }}
+      />
       <Text style={styles.title}>
         {finished ? "Wonderful exploring!" : "Animal letter adventure"}
       </Text>
@@ -116,9 +113,7 @@ export default function FindLetter({ onExit }: { onExit: () => void }) {
           ? "Your animal stickers from this adventure"
           : `Little adventure • ${round + 1} of ${lesson.length}`}
       </Text>
-      <Text accessibilityLabel={`${earned} of 5 stars earned`} style={styles.stars}>
-        {Array.from({ length: 5 }, (_, i) => (i < earned ? "⭐" : "☆")).join(" ")}
-      </Text>
+      <StarProgress earned={earned} />
       {finished ? (
         <>
           <Text style={styles.celebrate}>🎉</Text>
@@ -171,30 +166,23 @@ export default function FindLetter({ onExit }: { onExit: () => void }) {
           )}
           <View style={styles.choices}>
             {choices.map((animal) => (
-              <Pressable
+              <LetterChoice
                 key={animal.letter}
-                accessibilityRole="button"
-                accessibilityLabel={`Letter ${animal.letter}`}
-                accessibilityState={{ disabled: won }}
+                letter={animal.letter}
+                lowercase={false}
+                highlighted={(hint || won) && animal.letter === target.letter}
                 disabled={won}
                 onPress={() => choose(animal.letter)}
-                style={({ pressed }) => [
-                  styles.choice,
-                  (hint || won) && animal.letter === target.letter && styles.highlight,
-                  pressed && { opacity: 0.7 },
-                ]}
-              >
-                <Text style={styles.letter}>{animal.letter}</Text>
-              </Pressable>
+              />
             ))}
           </View>
-          <Text accessibilityLiveRegion="polite" style={styles.message}>
+          <FeedbackMessage>
             {won
               ? "One star and one sticker for you! ⭐"
               : hint
                 ? `Let's try together! Tap ${target.letter} in the purple border.`
                 : "Tap a letter. Take your time! ♡"}
-          </Text>
+          </FeedbackMessage>
           {won && (
             <Text style={styles.subtitle}>
               {round === lesson.length - 1
@@ -227,13 +215,6 @@ export default function FindLetter({ onExit }: { onExit: () => void }) {
 const styles = StyleSheet.create({
   page: { flex: 1, backgroundColor: "#FFFDF7" },
   content: { alignItems: "center", padding: 16, paddingBottom: 35 },
-  toolbar: {
-    width: "100%",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    flexWrap: "wrap",
-    gap: 8,
-  },
   button: {
     padding: 13,
     borderRadius: 18,
@@ -244,9 +225,7 @@ const styles = StyleSheet.create({
   buttonText: { color: "#58369e", fontWeight: "800", fontSize: 16 },
   title: { fontSize: 27, color: "#292348", fontWeight: "900", textAlign: "center", marginTop: 18 },
   subtitle: { fontSize: 16, color: "#6B647E", textAlign: "center", marginVertical: 6 },
-  stars: { fontSize: 30, color: "#ab7a17", marginVertical: 12 },
   question: { fontSize: 31, fontWeight: "900", color: "#59359b", textAlign: "center" },
-  animal: { fontSize: 115, marginVertical: 14 },
   choices: {
     flexDirection: "row",
     gap: 12,
@@ -254,19 +233,6 @@ const styles = StyleSheet.create({
     maxWidth: 650,
     justifyContent: "center",
   },
-  choice: {
-    flex: 1,
-    maxWidth: 180,
-    minHeight: 115,
-    backgroundColor: "#DFF4FF",
-    borderRadius: 24,
-    borderWidth: 4,
-    borderColor: "#c2e2ef",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  highlight: { borderColor: "#7751C5", backgroundColor: "#F0E5FF" },
-  letter: { fontSize: 64, fontWeight: "900", color: "#292348" },
   message: {
     fontSize: 18,
     fontWeight: "700",
@@ -284,7 +250,6 @@ const styles = StyleSheet.create({
     marginVertical: 14,
   },
   sticker: { backgroundColor: "#fff0c9", borderRadius: 24, padding: 16, alignItems: "center" },
-  stickerEmoji: { fontSize: 65 },
   stickerLabel: { fontSize: 16, fontWeight: "800", color: "#614a23" },
   smallSticker: { fontSize: 42, backgroundColor: "#fff0c9", borderRadius: 18, padding: 8 },
   celebrate: { fontSize: 85 },

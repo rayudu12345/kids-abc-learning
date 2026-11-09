@@ -1,50 +1,53 @@
-# Kids ABC Learning
+# Kids ABC Learning 🌈
 
-A colorful, beginner-friendly alphabet learning app for children, built with React Native and Expo.
+An English alphabet-learning app for children, built with React Native, TypeScript, and Expo SDK 58. Designed for Android phones and tablets, with a browser preview for development and automated tests.
 
-## Features
+## Activities
 
-- Learn letters A–Z with colorful cards
-- Tap a letter to hear it spoken
-- Learn simple words such as “A is for Apple”
-- Emoji illustrations for a lightweight starter experience
-- Designed for Android and iOS
+- **Alphabet A–Z:** spoken letters, example words, and animated scenes.
+- **Find the letter:** animal questions, gentle hints, and automatic progression.
+- **Match the animals:** drag-and-drop matching, with a tap alternative.
+- **Trace letters A–Z:** uppercase paths, moving guides, and forgiving finger tracking.
+- **Draw animals:** 24 animal outlines with saved tracing rewards.
+- **Big & little letters:** uppercase-to-lowercase matching.
+- **Advanced Letters:** 26 additional words with explanations and illustrated scenes.
+- **My sticker book:** stars, animal stickers, and tracing progress saved on the device.
 
-## Run locally
+Every activity is available from the side menu. Parental controls are deferred.
 
-1. Install Node.js LTS.
-2. Install dependencies with `npm install`.
-3. Start Expo with `npx expo start`.
-4. Scan the QR code using Expo Go, or press `a` for Android / `i` for the iOS Simulator.
+## Run the app
 
-## Expo SDK compatibility
-
-This project uses **Expo SDK 58**. Open it with Expo Go for SDK 58.
-
-After pulling this upgrade, stop the old Expo server and run:
+Use Node.js 24 LTS and npm. The repository includes a dependency lockfile.
 
 ```sh
-git pull
-npm install
+npm ci
 npx expo start --clear
 ```
 
-Scan the new QR code with Expo Go. If Expo Go still reports SDK 57, make sure the terminal is in this repository and that an older Expo server is not still running.
+Open the QR code using **Expo Go for SDK 58**. If Expo Go reports another SDK version, use a compatible Expo Go version or upgrade Expo and its dependencies together with `npx expo install --fix`.
 
-For future upgrades, follow https://docs.expo.dev/workflow/upgrading-expo-sdk-walkthrough/ and run `npx expo install --fix` to align dependencies.
-
-## Planned next steps
-
-- Add letter tracing
-- Add quizzes and progress tracking
-- Add optional recorded pronunciation and sound effects
-
-## Working with the code
-
-See [CODE_GUIDE.md](./CODE_GUIDE.md) for the screen map, saved-progress flow, and instructions for changing activities.
+For a browser preview:
 
 ```sh
-npm run format
-npm run format:check
-npm run typecheck
+npm run web
 ```
+
+The installed Android APK can use bundled pictures and activities offline. Speech uses the device's text-to-speech engine and needs an installed offline English voice. Expo Go development still needs access to the computer running Expo.
+
+## Check the code
+
+```sh
+npm run check
+npx playwright install chromium
+npm run test:integration
+npm run build:android
+```
+
+`npm run check` runs formatting checks, TypeScript, and unit tests. Integration tests build the web app and exercise real screens at phone and tablet sizes. Android bundle checks do not replace testing an APK on a physical tablet.
+
+## Documentation
+
+- [Code guide](CODE_GUIDE.md): where features live and common changes.
+- [Architecture](docs/ARCHITECTURE.md): reusable components, navigation, and saved data.
+- [Testing](docs/TESTING.md): unit/integration suites, troubleshooting, and coverage limits.
+- [Production guide](docs/PRODUCTION.md): APK/AAB builds, offline verification, releases, and recovery.

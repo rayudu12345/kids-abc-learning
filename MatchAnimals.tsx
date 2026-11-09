@@ -1,108 +1,14 @@
+import DraggableAnimal from "./components/matching/DraggableAnimal";
+import useAutoAdvance from "./hooks/useAutoAdvance";
+import ActivityToolbar from "./components/ui/ActivityToolbar";
 import { AnimalArt } from "./AnimalArt";
 import React, { useEffect, useRef, useState } from "react";
-import {
-  Animated,
-  PanResponder,
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-  useWindowDimensions,
-} from "react-native";
+import { Pressable, ScrollView, StyleSheet, Text, View, useWindowDimensions } from "react-native";
 import * as Speech from "expo-speech";
 import { useProgress } from "./ProgressStore";
 import { Animal, animals, shuffle } from "./quizLogic";
 
 import { DropBox, findDropTarget } from "./matchLogic";
-function Draggable({
-  animal,
-  disabled,
-  selected,
-  onDrop,
-  onSelect,
-  onDrag,
-}: {
-  animal: Animal;
-  disabled: boolean;
-  selected: boolean;
-  onDrop: (animal: Animal, x: number, y: number) => void;
-  onSelect: (animal: Animal) => void;
-  onDrag: (active: boolean) => void;
-}) {
-  const position = useRef(new Animated.ValueXY()).current;
-  const [dragging, setDragging] = useState(false);
-  const latest = useRef({ animal, disabled, onDrop, onSelect, onDrag });
-  latest.current = { animal, disabled, onDrop, onSelect, onDrag };
-  const responder = useRef(
-    PanResponder.create({
-      onStartShouldSetPanResponder: () => !latest.current.disabled,
-      onMoveShouldSetPanResponder: () => !latest.current.disabled,
-      onPanResponderGrant: () => {
-        position.stopAnimation();
-        position.setValue({ x: 0, y: 0 });
-        setDragging(true);
-        latest.current.onDrag(true);
-      },
-      onPanResponderMove: (_, g) => position.setValue({ x: g.dx, y: g.dy }),
-      onPanResponderRelease: (event, g) => {
-        setDragging(false);
-        latest.current.onDrag(false);
-        if (Math.abs(g.dx) + Math.abs(g.dy) < 10) latest.current.onSelect(latest.current.animal);
-        else
-          latest.current.onDrop(
-            latest.current.animal,
-            event.nativeEvent.pageX,
-            event.nativeEvent.pageY,
-          );
-        Animated.spring(position, { toValue: { x: 0, y: 0 }, useNativeDriver: false }).start();
-      },
-      onPanResponderTerminationRequest: () => false,
-      onPanResponderTerminate: () => {
-        position.setValue({ x: 0, y: 0 });
-        setDragging(false);
-        latest.current.onDrag(false);
-      },
-    }),
-  ).current;
-  useEffect(
-    () => () => {
-      position.stopAnimation();
-    },
-    [position],
-  );
-  return (
-    <Animated.View
-      {...responder.panHandlers}
-      accessible
-      accessibilityRole="button"
-      accessibilityLabel={`${animal.word}. Select, then tap its matching picture.`}
-      accessibilityState={{ disabled, selected }}
-      accessibilityActions={[{ name: "activate", label: "Select animal" }]}
-      onAccessibilityAction={() => {
-        if (!disabled) onSelect(animal);
-      }}
-      style={[
-        styles.tile,
-        styles.source,
-        selected && styles.selected,
-        disabled && styles.done,
-        {
-          zIndex: dragging ? 100 : 1,
-          elevation: dragging ? 12 : 0,
-          transform: position.getTranslateTransform(),
-        },
-      ]}
-    >
-      {disabled ? (
-        <Text style={styles.animal}>⭐</Text>
-      ) : (
-        <AnimalArt letter={animal.letter} size={70} />
-      )}
-      <Text style={styles.name}>{animal.word}</Text>
-    </Animated.View>
-  );
-}
 function newRounds() {
   return Array.from({ length: 3 }, () => shuffle(animals).slice(0, 3));
 }
@@ -143,9 +49,9 @@ export default function MatchAnimals({ onExit }: { onExit: () => void }) {
     };
   }, [round, muted, finished]);
   const complete = matched.length === 3;
-  useEffect(() => {
-    if (!complete || finished) return;
-    const timer = setTimeout(() => {
+  useAutoAdvance(
+    complete && !finished,
+    () => {
       if (round === rounds.length - 1) {
         setFinished(true);
         return;
@@ -157,9 +63,9 @@ export default function MatchAnimals({ onExit }: { onExit: () => void }) {
       setMatched([]);
       setSelected(null);
       setMessage("Here are three more animal friends!");
-    }, 2500);
-    return () => clearTimeout(timer);
-  }, [complete, finished, round, rounds]);
+    },
+    2500,
+  );
   const match = (animal: Animal, targetLetter?: string) => {
     if (matchedRef.current.includes(animal.letter) || complete) return;
     if (animal.letter !== targetLetter) {
@@ -208,23 +114,15 @@ export default function MatchAnimals({ onExit }: { onExit: () => void }) {
       style={styles.page}
       contentContainerStyle={styles.content}
     >
-      <View style={styles.toolbar}>
-        <Pressable accessibilityRole="button" onPress={onExit} style={styles.button}>
-          <Text style={styles.buttonText}>‹ Alphabet</Text>
-        </Pressable>
-        <Pressable
-          accessibilityRole="switch"
-          accessibilityLabel="Spoken instructions"
-          accessibilityState={{ checked: !muted }}
-          onPress={() => {
-            Speech.stop();
-            setMuted((m) => !m);
-          }}
-          style={styles.button}
-        >
-          <Text style={styles.buttonText}>{muted ? "🔇 Sound off" : "🔊 Sound on"}</Text>
-        </Pressable>
-      </View>
+      <ActivityToolbar
+        onExit={onExit}
+        muted={muted}
+        soundLabel="Spoken instructions"
+        onToggleSound={() => {
+          Speech.stop();
+          setMuted((value) => !value);
+        }}
+      />
       {saveError && (
         <Text style={styles.subtitle}>
           Rewards could not be saved yet. Try saving from My sticker book.
@@ -272,7 +170,7 @@ export default function MatchAnimals({ onExit }: { onExit: () => void }) {
           <View style={[styles.board, { maxWidth: Math.min(width - 24, 750) }]}>
             <View style={[styles.row, { zIndex: 10 }]}>
               {rounds[round].map((a) => (
-                <Draggable
+                <DraggableAnimal
                   key={`${round}-${a.letter}`}
                   animal={a}
                   disabled={matched.includes(a.letter)}
@@ -345,12 +243,6 @@ export default function MatchAnimals({ onExit }: { onExit: () => void }) {
 const styles = StyleSheet.create({
   page: { flex: 1, backgroundColor: "#FFFDF7" },
   content: { padding: 12, paddingBottom: 35, alignItems: "center" },
-  toolbar: {
-    width: "100%",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    flexWrap: "wrap",
-  },
   button: {
     padding: 13,
     minHeight: 48,
@@ -372,13 +264,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     padding: 5,
   },
-  source: { flex: 1, borderColor: "#c2e2ef", backgroundColor: "#DFF4FF" },
   targetWrap: { flex: 1 },
   target: { borderStyle: "dashed", borderColor: "#cbb8e9", backgroundColor: "#F3EEFA" },
   selected: { borderColor: "#7046B9", borderWidth: 4 },
-  done: { opacity: 0.5 },
   matched: { borderColor: "#5b9d6c", backgroundColor: "#E6F8E7", borderStyle: "solid" },
-  animal: { fontSize: 56 },
   name: { fontSize: 14, fontWeight: "800", color: "#39334D", textAlign: "center" },
   arrow: { textAlign: "center", fontSize: 36, color: "#b7a1d6", paddingVertical: 25 },
   message: {

@@ -1,3 +1,8 @@
+import useAutoAdvance from "./hooks/useAutoAdvance";
+import StarProgress from "./components/ui/StarProgress";
+import LetterChoice from "./components/ui/LetterChoice";
+import FeedbackMessage from "./components/ui/FeedbackMessage";
+import ActivityToolbar from "./components/ui/ActivityToolbar";
 import React, { useEffect, useRef, useState } from "react";
 import { Pressable, ScrollView, StyleSheet, Text, View, useWindowDimensions } from "react-native";
 import * as Speech from "expo-speech";
@@ -28,9 +33,9 @@ export default function LetterPairs({ onExit }: { onExit: () => void }) {
       Speech.stop();
     };
   }, [prompt, muted, finished]);
-  useEffect(() => {
-    if (!won || finished) return;
-    const timer = setTimeout(() => {
+  useAutoAdvance(
+    won && !finished,
+    () => {
       Speech.stop();
       if (round === lesson.length - 1) {
         setFinished(true);
@@ -41,9 +46,9 @@ export default function LetterPairs({ onExit }: { onExit: () => void }) {
       setWon(false);
       setHint(false);
       locked.current = false;
-    }, 3000);
-    return () => clearTimeout(timer);
-  }, [won, finished, round, lesson]);
+    },
+    3000,
+  );
   const choose = (letter: string) => {
     if (locked.current) return;
     if (letter !== target.letter) {
@@ -69,23 +74,15 @@ export default function LetterPairs({ onExit }: { onExit: () => void }) {
   };
   return (
     <ScrollView style={styles.page} contentContainerStyle={styles.content}>
-      <View style={styles.toolbar}>
-        <Pressable accessibilityRole="button" onPress={onExit} style={styles.button}>
-          <Text style={styles.buttonText}>‹ Alphabet</Text>
-        </Pressable>
-        <Pressable
-          accessibilityRole="switch"
-          accessibilityLabel="Spoken prompts"
-          accessibilityState={{ checked: !muted }}
-          onPress={() => {
-            Speech.stop();
-            setMuted((m) => !m);
-          }}
-          style={styles.button}
-        >
-          <Text style={styles.buttonText}>{muted ? "🔇 Sound off" : "🔊 Sound on"}</Text>
-        </Pressable>
-      </View>
+      <ActivityToolbar
+        onExit={onExit}
+        muted={muted}
+        soundLabel="Spoken prompts"
+        onToggleSound={() => {
+          Speech.stop();
+          setMuted((value) => !value);
+        }}
+      />
       <Text style={styles.title}>
         {finished ? "Lovely letter pairs! 🎉" : "Big and little letters"}
       </Text>
@@ -94,9 +91,7 @@ export default function LetterPairs({ onExit }: { onExit: () => void }) {
           ? "You matched five uppercase and lowercase letters."
           : `Letter pair ${round + 1} of 5`}
       </Text>
-      <Text style={styles.stars} accessibilityLabel={`${round + (won ? 1 : 0)} stars earned`}>
-        {Array.from({ length: 5 }, (_, i) => (i < round + (won ? 1 : 0) ? "⭐" : "☆")).join(" ")}
-      </Text>
+      <StarProgress earned={round + (won ? 1 : 0)} />
       {finished ? (
         <>
           <View style={styles.collection}>
@@ -139,30 +134,23 @@ export default function LetterPairs({ onExit }: { onExit: () => void }) {
           </Pressable>
           <View style={styles.choices}>
             {choices.map((a) => (
-              <Pressable
+              <LetterChoice
                 key={a.letter}
-                accessibilityRole="button"
-                accessibilityLabel={`Lowercase ${a.letter}`}
-                accessibilityState={{ disabled: won }}
+                letter={a.letter}
+                lowercase={true}
+                highlighted={(hint || won) && a.letter === target.letter}
                 disabled={won}
                 onPress={() => choose(a.letter)}
-                style={({ pressed }) => [
-                  styles.choice,
-                  (hint || won) && a.letter === target.letter && styles.highlight,
-                  pressed && { opacity: 0.7 },
-                ]}
-              >
-                <Text style={styles.lower}>{a.letter.toLowerCase()}</Text>
-              </Pressable>
+              />
             ))}
           </View>
-          <Text accessibilityLiveRegion="polite" style={styles.message}>
+          <FeedbackMessage>
             {won
               ? `Wonderful! ${target.letter} and ${target.letter.toLowerCase()} belong together! ⭐`
               : hint
                 ? `Try ${target.letter.toLowerCase()} in the purple border. Take your time!`
                 : "Tap a little letter. There is no hurry. ♡"}
-          </Text>
+          </FeedbackMessage>
           {won && (
             <Text style={styles.subtitle}>
               {round === 4 ? "Your letter pairs are coming…" : "The next pair is coming…"}
@@ -181,12 +169,6 @@ export default function LetterPairs({ onExit }: { onExit: () => void }) {
 const styles = StyleSheet.create({
   page: { flex: 1, backgroundColor: "#FFFDF7" },
   content: { padding: 16, alignItems: "center", paddingBottom: 35 },
-  toolbar: {
-    width: "100%",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    flexWrap: "wrap",
-  },
   button: {
     padding: 13,
     minHeight: 48,
@@ -197,7 +179,6 @@ const styles = StyleSheet.create({
   buttonText: { fontSize: 16, fontWeight: "800", color: "#58369e" },
   title: { color: "#292348", fontSize: 28, fontWeight: "900", textAlign: "center", marginTop: 18 },
   subtitle: { color: "#6B647E", fontSize: 16, textAlign: "center", marginVertical: 8 },
-  stars: { fontSize: 30, color: "#ab7a17", marginVertical: 12 },
   hero: {
     flexDirection: "row",
     alignItems: "center",
@@ -208,25 +189,6 @@ const styles = StyleSheet.create({
   },
   upper: { fontSize: 85, fontWeight: "900", color: "#59359b" },
   choices: { flexDirection: "row", gap: 12, width: "100%", maxWidth: 650, marginTop: 14 },
-  choice: {
-    flex: 1,
-    minHeight: 130,
-    backgroundColor: "#DFF4FF",
-    borderRadius: 24,
-    borderWidth: 4,
-    borderColor: "#c2e2ef",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  highlight: { borderColor: "#7751C5", backgroundColor: "#F0E5FF" },
-  lower: { fontSize: 76, fontWeight: "800", color: "#292348" },
-  message: {
-    color: "#5E4980",
-    fontWeight: "800",
-    fontSize: 19,
-    textAlign: "center",
-    marginVertical: 18,
-  },
   note: { color: "#6B647E", fontSize: 12, textAlign: "center", marginTop: 15 },
   collection: { flexDirection: "row", flexWrap: "wrap", justifyContent: "center", gap: 12 },
   sticker: { backgroundColor: "#FFF0C9", padding: 16, borderRadius: 22, alignItems: "center" },

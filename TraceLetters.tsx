@@ -1,3 +1,8 @@
+import TraceCanvas from "./components/tracing/TraceCanvas";
+import TracingPicker from "./components/tracing/TracingPicker";
+import { colors, inks } from "./components/tracing/traceTheme";
+import useAutoAdvance from "./hooks/useAutoAdvance";
+import ActivityToolbar from "./components/ui/ActivityToolbar";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import {
   Animated,
@@ -13,8 +18,6 @@ import * as Speech from "expo-speech";
 import { advanceTrace } from "./tracingLogic";
 import { Point, animalTraces, letterTraces, sampledStrokes } from "./traceCatalog";
 import { useProgress } from "./ProgressStore";
-const colors = ["#D7F3FF", "#FFE0ED", "#D4F4E4", "#FFEDAD", "#E7D9FF", "#FFE2CC"];
-const inks = ["#176A94", "#9C3868", "#23745B", "#84610F", "#6C3EA2", "#9B5426"];
 export default function TraceLetters({
   onExit,
   initialMode = "letter",
@@ -88,17 +91,17 @@ export default function TraceLetters({
     setIndex(next);
     reset();
   };
-  useEffect(() => {
-    if (!won || finished) return;
-    const timer = setTimeout(() => {
+  useAutoAdvance(
+    won && !finished,
+    () => {
       if (index === items.length - 1) setFinished(true);
       else {
         setIndex((i) => i + 1);
         reset();
       }
-    }, 2500);
-    return () => clearTimeout(timer);
-  }, [won, finished, index, mode]);
+    },
+    2500,
+  );
   const touch = (event: GestureResponderEvent) => {
     if (locked.current || won) return;
     const point = {
@@ -137,7 +140,6 @@ export default function TraceLetters({
       setVisited(0);
     }
   };
-  const guideRange = current.map((_, i) => i / (current.length - 1));
   const completed = item.kind === "letter" ? progress.tracedLetters : progress.tracedAnimals;
   const percent = Math.round(
     ((strokes.slice(0, stroke).reduce((sum, points) => sum + points.length, 0) + visited) /
@@ -146,23 +148,15 @@ export default function TraceLetters({
   );
   return (
     <ScrollView scrollEnabled={!drawing} style={styles.page} contentContainerStyle={styles.content}>
-      <View style={styles.toolbar}>
-        <Pressable accessibilityRole="button" onPress={onExit} style={styles.button}>
-          <Text style={styles.buttonText}>‹ Alphabet</Text>
-        </Pressable>
-        <Pressable
-          accessibilityRole="switch"
-          accessibilityLabel="Spoken tracing instructions"
-          accessibilityState={{ checked: !muted }}
-          onPress={() => {
-            Speech.stop();
-            setMuted((m) => !m);
-          }}
-          style={styles.button}
-        >
-          <Text style={styles.buttonText}>{muted ? "🔇 Sound off" : "🔊 Sound on"}</Text>
-        </Pressable>
-      </View>
+      <ActivityToolbar
+        onExit={onExit}
+        muted={muted}
+        soundLabel="Spoken tracing instructions"
+        onToggleSound={() => {
+          Speech.stop();
+          setMuted((value) => !value);
+        }}
+      />
       <Text style={styles.title}>🌈 Trace and discover!</Text>
       <View style={styles.tabs}>
         {(["letter", "animal"] as const).map((tab) => (
@@ -241,117 +235,23 @@ export default function TraceLetters({
           >
             <Text style={styles.buttonText}>🔊 Hear how to trace</Text>
           </Pressable>
-          <View
-            accessibilityLabel={`Tracing canvas for ${item.name}. Follow the purple starting dot.`}
-            style={[
-              styles.board,
-              { width: size, height: size, backgroundColor: colors[index % colors.length] },
-            ]}
-            onStartShouldSetResponder={() => !won}
-            onMoveShouldSetResponder={() => !won}
-            onResponderGrant={(e) => {
+          <TraceCanvas
+            item={item}
+            strokes={strokes}
+            stroke={stroke}
+            visited={visited}
+            won={won}
+            guide={guide}
+            size={size}
+            backgroundColor={colors[index % colors.length]}
+            onStart={(event) => {
               setDrawing(true);
               previous.current = null;
-              touch(e);
+              touch(event);
             }}
-            onResponderMove={touch}
-            onResponderRelease={release}
-            onResponderTerminate={release}
-            onResponderTerminationRequest={() => false}
-          >
-            <View pointerEvents="none" style={StyleSheet.absoluteFill}>
-              {strokes.map((points, si) =>
-                points.map((p, pi) => (
-                  <View
-                    key={`${si}-${pi}`}
-                    style={[
-                      styles.dot,
-                      {
-                        left: p.x * scale - 10 * scale,
-                        top: p.y * scale - 10 * scale,
-                        width: 20 * scale,
-                        height: 20 * scale,
-                        borderRadius: 10 * scale,
-                        backgroundColor:
-                          si < stroke || (si === stroke && pi < visited)
-                            ? "#27A783"
-                            : si === stroke
-                              ? "#FFFFFF"
-                              : "#B5A6C5",
-                        opacity: si <= stroke ? 1 : 0.65,
-                      },
-                    ]}
-                  />
-                )),
-              )}
-              {item.features?.map((p, i) => (
-                <View
-                  key={i}
-                  style={{
-                    position: "absolute",
-                    left: p.x * scale - 4 * scale,
-                    top: p.y * scale - 4 * scale,
-                    width: 8 * scale,
-                    height: 8 * scale,
-                    borderRadius: 4 * scale,
-                    backgroundColor: "#493656",
-                  }}
-                />
-              ))}
-              {!won && (
-                <>
-                  <View
-                    style={[
-                      styles.start,
-                      {
-                        left: current[0].x * scale - 17 * scale,
-                        top: current[0].y * scale - 17 * scale,
-                        width: 34 * scale,
-                        height: 34 * scale,
-                        borderRadius: 17 * scale,
-                      },
-                    ]}
-                  />
-                  <Text
-                    style={[
-                      styles.startLabel,
-                      {
-                        left: Math.max(4, Math.min(size - 75, current[0].x * scale - 30)),
-                        top: Math.max(4, current[0].y * scale - 45 * scale),
-                      },
-                    ]}
-                  >
-                    Start {stroke + 1}
-                  </Text>
-                  <Animated.View
-                    style={[
-                      styles.guide,
-                      {
-                        width: 18 * scale,
-                        height: 18 * scale,
-                        borderRadius: 9 * scale,
-                        transform: [
-                          {
-                            translateX: guide.interpolate({
-                              inputRange: guideRange,
-                              outputRange: current.map((p) => p.x * scale - 9 * scale),
-                            }),
-                          },
-                          {
-                            translateY: guide.interpolate({
-                              inputRange: guideRange,
-                              outputRange: current.map((p) => p.y * scale - 9 * scale),
-                            }),
-                          },
-                        ],
-                      },
-                    ]}
-                  />
-                </>
-              )}
-              {won && <Text style={styles.success}>⭐</Text>}
-            </View>
-          </View>
+            onMove={touch}
+            onEnd={release}
+          />
           <Text accessibilityLiveRegion="polite" style={styles.message}>
             {hint}
           </Text>
@@ -367,30 +267,13 @@ export default function TraceLetters({
           </Text>
         </>
       )}
-      <Text style={styles.section}>🎨 Choose any {mode === "letter" ? "letter" : "animal"}</Text>
-      <View style={styles.grid}>
-        {items.map((entry, i) => (
-          <Pressable
-            key={entry.id}
-            accessibilityRole="button"
-            accessibilityLabel={`Trace ${entry.name}`}
-            accessibilityState={{ selected: index === i }}
-            onPress={() => select(i)}
-            style={[
-              styles.card,
-              {
-                backgroundColor: colors[i % colors.length],
-                borderColor: i === index ? inks[i % inks.length] : "transparent",
-                width: mode === "letter" ? (width >= 600 ? "11%" : "18%") : "43%",
-              },
-            ]}
-          >
-            <Text style={[styles.cardLabel, { color: inks[i % inks.length] }]}>{entry.icon}</Text>
-            {mode === "animal" && <Text style={styles.buttonText}>{entry.name}</Text>}
-            {completed.includes(entry.id) && <Text style={styles.check}>✓</Text>}
-          </Pressable>
-        ))}
-      </View>
+      <TracingPicker
+        mode={mode}
+        items={items}
+        index={index}
+        completed={completed}
+        onSelect={select}
+      />
       <Text style={styles.subtitle}>
         {saveError
           ? "Your latest reward could not be saved. Try saving again from My sticker book."
@@ -402,12 +285,6 @@ export default function TraceLetters({
 const styles = StyleSheet.create({
   page: { flex: 1, backgroundColor: "#F0FBFF" },
   content: { padding: 12, alignItems: "center", paddingBottom: 30 },
-  toolbar: {
-    width: "100%",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    flexWrap: "wrap",
-  },
   button: {
     padding: 13,
     minHeight: 48,
@@ -436,22 +313,6 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     overflow: "hidden",
   },
-  board: {
-    borderRadius: 26,
-    borderWidth: 2,
-    borderColor: "#BAA3DE",
-    overflow: "hidden",
-    marginVertical: 10,
-  },
-  dot: { position: "absolute" },
-  start: {
-    position: "absolute",
-    borderWidth: 4,
-    borderColor: "#7751C5",
-    backgroundColor: "#C4ADE7",
-  },
-  startLabel: { position: "absolute", color: "#684399", fontWeight: "900", fontSize: 15 },
-  guide: { position: "absolute", backgroundColor: "#F5B93D", borderWidth: 2, borderColor: "#fff" },
   message: {
     color: "#5E4980",
     fontWeight: "800",
@@ -459,33 +320,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginVertical: 14,
   },
-  success: { position: "absolute", bottom: 12, right: 15, fontSize: 45 },
   bigStars: { fontSize: 55, marginTop: 35 },
   primary: { padding: 18, backgroundColor: "#6946BC", borderRadius: 24, marginVertical: 15 },
   primaryText: { fontSize: 20, color: "white", fontWeight: "800" },
-  section: {
-    fontSize: 22,
-    fontWeight: "900",
-    color: "#57388E",
-    textAlign: "center",
-    marginVertical: 15,
-  },
-  grid: {
-    width: "100%",
-    maxWidth: 800,
-    flexDirection: "row",
-    flexWrap: "wrap",
-    gap: 10,
-    justifyContent: "center",
-  },
-  card: {
-    minHeight: 65,
-    borderRadius: 16,
-    borderWidth: 3,
-    alignItems: "center",
-    justifyContent: "center",
-    padding: 7,
-  },
-  cardLabel: { fontSize: 30, fontWeight: "900" },
-  check: { color: "#176C50", fontWeight: "900", fontSize: 18 },
 });

@@ -615,16 +615,6 @@ const styles = StyleSheet.create({
     borderTopColor: "#d99b56",
   },
   scoop: { position: "absolute", left: 132, width: 52, height: 38, borderRadius: 26 },
-  wing: {
-    position: "absolute",
-    top: 60,
-    width: 40,
-    height: 20,
-    borderRadius: 20,
-    backgroundColor: "#4ab872",
-    borderWidth: 2,
-    borderColor: "#268557",
-  },
   track: {
     position: "absolute",
     left: 0,

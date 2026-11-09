@@ -1,16 +1,10 @@
 import React, { createContext, useCallback, useContext, useEffect, useRef, useState } from "react";
 import { Text, View } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import {
-  Activity,
-  Progress,
-  addReward,
-  addTracingReward,
-  emptyProgress,
-  readProgress,
-} from "./progressLogic";
+import { Activity, Progress, addReward, addTracingReward, emptyProgress } from "./progressLogic";
 
-const KEY = "@kids-abc/progress/v1";
+import { createProgressPersistence } from "./progressPersistence";
+import ActionButton from "./components/ui/ActionButton";
 type Store = {
   progress: Progress;
   saveError: boolean;
@@ -24,19 +18,23 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
   const current = useRef(progress);
   const [ready, setReady] = useState(false);
   const [saveError, setSaveError] = useState(false);
-  const queue = useRef<Promise<void>>(Promise.resolve());
+  const persistence = useRef(createProgressPersistence(AsyncStorage)).current;
+  const [loadError, setLoadError] = useState(false);
+  const [loadAttempt, setLoadAttempt] = useState(0);
   useEffect(() => {
     let live = true;
-    AsyncStorage.getItem(KEY)
-      .then((raw) => {
-        const restored = readProgress(raw);
+    setReady(false);
+    setLoadError(false);
+    persistence
+      .load()
+      .then((restored) => {
         if (live) {
           current.current = restored;
           setProgress(restored);
         }
       })
       .catch(() => {
-        if (live) setSaveError(true);
+        if (live) setLoadError(true);
       })
       .finally(() => {
         if (live) setReady(true);
@@ -44,18 +42,16 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
     return () => {
       live = false;
     };
-  }, []);
-  const save = useCallback((next: Progress) => {
-    // Serialize writes so an earlier reward cannot overwrite a newer one.
-    queue.current = queue.current.then(async () => {
-      try {
-        await AsyncStorage.setItem(KEY, JSON.stringify(next));
-        setSaveError(false);
-      } catch {
-        setSaveError(true);
-      }
-    });
-  }, []);
+  }, [loadAttempt, persistence]);
+  const save = useCallback(
+    (next: Progress) => {
+      persistence
+        .save(next)
+        .then(() => setSaveError(false))
+        .catch(() => setSaveError(true));
+    },
+    [persistence],
+  );
   const recordAnswer = useCallback(
     (letter: string, activity: Activity, completed: boolean) => {
       const next = addReward(current.current, letter, activity, completed);
@@ -86,6 +82,29 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
         }}
       >
         <Text style={{ fontSize: 22, color: "#59359b" }}>Opening your sticker book… 🐾</Text>
+      </View>
+    );
+  // Do not allow new writes after a read failure: existing rewards may still be on disk.
+  if (loadError)
+    return (
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center",
+          padding: 24,
+          backgroundColor: "#FFFDF7",
+        }}
+      >
+        <Text style={{ fontSize: 22, color: "#59359B", textAlign: "center" }}>
+          We couldn't open your saved rewards.
+        </Text>
+        <Text style={{ marginVertical: 16, textAlign: "center", color: "#6B647E" }}>
+          Your saved data has not been changed. Try opening it again.
+        </Text>
+        <ActionButton onPress={() => setLoadAttempt((attempt) => attempt + 1)}>
+          Try opening rewards again
+        </ActionButton>
       </View>
     );
   return (
