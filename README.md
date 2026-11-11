@@ -7,10 +7,15 @@ An English alphabet-learning app for children, built with React Native, TypeScri
 - **Alphabet A–Z:** spoken letters, example words, and animated scenes.
 - **Find the letter:** animal questions, gentle hints, and automatic progression.
 - **Match the animals:** drag-and-drop matching, with a tap alternative.
-- **Trace letters A–Z:** uppercase paths, moving guides, and forgiving finger tracking.
+- **Trace letters A–Z and a–z:** uppercase and lowercase handwriting paths, moving guides, and saved tracing rewards.
 - **Draw animals:** 24 animal outlines with saved tracing rewards.
 - **Big & little letters:** uppercase-to-lowercase matching.
 - **Advanced Letters:** 26 additional words with explanations and illustrated scenes.
+- **Listen and explore:** bundled human letter/word recordings and real cat, dog, and bird sounds.
+- **Letter sounds:** six continuous initial sounds in small groups, with animal-word examples.
+- **Numbers and counting:** count animal pictures once each, then choose a total from 1–10.
+- **Colors and shapes:** spoken matching with large tiles, symbols/names, dragging, and a tap alternative.
+- **Progress backup:** adult-controlled local JSON export, validated preview, and confirmed restore.
 - **My sticker book:** stars, animal stickers, and tracing progress saved on the device.
 
 Every activity is available from the side menu. Parental controls are deferred.
@@ -32,7 +37,7 @@ For a browser preview:
 npm run web
 ```
 
-The installed Android APK can use bundled pictures and activities offline. Speech uses the device's text-to-speech engine and needs an installed offline English voice. Expo Go development still needs access to the computer running Expo.
+The installed Android APK can use bundled pictures and activities offline. 82 bundled human recordings play offline. Unrecorded prompts/examples use the device's text-to-speech engine and need an installed offline English voice. See the audio guide for remaining recording gaps. Expo Go development still needs access to the computer running Expo.
 
 ## Check the code
 
@@ -51,3 +56,6 @@ npm run build:android
 - [Architecture](docs/ARCHITECTURE.md): reusable components, navigation, and saved data.
 - [Testing](docs/TESTING.md): unit/integration suites, troubleshooting, and coverage limits.
 - [Production guide](docs/PRODUCTION.md): APK/AAB builds, offline verification, releases, and recovery.
+
+- [Audio, licenses, and animation scope](docs/AUDIO_AND_ASSETS.md)
+- [Backup and restore](docs/BACKUP_AND_RESTORE.md)

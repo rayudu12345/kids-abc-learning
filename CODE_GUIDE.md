@@ -49,3 +49,15 @@ Activity screens remain at the repository root: `FindLetter.tsx`, `MatchAnimals.
 - **Change storage:** preserve the key and old fields, update validation/migration, and add round-trip and old-save tests.
 
 Run `npm run format` after edits, then `npm run check`. Run `npm run test:integration` after navigation, interaction, shared-component, or persistence changes. See [Testing](docs/TESTING.md) for details.
+
+## New learning features
+
+- `audio/`: playback controller, speech fallback facade, and static recording map.
+- `screens/AudioLibrary.tsx`, `Phonics.tsx`, `Counting.tsx`, `ColorsShapes.tsx`: the new activities.
+- `screens/ProgressBackup.tsx`: adult export/import preview and confirmation.
+- `backupLogic.ts`, `backupFiles.ts`, `backupFiles.web.ts`: validation and platform-specific file operations.
+- `data/learningCatalog.ts`: phonics/counting/color/shape targets and validation.
+- `data/animalMotion.ts`: four-frame pose row metadata.
+- `assets/audio/attribution.json`: recording authors, sources, and licenses; preserve it in releases.
+
+See [audio and assets](docs/AUDIO_AND_ASSETS.md) and [backup and restore](docs/BACKUP_AND_RESTORE.md) before changing these modules.

@@ -2,7 +2,7 @@ import SceneModal from "./components/ui/SceneModal";
 import ActivityToolbar from "./components/ui/ActivityToolbar";
 import React, { useEffect, useState } from "react";
 import { Pressable, ScrollView, StyleSheet, Text, View, useWindowDimensions } from "react-native";
-import * as Speech from "expo-speech";
+import * as Speech from "./audio/speech";
 import { advancedAlphabet } from "./advancedAlphabet";
 import AdvancedScene from "./AdvancedScene";
 const themes = [

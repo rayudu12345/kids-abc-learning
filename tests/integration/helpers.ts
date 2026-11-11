@@ -1,5 +1,5 @@
 import { expect, Page } from "@playwright/test";
-import { animalTraces, letterTraces, sampledStrokes } from "../../traceCatalog";
+import { animalTraces, letterTraces, lowercaseTraces, sampledStrokes } from "../../traceCatalog";
 import { PROGRESS_STORAGE_KEY } from "../../progressPersistence";
 export async function openActivity(page: Page, title: string) {
   await page.getByRole("button", { name: "Open activity menu", exact: true }).click();
@@ -13,7 +13,9 @@ export async function savedProgress(page: Page) {
   );
 }
 export async function traceOutline(page: Page, id: string) {
-  const item = [...letterTraces, ...animalTraces].find((entry) => entry.id === id)!;
+  const item = [...letterTraces, ...lowercaseTraces, ...animalTraces].find(
+    (entry) => entry.id === id,
+  )!;
   const canvas = page.getByLabel(
     `Tracing canvas for ${item.name}. Follow the purple starting dot.`,
     { exact: true },

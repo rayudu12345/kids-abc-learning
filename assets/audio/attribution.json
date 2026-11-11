@@ -1,0 +1,822 @@
+[
+  {
+    "id": "letter-A",
+    "file": "letter-A.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-a.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/5/52/En-us-a.ogg",
+    "artist": "No machine-readable author provided. Xnux assumed (based on copyright claims).",
+    "license": "Public domain",
+    "licenseUrl": "",
+    "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS. No change in speaking speed."
+  },
+  {
+    "id": "letter-B",
+    "file": "letter-B.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-b.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/9/93/En-us-b.ogg",
+    "artist": "Twocs",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS. No change in speaking speed."
+  },
+  {
+    "id": "letter-C",
+    "file": "letter-C.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-c.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/5/5c/En-us-c.ogg",
+    "artist": "Twocs",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS. No change in speaking speed."
+  },
+  {
+    "id": "letter-D",
+    "file": "letter-D.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-d.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/8/80/En-us-d.ogg",
+    "artist": "Twocs",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS. No change in speaking speed."
+  },
+  {
+    "id": "letter-E",
+    "file": "letter-E.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-e.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/1/18/En-us-e.ogg",
+    "artist": "Logictheo",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS. No change in speaking speed."
+  },
+  {
+    "id": "letter-F",
+    "file": "letter-F.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-f.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/7/71/En-us-f.ogg",
+    "artist": "Twocs",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS. No change in speaking speed."
+  },
+  {
+    "id": "letter-G",
+    "file": "letter-G.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-g.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/0/06/En-us-g.ogg",
+    "artist": "Twocs",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS. No change in speaking speed."
+  },
+  {
+    "id": "letter-H",
+    "file": "letter-H.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-h.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/d/d1/En-us-h.ogg",
+    "artist": "Twocs",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS. No change in speaking speed."
+  },
+  {
+    "id": "letter-I",
+    "file": "letter-I.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-i.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/d/de/En-us-i.ogg",
+    "artist": "Geoff Sebastian (Geoff Sebastian)",
+    "license": "Public domain",
+    "licenseUrl": "",
+    "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS. No change in speaking speed."
+  },
+  {
+    "id": "letter-J",
+    "file": "letter-J.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-j.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/7/7e/En-us-j.ogg",
+    "artist": "Dvortygirl",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS. No change in speaking speed."
+  },
+  {
+    "id": "letter-K",
+    "file": "letter-K.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-k.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/8/8d/En-us-k.ogg",
+    "artist": "Neskaya",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS. No change in speaking speed."
+  },
+  {
+    "id": "letter-L",
+    "file": "letter-L.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-L.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/9/95/En-us-L.ogg",
+    "artist": "Twocs",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS. No change in speaking speed."
+  },
+  {
+    "id": "letter-M",
+    "file": "letter-M.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-m.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/4/44/En-us-m.ogg",
+    "artist": "Twocs",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS. No change in speaking speed."
+  },
+  {
+    "id": "letter-N",
+    "file": "letter-N.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-n.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/7/71/En-us-n.ogg",
+    "artist": "Dvortygirl",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS. No change in speaking speed."
+  },
+  {
+    "id": "letter-O",
+    "file": "letter-O.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-o.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/7/7d/En-us-o.ogg",
+    "artist": "Twocs",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS. No change in speaking speed."
+  },
+  {
+    "id": "letter-P",
+    "file": "letter-P.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-p.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/7/79/En-us-p.ogg",
+    "artist": "Dvortygirl",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS. No change in speaking speed."
+  },
+  {
+    "id": "letter-Q",
+    "file": "letter-Q.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-q.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/6/6f/En-us-q.ogg",
+    "artist": "Twocs",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS. No change in speaking speed."
+  },
+  {
+    "id": "letter-R",
+    "file": "letter-R.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-r.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/7/75/En-us-r.ogg",
+    "artist": "Logictheo",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS. No change in speaking speed."
+  },
+  {
+    "id": "letter-S",
+    "file": "letter-S.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-s.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/5/54/En-us-s.ogg",
+    "artist": "Twocs",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS. No change in speaking speed."
+  },
+  {
+    "id": "letter-T",
+    "file": "letter-T.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-t.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/8/8d/En-us-t.ogg",
+    "artist": "Twocs",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS. No change in speaking speed."
+  },
+  {
+    "id": "letter-U",
+    "file": "letter-U.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-u.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/9/9d/En-us-u.ogg",
+    "artist": "Twocs",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS. No change in speaking speed."
+  },
+  {
+    "id": "letter-V",
+    "file": "letter-V.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-v.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/3/3a/En-us-v.ogg",
+    "artist": "Twocs",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS. No change in speaking speed."
+  },
+  {
+    "id": "letter-W",
+    "file": "letter-W.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-w.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/4/4b/En-us-w.ogg",
+    "artist": "Twocs",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS. No change in speaking speed."
+  },
+  {
+    "id": "letter-X",
+    "file": "letter-X.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-x.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/4/4d/En-us-x.ogg",
+    "artist": "Twocs",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS. No change in speaking speed."
+  },
+  {
+    "id": "letter-Y",
+    "file": "letter-Y.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-y.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/d/dd/En-us-y.ogg",
+    "artist": "Twocs",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS. No change in speaking speed."
+  },
+  {
+    "id": "letter-Z",
+    "file": "letter-Z.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-z.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/0/0f/En-us-z.ogg",
+    "artist": "Dvortygirl",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS. No change in speaking speed."
+  },
+  {
+    "id": "monkey",
+    "file": "monkey.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-monkey.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/7/74/En-us-monkey.ogg",
+    "artist": "Dvortygirl",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS. No change in speaking speed."
+  },
+  {
+    "id": "snake",
+    "file": "snake.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-snake.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/d/d7/En-us-snake.ogg",
+    "artist": "Dvortygirl",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS. No change in speaking speed."
+  },
+  {
+    "id": "vulture",
+    "file": "vulture.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-vulture.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/d/df/En-us-vulture.ogg",
+    "artist": "Dvortygirl",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS. No change in speaking speed."
+  },
+  {
+    "id": "apple",
+    "file": "apple.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-apple.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/9/9a/En-us-apple.ogg",
+    "artist": "Dvortygirl",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS. No change in speaking speed."
+  },
+  {
+    "id": "ball",
+    "file": "ball.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-ball.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/a/a8/En-us-ball.ogg",
+    "artist": "Dvortygirl",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS. No change in speaking speed."
+  },
+  {
+    "id": "cat",
+    "file": "cat.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-cat.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/4/46/En-us-cat.ogg",
+    "artist": "Dvortygirl",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS. No change in speaking speed."
+  },
+  {
+    "id": "dog",
+    "file": "dog.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-dog.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/0/06/En-us-dog.ogg",
+    "artist": "Dvortygirl",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS. No change in speaking speed."
+  },
+  {
+    "id": "elephant",
+    "file": "elephant.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-elephant.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/f/f2/En-us-elephant.ogg",
+    "artist": "Unknown; see source page",
+    "license": "Public domain",
+    "licenseUrl": "",
+    "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS. No change in speaking speed."
+  },
+  {
+    "id": "fish",
+    "file": "fish.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-fish.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/3/3e/En-us-fish.ogg",
+    "artist": "Unknown; see source page",
+    "license": "Public domain",
+    "licenseUrl": "",
+    "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS. No change in speaking speed."
+  },
+  {
+    "id": "hat",
+    "file": "hat.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-hat.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/8/8b/En-us-hat.ogg",
+    "artist": "Dvortygirl",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS. No change in speaking speed."
+  },
+  {
+    "id": "ice-cream",
+    "file": "ice-cream.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-ice_cream.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/2/28/En-us-ice_cream.ogg",
+    "artist": "Dvortygirl",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS. No change in speaking speed."
+  },
+  {
+    "id": "jelly",
+    "file": "jelly.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-jelly.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/5/5e/En-us-jelly.ogg",
+    "artist": "Dvortygirl",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS. No change in speaking speed."
+  },
+  {
+    "id": "kite",
+    "file": "kite.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-kite.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/6/66/En-us-kite.ogg",
+    "artist": "Mx. Granger",
+    "license": "CC0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS. No change in speaking speed."
+  },
+  {
+    "id": "lion",
+    "file": "lion.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-lion.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/a/aa/En-us-lion.ogg",
+    "artist": "Dvortygirl",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS. No change in speaking speed."
+  },
+  {
+    "id": "mango",
+    "file": "mango.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-mango.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/e/e0/En-us-mango.ogg",
+    "artist": "Sylvanmoon",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS. No change in speaking speed."
+  },
+  {
+    "id": "nest",
+    "file": "nest.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-nest.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/f/f1/En-us-nest.ogg",
+    "artist": "Dvortygirl",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS. No change in speaking speed."
+  },
+  {
+    "id": "parrot",
+    "file": "parrot.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-parrot.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/f/f5/En-us-parrot.ogg",
+    "artist": "Dvortygirl",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS. No change in speaking speed."
+  },
+  {
+    "id": "queen",
+    "file": "queen.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-queen.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/d/d0/En-us-queen.ogg",
+    "artist": "Dvortygirl",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS. No change in speaking speed."
+  },
+  {
+    "id": "rabbit",
+    "file": "rabbit.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-rabbit.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/f/f0/En-us-rabbit.ogg",
+    "artist": "Dvortygirl",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS. No change in speaking speed."
+  },
+  {
+    "id": "sun",
+    "file": "sun.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-Sun.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/4/4b/En-us-Sun.ogg",
+    "artist": "Dvortygirl",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS. No change in speaking speed."
+  },
+  {
+    "id": "train",
+    "file": "train.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-train.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/f/f0/En-us-train.ogg",
+    "artist": "Dvortygirl",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS. No change in speaking speed."
+  },
+  {
+    "id": "umbrella",
+    "file": "umbrella.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-umbrella.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/8/8a/En-us-umbrella.ogg",
+    "artist": "Dvortygirl",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS. No change in speaking speed."
+  },
+  {
+    "id": "van",
+    "file": "van.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-van.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/0/0a/En-us-van.ogg",
+    "artist": "Dvortygirl",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS. No change in speaking speed."
+  },
+  {
+    "id": "watch",
+    "file": "watch.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-watch.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/0/05/En-us-watch.ogg",
+    "artist": "Dvortygirl",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS. No change in speaking speed."
+  },
+  {
+    "id": "yo-yo",
+    "file": "yo-yo.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-yo-yo.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/1/15/En-us-yo-yo.ogg",
+    "artist": "No machine-readable author provided. Dvortygirl assumed (based on copyright claims).",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS. No change in speaking speed."
+  },
+  {
+    "id": "zebra",
+    "file": "zebra.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-zebra.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/4/4e/En-us-zebra.ogg",
+    "artist": "No machine-readable author provided. Dvortygirl assumed (based on copyright claims).",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS. No change in speaking speed."
+  },
+  {
+    "id": "moon",
+    "file": "moon.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-moon.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/7/75/En-us-moon.ogg",
+    "artist": "Dvortygirl",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS. No change in speaking speed."
+  },
+  {
+    "id": "one",
+    "file": "one.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-one.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/1/1f/En-us-one.ogg",
+    "artist": "Dvortygirl",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS. No change in speaking speed."
+  },
+  {
+    "id": "two",
+    "file": "two.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-two.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/4/47/En-us-two.ogg",
+    "artist": "Dvortygirl",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS. No change in speaking speed."
+  },
+  {
+    "id": "three",
+    "file": "three.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-three.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/d/d4/En-us-three.ogg",
+    "artist": "Dvortygirl",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS. No change in speaking speed."
+  },
+  {
+    "id": "four",
+    "file": "four.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-four.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/8/88/En-us-four.ogg",
+    "artist": "Dvortygirl",
+    "license": "Public domain",
+    "licenseUrl": "",
+    "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS. No change in speaking speed."
+  },
+  {
+    "id": "five",
+    "file": "five.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-five.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/c/cf/En-us-five.ogg",
+    "artist": "Dvortygirl",
+    "license": "Public domain",
+    "licenseUrl": "",
+    "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS. No change in speaking speed."
+  },
+  {
+    "id": "six",
+    "file": "six.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-six.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/e/eb/En-us-six.ogg",
+    "artist": "No machine-readable author provided. TheDaveRoss assumed (based on copyright claims).",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS. No change in speaking speed."
+  },
+  {
+    "id": "seven",
+    "file": "seven.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-seven.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/7/77/En-us-seven.ogg",
+    "artist": "Dvortygirl",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS. No change in speaking speed."
+  },
+  {
+    "id": "eight",
+    "file": "eight.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-eight.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/1/16/En-us-eight.ogg",
+    "artist": "recorded by TheDaveRoss",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS. No change in speaking speed."
+  },
+  {
+    "id": "nine",
+    "file": "nine.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-nine.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/9/9b/En-us-nine.ogg",
+    "artist": "No machine-readable author provided. TheDaveRoss assumed (based on copyright claims).",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS. No change in speaking speed."
+  },
+  {
+    "id": "ten",
+    "file": "ten.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-ten.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/4/4c/En-us-ten.ogg",
+    "artist": "No machine-readable author provided. TheDaveRoss assumed (based on copyright claims).",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS. No change in speaking speed."
+  },
+  {
+    "id": "red",
+    "file": "red.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-red.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/c/c9/En-us-red.ogg",
+    "artist": "Dvortygirl",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS. No change in speaking speed."
+  },
+  {
+    "id": "blue",
+    "file": "blue.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-blue.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/8/85/En-us-blue.ogg",
+    "artist": "Dvortygirl",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS. No change in speaking speed."
+  },
+  {
+    "id": "yellow",
+    "file": "yellow.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-yellow.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/8/8b/En-us-yellow.ogg",
+    "artist": "Dvortygirl",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS. No change in speaking speed."
+  },
+  {
+    "id": "green",
+    "file": "green.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-green.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/c/c0/En-us-green.ogg",
+    "artist": "Dvortygirl",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS. No change in speaking speed."
+  },
+  {
+    "id": "purple",
+    "file": "purple.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-purple.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/b/bb/En-us-purple.ogg",
+    "artist": "Dvortygirl",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS. No change in speaking speed."
+  },
+  {
+    "id": "circle",
+    "file": "circle.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-circle.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/3/39/En-us-circle.ogg",
+    "artist": "Dvortygirl",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS. No change in speaking speed."
+  },
+  {
+    "id": "square",
+    "file": "square.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-square.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/7/75/En-us-square.ogg",
+    "artist": "Dvortygirl",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS. No change in speaking speed."
+  },
+  {
+    "id": "triangle",
+    "file": "triangle.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-triangle.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/3/35/En-us-triangle.ogg",
+    "artist": "Dvortygirl",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS. No change in speaking speed."
+  },
+  {
+    "id": "rectangle",
+    "file": "rectangle.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-rectangle.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/a/a3/En-us-rectangle.ogg",
+    "artist": "Dvortygirl",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS. No change in speaking speed."
+  },
+  {
+    "id": "star",
+    "file": "star.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-star.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/a/a6/En-us-star.ogg",
+    "artist": "No machine-readable author provided. Dvortygirl assumed (based on copyright claims).",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS. No change in speaking speed."
+  },
+  {
+    "id": "listen",
+    "file": "listen.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-listen.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/b/b2/En-us-listen.ogg",
+    "artist": "Dvortygirl",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS. No change in speaking speed."
+  },
+  {
+    "id": "find",
+    "file": "find.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-find.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/4/48/En-us-find.ogg",
+    "artist": "Dvortygirl",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS. No change in speaking speed."
+  },
+  {
+    "id": "match",
+    "file": "match.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-match.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/a/ad/En-us-match.ogg",
+    "artist": "Dvortygirl",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS. No change in speaking speed."
+  },
+  {
+    "id": "trace",
+    "file": "trace.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-trace.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/6/62/En-us-trace.ogg",
+    "artist": "Dvortygirl",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS. No change in speaking speed."
+  },
+  {
+    "id": "count",
+    "file": "count.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-count.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/d/d0/En-us-count.ogg",
+    "artist": "Dvortygirl",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS. No change in speaking speed."
+  },
+  {
+    "id": "again",
+    "file": "again.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-again.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/a/ad/En-us-again.ogg",
+    "artist": "Dvortygirl",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS. No change in speaking speed."
+  },
+  {
+    "id": "sound-cat",
+    "file": "sound-cat.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:Meow_of_a_Siamese_cat_-_freemaster2.wav",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/8/81/Meow_of_a_Siamese_cat_-_freemaster2.wav",
+    "artist": "freemaster2",
+    "license": "CC0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS, excerpt limited to 2.5 seconds and reduced in volume."
+  },
+  {
+    "id": "sound-dog",
+    "file": "sound-dog.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:Barking_of_a_dog_2.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/5/58/Barking_of_a_dog_2.ogg",
+    "artist": "Amada44",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS, excerpt limited to 2.5 seconds and reduced in volume."
+  },
+  {
+    "id": "sound-birds",
+    "file": "sound-birds.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:Birds_chirping_in_a_garden.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/2/2f/Birds_chirping_in_a_garden.ogg",
+    "artist": "Akum20",
+    "license": "CC0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS, excerpt limited to 2.5 seconds and reduced in volume."
+  }
+]

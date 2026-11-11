@@ -48,3 +48,11 @@ Animal artwork is bundled in a single atlas. `AnimalArt.tsx` contains its cell o
 ## Extension rules
 
 Keep content separate from activity state. Prefer a shared component when two screens need the same behavior. Keep timing/storage logic outside presentation components. Add a unit test for changed business rules and an integration test for changed user flows. Avoid adding a new state-management or navigation dependency for a single screen.
+
+## Additional learning modules
+
+`screens/` contains recorded audio exploration, introductory phonics, counting, color/shape matching, and progress backup. `data/learningCatalog.ts` supplies validated targets. `countingLogic.ts` prevents duplicate counting; `learningMatchLogic.ts` prevents duplicate target matches. `progressLogic.ts` adds fields without resetting version-1 rewards. Lowercase paths live beside uppercase/animal paths in `traceCatalog.ts`.
+
+`audio/AudioController.ts` serializes ownership of native/web recorded audio and device speech. `audio/speech.ts` is the facade used by all activities. Sources and licenses are in the bundled asset manifest. `AnimalArt.tsx` uses a four-column/eight-row pose atlas for animated scenes.
+
+`backupLogic.ts` validates before preview. `backupFiles.ts` uses native file/share APIs; `.web.ts` uses local upload/download. `ProgressProvider.restoreProgress` persists before replacing memory, and blocks navigation while restoring. See the dedicated backup guide for limits.

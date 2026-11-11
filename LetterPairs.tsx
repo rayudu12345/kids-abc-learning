@@ -5,7 +5,7 @@ import FeedbackMessage from "./components/ui/FeedbackMessage";
 import ActivityToolbar from "./components/ui/ActivityToolbar";
 import React, { useEffect, useRef, useState } from "react";
 import { Pressable, ScrollView, StyleSheet, Text, View, useWindowDimensions } from "react-native";
-import * as Speech from "expo-speech";
+import * as Speech from "./audio/speech";
 import { AnimalArt, AnimatedAnimal } from "./AnimalArt";
 import { choicesFor, newLesson } from "./quizLogic";
 import { useProgress } from "./ProgressStore";

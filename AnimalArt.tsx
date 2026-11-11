@@ -1,6 +1,8 @@
-import React, { useEffect, useRef } from "react";
-import { Animated, Easing, Image, View } from "react-native";
+import { motionRows, frameAtTick } from "./data/animalMotion";
+import React, { useEffect, useRef, useState } from "react";
+import { Animated, AppState, Easing, Image, View } from "react-native";
 const atlas = require("./assets/animal-atlas.png");
+const motionAtlas = require("./assets/animal-motion.png");
 const cells: Record<string, number> = { C: 0, D: 1, E: 2, F: 3, L: 4, P: 5, R: 6, Z: 7 };
 export const animalLetters: Record<string, string> = {
   "🐱": "C",
@@ -54,10 +56,26 @@ export function AnimatedAnimal({
   size?: number;
   animate?: boolean;
 }) {
+  const [frame, setFrame] = useState(0);
+  const [active, setActive] = useState(
+    AppState.currentState !== "background" && AppState.currentState !== "inactive",
+  );
+  useEffect(() => {
+    const subscription = AppState.addEventListener("change", (state) =>
+      setActive(state === "active"),
+    );
+    return () => subscription.remove();
+  }, []);
+  useEffect(() => {
+    setFrame(0);
+    if (!animate || !active) return;
+    const timer = setInterval(() => setFrame((value) => frameAtTick(value + 1)), 190);
+    return () => clearInterval(timer);
+  }, [letter, animate, active]);
   const progress = useRef(new Animated.Value(0)).current;
   useEffect(() => {
     progress.setValue(0);
-    if (!animate) return;
+    if (!animate || !active) return;
     const loop = Animated.loop(
       Animated.timing(progress, {
         toValue: 1,
@@ -68,7 +86,7 @@ export function AnimatedAnimal({
     );
     loop.start();
     return () => loop.stop();
-  }, [letter, animate, progress]);
+  }, [letter, animate, active, progress]);
   const hop =
     letter === "R"
       ? -size * 0.09
@@ -102,7 +120,29 @@ export function AnimatedAnimal({
         ],
       }}
     >
-      <AnimalArt letter={letter} size={size} />
+      {motionRows[letter] !== undefined ? (
+        <View
+          pointerEvents="none"
+          testID="animal-motion-frame"
+          accessibilityValue={{ now: frame, min: 0, max: 3 }}
+          style={{ width: size, height: size, overflow: "hidden" }}
+        >
+          <Image
+            source={motionAtlas}
+            accessible={false}
+            fadeDuration={0}
+            style={{
+              position: "absolute",
+              width: size * 4,
+              height: size * 8,
+              left: -frame * size,
+              top: -motionRows[letter] * size,
+            }}
+          />
+        </View>
+      ) : (
+        <AnimalArt letter={letter} size={size} />
+      )}
     </Animated.View>
   );
 }

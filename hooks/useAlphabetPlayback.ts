@@ -1,8 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import { Animated } from "react-native";
-import * as Speech from "expo-speech";
+import * as Speech from "../audio/speech";
 import { alphabet } from "../LetterScene";
 export default function useAlphabetPlayback() {
+  const [muted, setMuted] = useState(false);
+  const toggleSound = () => {
+    void Speech.stop();
+    setMuted((value) => !value);
+  };
   const [activeLetter, setActiveLetter] = useState<string | null>(null);
   const [sceneVersion, setSceneVersion] = useState(0);
   const cardBounce = useRef(new Animated.Value(1)).current;
@@ -38,11 +43,21 @@ export default function useAlphabetPlayback() {
     ]).start();
     Speech.stop();
     const sound = letter === "C" ? " Meow!" : letter === "L" ? " A soft roar!" : "";
-    Speech.speak(`${letter}! ${letter} is for ${word}!${sound}`, {
-      language: "en-US",
-      rate: 0.78,
-      pitch: 1.08,
-    });
+    if (!muted)
+      Speech.speak(`${letter}! ${letter} is for ${word}!${sound}`, {
+        language: "en-US",
+        rate: 0.78,
+        pitch: 1.08,
+      });
   };
-  return { activeLetter, activeItem, sceneVersion, cardBounce, heroScale, playLetter };
+  return {
+    activeLetter,
+    activeItem,
+    sceneVersion,
+    cardBounce,
+    heroScale,
+    playLetter,
+    muted,
+    toggleSound,
+  };
 }

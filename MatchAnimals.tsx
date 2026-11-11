@@ -4,7 +4,7 @@ import ActivityToolbar from "./components/ui/ActivityToolbar";
 import { AnimalArt } from "./AnimalArt";
 import React, { useEffect, useRef, useState } from "react";
 import { Pressable, ScrollView, StyleSheet, Text, View, useWindowDimensions } from "react-native";
-import * as Speech from "expo-speech";
+import * as Speech from "./audio/speech";
 import { useProgress } from "./ProgressStore";
 import { Animal, animals, shuffle } from "./quizLogic";
 

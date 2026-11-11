@@ -55,3 +55,9 @@ Before release, use a physical Android phone and the target Samsung tablet. Test
 ## CI
 
 `.github/workflows/ci.yml` runs install-from-lockfile, formatting, TypeScript, unit tests, Expo dependency compatibility, browser integration tests, and Android bundling. Browser artifacts are uploaded when the job fails. Passing locally does not imply the remote workflow has completed; inspect the Actions run for the release commit.
+
+## Six-feature expansion
+
+Additional unit suites cover audio cancellation/races, asset licenses, lowercase geometry/rewards, counting deduplication/choices, color/shape matching, and strict backup validation/migration. Additional browser tests cover actual recording play requests, changing sprite frames, phonics progression, lowercase persistence, counting gates, drag/tap color and shape matching, backup downloads, invalid files, preview/cancel, failed restore, and successful reload after restoration.
+
+Physical-device tests remain necessary for sound quality, offline TTS voices, native file picker/share destinations, installed-APK cold launches, and native gesture behavior. An exported backup is durable only after the user saves it outside the app.

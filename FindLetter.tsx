@@ -14,7 +14,7 @@ import {
   View,
   useWindowDimensions,
 } from "react-native";
-import * as Speech from "expo-speech";
+import * as Speech from "./audio/speech";
 import { useProgress } from "./ProgressStore";
 import LetterScene from "./LetterScene";
 import { choicesFor, newLesson } from "./quizLogic";

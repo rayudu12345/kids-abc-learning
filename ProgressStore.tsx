@@ -1,3 +1,5 @@
+import { addLearningReward } from "./progressLogic";
+import { LearningActivity } from "./data/learningCatalog";
 import React, { createContext, useCallback, useContext, useEffect, useRef, useState } from "react";
 import { Text, View } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -9,7 +11,10 @@ type Store = {
   progress: Progress;
   saveError: boolean;
   recordAnswer: (letter: string, activity: Activity, completed: boolean) => void;
-  recordTracing: (id: string, kind: "letter" | "animal") => void;
+  recordTracing: (id: string, kind: "letter" | "lowercase" | "animal") => void;
+  recordLearning: (activity: LearningActivity, id: string, finished: boolean) => void;
+  restoreProgress: (progress: Progress) => Promise<void>;
+  restoring: boolean;
   retrySave: () => void;
 };
 const Context = createContext<Store | null>(null);
@@ -18,6 +23,8 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
   const current = useRef(progress);
   const [ready, setReady] = useState(false);
   const [saveError, setSaveError] = useState(false);
+  const [restoring, setRestoring] = useState(false);
+  const restoreLock = useRef(false);
   const persistence = useRef(createProgressPersistence(AsyncStorage)).current;
   const [loadError, setLoadError] = useState(false);
   const [loadAttempt, setLoadAttempt] = useState(0);
@@ -62,13 +69,39 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
     [save],
   );
   const recordTracing = useCallback(
-    (id: string, kind: "letter" | "animal") => {
+    (id: string, kind: "letter" | "lowercase" | "animal") => {
       const next = addTracingReward(current.current, id, kind);
       current.current = next;
       setProgress(next);
       save(next);
     },
     [save],
+  );
+  const recordLearning = useCallback(
+    (activity: LearningActivity, id: string, finished: boolean) => {
+      const next = addLearningReward(current.current, activity, id, finished);
+      current.current = next;
+      setProgress(next);
+      save(next);
+    },
+    [save],
+  );
+  const restoreProgress = useCallback(
+    async (next: Progress) => {
+      if (restoreLock.current) throw new Error("A restore is already in progress.");
+      restoreLock.current = true;
+      setRestoring(true);
+      try {
+        await persistence.save(next);
+        current.current = next;
+        setProgress(next);
+        setSaveError(false);
+      } finally {
+        restoreLock.current = false;
+        setRestoring(false);
+      }
+    },
+    [persistence],
   );
   const retrySave = useCallback(() => save(current.current), [save]);
   if (!ready)
@@ -108,7 +141,18 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
       </View>
     );
   return (
-    <Context.Provider value={{ progress, saveError, recordAnswer, recordTracing, retrySave }}>
+    <Context.Provider
+      value={{
+        progress,
+        saveError,
+        recordAnswer,
+        recordTracing,
+        recordLearning,
+        restoreProgress,
+        restoring,
+        retrySave,
+      }}
+    >
       {children}
     </Context.Provider>
   );

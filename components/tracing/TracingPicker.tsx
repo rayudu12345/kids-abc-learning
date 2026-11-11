@@ -9,7 +9,7 @@ export default function TracingPicker({
   completed,
   onSelect,
 }: {
-  mode: "letter" | "animal";
+  mode: "letter" | "lowercase" | "animal";
   items: TraceItem[];
   index: number;
   completed: string[];
@@ -18,7 +18,7 @@ export default function TracingPicker({
   const { width } = useWindowDimensions();
   return (
     <>
-      <Text style={styles.section}>🎨 Choose any {mode === "letter" ? "letter" : "animal"}</Text>
+      <Text style={styles.section}>🎨 Choose any {mode !== "animal" ? "letter" : "animal"}</Text>
       <View style={styles.grid}>
         {items.map((entry, i) => (
           <Pressable
@@ -32,7 +32,7 @@ export default function TracingPicker({
               {
                 backgroundColor: colors[i % colors.length],
                 borderColor: i === index ? inks[i % inks.length] : "transparent",
-                width: mode === "letter" ? (width >= 600 ? "11%" : "18%") : "43%",
+                width: mode !== "animal" ? (width >= 600 ? "11%" : "18%") : "43%",
               },
             ]}
           >

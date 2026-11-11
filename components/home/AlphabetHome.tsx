@@ -3,6 +3,7 @@ import { ScrollView, StyleSheet, Text, View, useWindowDimensions } from "react-n
 import { Screen } from "../../SideMenu";
 import LetterScene from "../../LetterScene";
 import useAlphabetPlayback from "../../hooks/useAlphabetPlayback";
+import ActionButton from "../ui/ActionButton";
 import SceneModal from "../ui/SceneModal";
 import ActivityShortcuts from "./ActivityShortcuts";
 import AlphabetGrid from "./AlphabetGrid";
@@ -19,6 +20,17 @@ export default function AlphabetHome({ onNavigate }: { onNavigate: (screen: Scre
           <Text style={styles.eyebrow}>LET'S LEARN TOGETHER</Text>
           <Text style={styles.title}>Kids ABC Learning 🌈</Text>
           <Text style={styles.subtitle}>Tap a letter to start its mini animation!</Text>
+        </View>
+        <View style={{ alignItems: "center" }}>
+          <ActionButton
+            accessibilityRole="switch"
+            accessibilityLabel="Alphabet sound"
+            accessibilityState={{ checked: !playback.muted }}
+            aria-checked={!playback.muted}
+            onPress={playback.toggleSound}
+          >
+            {playback.muted ? "🔇 Sound off" : "🔊 Sound on"}
+          </ActionButton>
         </View>
         <ActivityShortcuts onNavigate={onNavigate} />
         <AlphabetHero

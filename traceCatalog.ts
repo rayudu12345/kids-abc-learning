@@ -2,7 +2,7 @@ export type Point = { x: number; y: number };
 export type TraceItem = {
   id: string;
   name: string;
-  kind: "letter" | "animal";
+  kind: "letter" | "lowercase" | "animal";
   icon: string;
   paths: Point[][];
   features?: Point[];
@@ -91,6 +91,64 @@ const roundPoints = (cx: number, cy: number, radii: number[], count: number): Po
     const r = radii[i % radii.length];
     return { x: cx + Math.cos(a) * r, y: cy + Math.sin(a) * r };
   });
+
+const lowercasePaths: Record<string, Point[][]> = {
+  a: [ellipseArc(140, 170, 60, 60, 0, 360), points(200, 110, 200, 230)],
+  b: [points(80, 50, 80, 230), ellipseArc(140, 170, 60, 60, 180, 540)],
+  c: [ellipseArc(150, 175, 65, 60, -45, -315)],
+  d: [ellipseArc(130, 170, 60, 60, 0, 360), points(190, 50, 190, 230)],
+  e: [[...points(85, 175, 215, 175), ...ellipseArc(150, 175, 65, 60, 0, -315)]],
+  f: [
+    [...points(120, 230, 120, 90), ...ellipseArc(145, 90, 25, 40, 180, 360)],
+    points(90, 130, 175, 130),
+  ],
+  g: [
+    ellipseArc(140, 165, 60, 55, 0, 360),
+    [...points(200, 110, 200, 240), ...ellipseArc(160, 240, 40, 30, 0, 180)],
+  ],
+  h: [points(80, 50, 80, 230), [...ellipseArc(135, 170, 55, 55, 180, 360), ...points(190, 230)]],
+  i: [points(150, 130, 150, 230), ellipseArc(150, 85, 4, 4, 0, 360)],
+  j: [
+    [...points(170, 130, 170, 240), ...ellipseArc(130, 240, 40, 30, 0, 180)],
+    ellipseArc(170, 85, 4, 4, 0, 360),
+  ],
+  k: [points(80, 50, 80, 230), points(195, 115, 80, 175, 205, 230)],
+  l: [points(150, 50, 150, 230)],
+  m: [
+    points(60, 120, 60, 230),
+    [...ellipseArc(95, 170, 35, 55, 180, 360), ...points(130, 230)],
+    [...ellipseArc(165, 170, 35, 55, 180, 360), ...points(200, 230)],
+  ],
+  n: [points(80, 120, 80, 230), [...ellipseArc(135, 170, 55, 55, 180, 360), ...points(190, 230)]],
+  o: [ellipseArc(150, 175, 65, 60, -90, 270)],
+  p: [points(80, 115, 80, 270), ellipseArc(140, 175, 60, 60, 180, 540)],
+  q: [ellipseArc(140, 175, 60, 60, 0, 360), points(200, 115, 200, 270)],
+  r: [points(100, 125, 100, 230), ellipseArc(145, 170, 45, 50, 180, 300)],
+  s: [[...ellipseArc(155, 145, 55, 35, -35, -270), ...ellipseArc(155, 215, 55, 35, -90, 145)]],
+  t: [
+    [...points(150, 65, 150, 210), ...ellipseArc(175, 210, 25, 25, 180, 0)],
+    points(100, 125, 200, 125),
+  ],
+  u: [
+    [...points(80, 120, 80, 190), ...ellipseArc(135, 190, 55, 40, 180, 0)],
+    points(190, 120, 190, 230),
+  ],
+  v: [points(80, 120, 150, 230, 220, 120)],
+  w: [points(45, 120, 90, 230, 150, 155, 210, 230, 255, 120)],
+  x: [points(90, 120, 210, 230), points(210, 120, 90, 230)],
+  y: [points(80, 120, 150, 225, 220, 120), points(220, 120, 150, 255, 115, 270)],
+  z: [points(90, 120, 210, 120, 90, 230, 210, 230)],
+};
+export const lowercaseTraces: TraceItem[] = "abcdefghijklmnopqrstuvwxyz"
+  .split("")
+  .map((letter) => ({
+    id: letter,
+    name: letter,
+    kind: "lowercase",
+    icon: letter,
+    paths: lowercasePaths[letter],
+  }));
+
 export const animalTraces: TraceItem[] = [
   {
     id: "cat",

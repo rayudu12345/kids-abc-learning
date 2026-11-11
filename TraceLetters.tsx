@@ -14,16 +14,16 @@ import {
   View,
   useWindowDimensions,
 } from "react-native";
-import * as Speech from "expo-speech";
+import * as Speech from "./audio/speech";
 import { advanceTrace } from "./tracingLogic";
-import { Point, animalTraces, letterTraces, sampledStrokes } from "./traceCatalog";
+import { Point, animalTraces, letterTraces, lowercaseTraces, sampledStrokes } from "./traceCatalog";
 import { useProgress } from "./ProgressStore";
 export default function TraceLetters({
   onExit,
   initialMode = "letter",
 }: {
   onExit: () => void;
-  initialMode?: "letter" | "animal";
+  initialMode?: "letter" | "lowercase" | "animal";
 }) {
   const { width, height } = useWindowDimensions();
   const { progress, recordTracing, saveError } = useProgress();
@@ -39,7 +39,8 @@ export default function TraceLetters({
   const [drawing, setDrawing] = useState(false);
   const [revision, setRevision] = useState(0);
   const [hint, setHint] = useState("Start at the purple dot and follow the colorful path.");
-  const items = mode === "letter" ? letterTraces : animalTraces;
+  const items =
+    mode === "letter" ? letterTraces : mode === "lowercase" ? lowercaseTraces : animalTraces;
   const item = items[index];
   const article = /^[aeiou]/i.test(item.name) ? "an" : "a";
   const strokes = useMemo(() => sampledStrokes(item), [item]);
@@ -140,7 +141,12 @@ export default function TraceLetters({
       setVisited(0);
     }
   };
-  const completed = item.kind === "letter" ? progress.tracedLetters : progress.tracedAnimals;
+  const completed =
+    item.kind === "letter"
+      ? progress.tracedLetters
+      : item.kind === "lowercase"
+        ? progress.tracedLowercase
+        : progress.tracedAnimals;
   const percent = Math.round(
     ((strokes.slice(0, stroke).reduce((sum, points) => sum + points.length, 0) + visited) /
       strokes.reduce((sum, points) => sum + points.length, 0)) *
@@ -159,7 +165,7 @@ export default function TraceLetters({
       />
       <Text style={styles.title}>🌈 Trace and discover!</Text>
       <View style={styles.tabs}>
-        {(["letter", "animal"] as const).map((tab) => (
+        {(["letter", "lowercase", "animal"] as const).map((tab) => (
           <Pressable
             key={tab}
             accessibilityRole="button"
@@ -172,17 +178,26 @@ export default function TraceLetters({
             ]}
           >
             <Text style={styles.buttonText}>
-              {tab === "letter" ? "🔤 Letters A–Z" : "🐾 Animals"}
+              {tab === "letter"
+                ? "🔤 Letters A–Z"
+                : tab === "lowercase"
+                  ? "✍️ Lowercase a–z"
+                  : "🐾 Animals"}
             </Text>
           </Pressable>
         ))}
       </View>
+      {mode === "lowercase" && (
+        <Text style={styles.subtitle}>
+          Simple handwriting forms, including single-storey a and g.
+        </Text>
+      )}
       {finished ? (
         <>
           <Text style={styles.bigStars}>⭐ 🎉 ⭐</Text>
           <Text style={styles.message}>Lovely tracing! Explore more or take a little break.</Text>
           <Text style={styles.subtitle}>
-            {completed.length} of {items.length} {mode === "letter" ? "letters" : "animals"} traced
+            {completed.length} of {items.length} {mode !== "animal" ? "letters" : "animals"} traced
             and saved
           </Text>
           <Pressable accessibilityRole="button" onPress={() => select(0)} style={styles.primary}>
@@ -201,7 +216,7 @@ export default function TraceLetters({
       ) : (
         <>
           <Text style={[styles.itemTitle, { color: inks[index % inks.length] }]}>
-            {mode === "letter"
+            {mode !== "animal"
               ? `Let's trace ${item.name}`
               : `${item.icon} Let's draw ${article} ${item.name.toLowerCase()}!`}
           </Text>

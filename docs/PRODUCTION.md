@@ -61,7 +61,7 @@ This produces an Android App Bundle (AAB) for store distribution, not a directly
 
 On the target Samsung tablet and an Android phone:
 
-- Open all eight menu destinations; close the menu using its close button, backdrop, and Android back.
+- Open all 14 menu destinations; close the menu using its close button, backdrop, and Android back.
 - Use Android back from an activity to return to the alphabet screen.
 - Complete a five-question letter adventure and try a wrong answer. Rewards must be granted once per correct response.
 - Try both drag-and-drop and tap matching. Check targets after scrolling.
@@ -76,7 +76,7 @@ Record the tested device model, Android version, app version, build identifier, 
 
 Pictures, outline coordinates, vocabulary, and game logic are bundled. Progress uses local device storage and does not require an account or network.
 
-Speech uses the device's English text-to-speech voice. Download an offline English voice in Android's text-to-speech settings; exact menu names vary by Samsung/Android version. Test an installed APK by turning on airplane mode, closing it completely, and reopening it. Check pronunciation and activities. Expo Go's development connection is not the offline production experience.
+82 human recordings are bundled. Longer prompts and unavailable examples use the device's English text-to-speech voice. See [Audio and assets](AUDIO_AND_ASSETS.md) for exact gaps. Download an offline English voice in Android's text-to-speech settings; exact menu names vary by Samsung/Android version. Test an installed APK by turning on airplane mode, closing it completely, and reopening it. Check pronunciation and activities. Expo Go's development connection is not the offline production experience.
 
 ## Data protection and recovery
 
@@ -84,7 +84,7 @@ Storage key: `@kids-abc/progress/v1`. The app keeps stars, unique animal sticker
 
 A read failure blocks gameplay writes and offers a retry, preventing unread old rewards from being replaced. If opening keeps failing, preserve/export device data through an authorized diagnostic process before clearing anything. A newer unsupported format or corrupt data requires investigation; the app does not silently reset it.
 
-A write failure keeps the latest rewards in memory and offers **Try saving again** in the sticker book. Retry before force-closing if possible. There is no cloud backup or cross-device synchronization. Uninstalling or clearing app data removes progress; do not recommend either as a routine update step.
+A write failure keeps the latest rewards in memory and offers **Try saving again** in the sticker book. Retry before force-closing if possible. Local JSON backup/restore is available through **Progress backup**; see [Backup and restore](BACKUP_AND_RESTORE.md). There is no automatic cloud backup or synchronization. Uninstalling or clearing app data removes progress; do not recommend either as a routine update step.
 
 ## Troubleshooting
 
@@ -97,6 +97,17 @@ A write failure keeps the latest rewards in memory and offers **Try saving again
 | Build fails after dependency changes | Run `npx expo install --check` and resolve compatibility. Commit the updated lockfile with intentional dependency changes.                                          |
 | Regression in a release              | Revert the faulty code, build a new signed artifact with a higher version code, and test the update path. Avoid downgrading in a way that loses current local data. |
 
+## New-feature release checks
+
+- Play recorded letter/word clips, cat/dog/bird sounds, and fallback guidance with Wi-Fi disabled. Confirm readable Recording/Device voice labels and appropriate volume.
+- Switch activities rapidly and background the app while audio plays. No old speech or clip should continue over the next activity.
+- Practice the six initial sounds, keeping letter names separate. Have an early-literacy adult review pronunciation; isolated phoneme recordings are not bundled.
+- Trace lowercase letters with ascenders/descenders and single-storey handwriting a/g. Confirm uppercase rewards remain unchanged.
+- Count animals once each for several totals, including 10. Wrong choices must not deduct rewards or grant duplicate stars.
+- Match colors and shapes by dragging and tapping; names/symbols must remain usable without relying on color alone.
+- Export to Files, verify the file, preview/cancel a restore, and restore on another installed build. Reject invalid/oversized files. Test a write failure where practical.
+- Check that four-pose animal motion pauses in the background and that the new PNG/MP3 assets are present in the installed APK.
+
 ## Current product limits
 
-Parental controls remain deferred. Recorded pronunciation/animal audio and dedicated phonics recordings are not implemented; speech is synthesized. Some illustrations use emojis or simplified shapes, and animal artwork uses 2D motion rather than full 3D animation. The app is portrait-oriented and English-only. Local progress is not synchronized across devices.
+Parental controls remain deferred. Phonics currently uses full-word recordings to demonstrate initial sounds; dedicated isolated phoneme clips are not bundled. Some words and longer guidance still need an offline English device voice. See [audio scope and attribution](AUDIO_AND_ASSETS.md). Eight animals have realistic-style four-pose 2D animation, not live footage or full 3D simulation. Other illustrations use emojis or simplified shapes. The app remains portrait-oriented and English-only. Backup is a manual local-file operation, not automatic cloud synchronization.

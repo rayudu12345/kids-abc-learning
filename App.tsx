@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { BackHandler, SafeAreaView, StyleSheet } from "react-native";
-import * as Speech from "expo-speech";
-import { ProgressProvider } from "./ProgressStore";
+import { AppState, BackHandler, SafeAreaView, StyleSheet } from "react-native";
+import * as Speech from "./audio/speech";
+import { ProgressProvider, useProgress } from "./ProgressStore";
 import SideMenu, { activities, Screen } from "./SideMenu";
 import ErrorBoundary from "./components/ErrorBoundary";
 import AppHeader from "./components/ui/AppHeader";
@@ -16,13 +16,24 @@ export default function App() {
   );
 }
 function LearningApp() {
+  const { restoring } = useProgress();
   const [screen, setScreen] = useState<Screen>("home");
   const [menuOpen, setMenuOpen] = useState(false);
-  const navigate = useCallback((next: Screen) => {
-    Speech.stop();
-    setMenuOpen(false);
-    setScreen(next);
+  useEffect(() => {
+    const subscription = AppState.addEventListener("change", (state) => {
+      if (state !== "active") void Speech.stop();
+    });
+    return () => subscription.remove();
   }, []);
+  const navigate = useCallback(
+    (next: Screen) => {
+      if (restoring) return;
+      Speech.stop();
+      setMenuOpen(false);
+      setScreen(next);
+    },
+    [restoring],
+  );
   useEffect(() => {
     const subscription = BackHandler.addEventListener("hardwareBackPress", () => {
       if (screen === "home") return false;
@@ -38,7 +49,9 @@ function LearningApp() {
     <SafeAreaView style={styles.page}>
       <AppHeader
         title={activities.find((activity) => activity.id === screen)?.title ?? "Kids ABC Learning"}
-        onOpenMenu={() => setMenuOpen(true)}
+        onOpenMenu={() => {
+          if (!restoring) setMenuOpen(true);
+        }}
       />
       <ActivityRouter screen={screen} onNavigate={navigate} />
       <SideMenu

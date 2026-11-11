@@ -88,6 +88,34 @@ export default function StickerBook({ onExit }: { onExit: () => void }) {
         ))}
       </View>
       <Text style={styles.subtitle}>Completed tracings: {progress.completed.tracing}</Text>
+      <Text style={styles.subtitle}>Lowercase traced: {progress.tracedLowercase.length} / 26</Text>
+      <View style={styles.grid}>
+        {"abcdefghijklmnopqrstuvwxyz".split("").map((letter) => (
+          <Text
+            key={letter}
+            accessibilityLabel={`${letter}${progress.tracedLowercase.includes(letter) ? " lowercase traced" : " waiting to trace"}`}
+            style={{
+              fontSize: 25,
+              fontWeight: "900",
+              padding: 10,
+              borderRadius: 12,
+              backgroundColor: progress.tracedLowercase.includes(letter) ? "#C6F1DF" : "#EEEAF3",
+              color: "#39334D",
+            }}
+          >
+            {letter}
+            {progress.tracedLowercase.includes(letter) ? " ✓" : ""}
+          </Text>
+        ))}
+      </View>
+      <Text style={styles.subtitle}>
+        Initial sounds practiced: {progress.learnedPhonics.length} / 6
+      </Text>
+      <Text style={styles.subtitle}>
+        Numbers practiced: {progress.practicedNumbers.length} / 10
+      </Text>
+      <Text style={styles.subtitle}>Colors practiced: {progress.practicedColors.length} / 6</Text>
+      <Text style={styles.subtitle}>Shapes practiced: {progress.practicedShapes.length} / 6</Text>
       {saveError ? (
         <View>
           <Text accessibilityLiveRegion="polite" style={styles.error}>
