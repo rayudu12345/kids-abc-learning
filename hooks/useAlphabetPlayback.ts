@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { Animated } from "react-native";
 import * as Speech from "../audio/speech";
+import useAnimationEnabled from "./useAnimationEnabled";
 import { alphabet } from "../LetterScene";
 export default function useAlphabetPlayback() {
+  const motion = useAnimationEnabled();
   const [muted, setMuted] = useState(false);
   const toggleSound = () => {
     void Speech.stop();
@@ -21,26 +23,40 @@ export default function useAlphabetPlayback() {
     },
     [cardBounce, heroScale],
   );
+  useEffect(() => {
+    if (motion) return;
+    cardBounce.stopAnimation();
+    heroScale.stopAnimation();
+    cardBounce.setValue(1);
+    heroScale.setValue(1);
+  }, [motion, cardBounce, heroScale]);
   const playLetter = (letter: string, word: string) => {
     setActiveLetter(letter);
     setSceneVersion((version) => version + 1);
-    heroScale.setValue(0.4);
-    Animated.spring(heroScale, {
-      toValue: 1,
-      useNativeDriver: true,
-      speed: 11,
-      bounciness: 14,
-    }).start();
-    cardBounce.setValue(1);
-    Animated.sequence([
-      Animated.spring(cardBounce, {
-        toValue: 1.18,
+    if (motion) {
+      heroScale.setValue(0.4);
+      Animated.spring(heroScale, {
+        toValue: 1,
         useNativeDriver: true,
-        speed: 18,
-        bounciness: 12,
-      }),
-      Animated.spring(cardBounce, { toValue: 1, useNativeDriver: true, speed: 12, bounciness: 8 }),
-    ]).start();
+        speed: 11,
+        bounciness: 14,
+      }).start();
+      cardBounce.setValue(1);
+      Animated.sequence([
+        Animated.spring(cardBounce, {
+          toValue: 1.18,
+          useNativeDriver: true,
+          speed: 18,
+          bounciness: 12,
+        }),
+        Animated.spring(cardBounce, {
+          toValue: 1,
+          useNativeDriver: true,
+          speed: 12,
+          bounciness: 8,
+        }),
+      ]).start();
+    }
     Speech.stop();
     const sound = letter === "C" ? " Meow!" : letter === "L" ? " A soft roar!" : "";
     if (!muted)

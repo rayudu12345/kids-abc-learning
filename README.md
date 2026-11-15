@@ -63,3 +63,5 @@ npm run build:android
 
 - [Audio, licenses, and animation scope](docs/AUDIO_AND_ASSETS.md)
 - [Backup and restore](docs/BACKUP_AND_RESTORE.md)
+
+Alphabet animal scenes use larger detailed artwork for cat, dog, elephant, fish, lion, parrot, rabbit, and zebra, with species-specific pose timing and simple habitats. Animations respect reduced motion and stop in the background.

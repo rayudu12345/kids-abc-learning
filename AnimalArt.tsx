@@ -1,6 +1,7 @@
-import { motionRows, frameAtTick } from "./data/animalMotion";
+import { motionRows, animalMotion, animalPoseAtTick } from "./data/animalMotion";
 import React, { useEffect, useRef, useState } from "react";
-import { Animated, AppState, Easing, Image, View } from "react-native";
+import { Animated, Easing, Image, View } from "react-native";
+import useAnimationEnabled from "./hooks/useAnimationEnabled";
 const atlas = require("./assets/animal-atlas.png");
 const motionAtlas = require("./assets/animal-motion.png");
 const cells: Record<string, number> = { C: 0, D: 1, E: 2, F: 3, L: 4, P: 5, R: 6, Z: 7 };
@@ -57,67 +58,50 @@ export function AnimatedAnimal({
   animate?: boolean;
 }) {
   const [frame, setFrame] = useState(0);
-  const [active, setActive] = useState(
-    AppState.currentState !== "background" && AppState.currentState !== "inactive",
-  );
-  useEffect(() => {
-    const subscription = AppState.addEventListener("change", (state) =>
-      setActive(state === "active"),
-    );
-    return () => subscription.remove();
-  }, []);
+  const active = useAnimationEnabled(animate);
+  const profile = animalMotion[letter];
   useEffect(() => {
     setFrame(0);
-    if (!animate || !active) return;
-    const timer = setInterval(() => setFrame((value) => frameAtTick(value + 1)), 190);
+    if (!active || !profile) return;
+    let tick = 0;
+    const timer = setInterval(() => setFrame(animalPoseAtTick(letter, ++tick)), profile.frameMs);
     return () => clearInterval(timer);
-  }, [letter, animate, active]);
+  }, [letter, active, profile]);
   const progress = useRef(new Animated.Value(0)).current;
   useEffect(() => {
     progress.setValue(0);
-    if (!animate || !active) return;
+    if (!active || !profile) return;
     const loop = Animated.loop(
       Animated.timing(progress, {
         toValue: 1,
-        duration: letter === "R" ? 1700 : 2600,
-        easing: Easing.inOut(Easing.sin),
+        duration: profile.frameMs * profile.poses.length,
+        easing: Easing.linear,
         useNativeDriver: true,
       }),
     );
     loop.start();
     return () => loop.stop();
-  }, [letter, animate, active, progress]);
-  const hop =
-    letter === "R"
-      ? -size * 0.09
-      : letter === "F" || letter === "P"
-        ? -size * 0.045
-        : -size * 0.015;
+  }, [letter, active, profile, progress]);
+  const sample = (values: number[]) =>
+    progress.interpolate({
+      inputRange: values.map((_, index) => index / (values.length - 1)),
+      outputRange: values.map((value) => (value * size) / 180),
+    });
   return (
     <Animated.View
       style={{
-        transform: [
-          {
-            translateY: progress.interpolate({ inputRange: [0, 0.5, 1], outputRange: [0, hop, 0] }),
-          },
-          {
-            rotate: progress.interpolate({
-              inputRange: [0, 0.25, 0.75, 1],
-              outputRange: [
-                "0deg",
-                letter === "C" ? "-4deg" : "-1deg",
-                letter === "C" ? "4deg" : "1deg",
-                "0deg",
-              ],
-            }),
-          },
-          {
-            scaleX: progress.interpolate({
-              inputRange: [0, 0.5, 1],
-              outputRange: [1, letter === "P" ? 0.94 : 1.015, 1],
-            }),
-          },
-        ],
+        transform: profile
+          ? [
+              { translateX: sample(profile.x) },
+              { translateY: sample(profile.y) },
+              {
+                rotate: progress.interpolate({
+                  inputRange: profile.tilt.map((_, index) => index / (profile.tilt.length - 1)),
+                  outputRange: profile.tilt.map((value) => `${value}deg`),
+                }),
+              },
+            ]
+          : [],
       }}
     >
       {motionRows[letter] !== undefined ? (

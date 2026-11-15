@@ -1,4 +1,6 @@
-import { AnimatedAnimal, animalLetters } from "./AnimalArt";
+import AnimalLetterScene from "./components/alphabet/AnimalLetterScene";
+import { animalMotion } from "./data/animalMotion";
+import useAnimationEnabled from "./hooks/useAnimationEnabled";
 import React, { useEffect, useRef } from "react";
 import { Animated, Easing, StyleSheet, Text, View } from "react-native";
 
@@ -32,7 +34,15 @@ export const alphabet = [
 ];
 
 // Each scene owns its timeline, so selecting a new letter stops the old loop.
-export default function LetterScene({
+type SceneProps = { letter: string; width?: number; height?: number };
+export default function LetterScene({ letter, width = 300, height = 200 }: SceneProps) {
+  return animalMotion[letter] ? (
+    <AnimalLetterScene letter={letter} width={width} height={height} />
+  ) : (
+    <ObjectLetterScene letter={letter} width={width} height={height} />
+  );
+}
+function ObjectLetterScene({
   letter,
   width = 300,
   height = 200,
@@ -42,8 +52,11 @@ export default function LetterScene({
   height?: number;
 }) {
   const scale = Math.min(width / 300, height / 200);
+  const active = useAnimationEnabled();
   const progress = useRef(new Animated.Value(0)).current;
   useEffect(() => {
+    progress.setValue(0);
+    if (!active) return;
     const loop = Animated.loop(
       Animated.timing(progress, {
         toValue: 1,
@@ -57,7 +70,7 @@ export default function LetterScene({
       loop.stop();
       progress.stopAnimation();
     };
-  }, [progress]);
+  }, [letter, active, progress]);
   const motion = (values: number[]) =>
     progress.interpolate({
       inputRange: values.map((_, i) => i / (values.length - 1)),
@@ -68,22 +81,15 @@ export default function LetterScene({
       inputRange: values.map((_, i) => i / (values.length - 1)),
       outputRange: values,
     });
-  const sprite = (symbol: string, x = 0, y = 0, size = 65, style: object = {}, key = symbol) =>
-    animalLetters[symbol] ? (
-      <Animated.View
-        key={key}
-        style={[{ position: "absolute", left: 112 + x, top: 17 + y }, style]}
-      >
-        <AnimatedAnimal letter={animalLetters[symbol]} size={size * 1.55} />
-      </Animated.View>
-    ) : (
-      <Animated.Text
-        key={key}
-        style={[styles.sprite, { left: 110 + x, top: 35 + y, fontSize: size }, style]}
-      >
-        {symbol}
-      </Animated.Text>
-    );
+  const sprite = (symbol: string, x = 0, y = 0, size = 65, style: object = {}, key = symbol) => (
+    <Animated.Text
+      key={key}
+      style={[styles.sprite, { left: 110 + x, top: 35 + y, fontSize: size }, style]}
+    >
+      {symbol}
+    </Animated.Text>
+  );
+
   let content: React.ReactNode;
   switch (letter) {
     case "A":
@@ -162,70 +168,12 @@ export default function LetterScene({
         </>
       );
       break;
-    case "C":
-      content = (
-        <>
-          {sprite("🐱")}
-          <Text style={styles.bubble}>Meow! ♡</Text>
-        </>
-      );
-      break;
     case "Q":
       content = (
         <>
           {sprite("👸")}
           {sprite("👋", 55, 5, 37, {
             transform: [{ rotate: turn(["-25deg", "25deg", "-25deg", "25deg", "-25deg"]) }],
-          })}
-        </>
-      );
-      break;
-    case "D":
-      content = sprite("🐶", 0, 0, 72, {
-        transform: [{ rotate: turn(["-3deg", "3deg", "-3deg", "3deg", "-3deg"]) }],
-      });
-      break;
-    case "E":
-      content = (
-        <>
-          {sprite("🐘", -25)}
-          {[0, 1, 2].map((i) =>
-            sprite(
-              "💧",
-              55 + i * 17,
-              -i * 12,
-              24,
-              {
-                opacity: motion([0, 1, 1, 0]),
-                transform: [
-                  { translateX: motion([0, 22, 44]) },
-                  { translateY: motion([0, -20, 30]) },
-                ],
-              },
-              `drop${i}`,
-            ),
-          )}
-        </>
-      );
-      break;
-    case "F":
-      content = (
-        <>
-          {[0, 1, 2, 3].map((i) =>
-            sprite(
-              "🫧",
-              i * 55 - 85,
-              25,
-              28,
-              { opacity: motion([0, 1, 0]), transform: [{ translateY: motion([30, -75]) }] },
-              `bubble${i}`,
-            ),
-          )}
-          {sprite("🐠", 0, 0, 65, {
-            transform: [
-              { translateX: motion([-85, 85, -85]) },
-              { translateY: motion([0, -15, 0]) },
-            ],
           })}
         </>
       );
@@ -300,14 +248,6 @@ export default function LetterScene({
         ],
       });
       break;
-    case "L":
-      content = (
-        <>
-          {sprite("🦁", 0, 0, 70, { transform: [{ scale: motion([1, 1.13, 1, 1.08, 1]) }] })}
-          <Text style={styles.bubble}>Roaaar! ♡</Text>
-        </>
-      );
-      break;
     case "N":
       content = (
         <>
@@ -324,19 +264,6 @@ export default function LetterScene({
           {sprite("🪹", 0, 34, 75)}
         </>
       );
-      break;
-    case "P":
-      content = sprite("🦜", 0, 0, 72, {
-        transform: [{ translateY: motion([0, -12, 0, -12, 0]) }],
-      });
-      break;
-    case "R":
-      content = sprite("🐇", 0, 0, 65, {
-        transform: [
-          { translateX: motion([-80, -40, 0, 40, 80]) },
-          { translateY: motion([15, -30, 15, -30, 15]) },
-        ],
-      });
       break;
     case "S":
       content = (
@@ -419,20 +346,6 @@ export default function LetterScene({
               { rotate: turn(["0deg", "360deg", "0deg"]) },
             ],
           })}
-        </>
-      );
-      break;
-    case "Z":
-      content = (
-        <>
-          {sprite("🦓", 0, 5, 65, {
-            transform: [
-              { translateX: motion([100, -100]) },
-              { translateY: motion([0, -10, 0, -10, 0, -10, 0]) },
-              { rotate: turn(["-4deg", "4deg", "-4deg", "4deg", "-4deg"]) },
-            ],
-          })}
-          <View style={styles.ground} />
         </>
       );
       break;
