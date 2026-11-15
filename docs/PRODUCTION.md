@@ -61,7 +61,7 @@ This produces an Android App Bundle (AAB) for store distribution, not a directly
 
 On the target Samsung tablet and an Android phone:
 
-- Open all 14 menu destinations; close the menu using its close button, backdrop, and Android back.
+- Open all 15 menu destinations; close the menu using its close button, backdrop, and Android back.
 - Use Android back from an activity to return to the alphabet screen.
 - Complete a five-question letter adventure and try a wrong answer. Rewards must be granted once per correct response.
 - Try both drag-and-drop and tap matching. Check targets after scrolling.
@@ -111,3 +111,7 @@ A write failure keeps the latest rewards in memory and offers **Try saving again
 ## Current product limits
 
 Parental controls remain deferred. Phonics currently uses full-word recordings to demonstrate initial sounds; dedicated isolated phoneme clips are not bundled. Some words and longer guidance still need an offline English device voice. See [audio scope and attribution](AUDIO_AND_ASSETS.md). Eight animals have realistic-style four-pose 2D animation, not live footage or full 3D simulation. Other illustrations use emojis or simplified shapes. The app remains portrait-oriented and English-only. Backup is a manual local-file operation, not automatic cloud synchronization.
+
+## Balloon and kite release checks
+
+The side menu includes Balloons and kites. Both original synthesized effects are bundled under `assets/effects`; no network or TTS is needed for this activity. Check pop/chime volume on the target tablet, moving target taps, pause/resume, rotation, rapid taps, app backgrounding and navigation. Session counters intentionally reset on exit and do not alter stars or backups. Rebuild the APK to include new bundled assets.

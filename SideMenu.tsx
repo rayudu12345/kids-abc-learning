@@ -19,6 +19,13 @@ export const activities = [
     color: "#D7F3FF",
   },
   {
+    id: "skyPlay",
+    icon: "🎈",
+    title: "Balloons and kites",
+    detail: "Flying toys, pops and sparkles",
+    color: "#FFE0ED",
+  },
+  {
     id: "find",
     icon: "🔎",
     title: "Find the letter",

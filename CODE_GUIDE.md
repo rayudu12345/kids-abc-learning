@@ -61,3 +61,7 @@ Run `npm run format` after edits, then `npm run check`. Run `npm run test:integr
 - `assets/audio/attribution.json`: recording authors, sources, and licenses; preserve it in releases.
 
 See [audio and assets](docs/AUDIO_AND_ASSETS.md) and [backup and restore](docs/BACKUP_AND_RESTORE.md) before changing these modules.
+
+## Balloon and kite play
+
+`SkyPlay` owns mode, mute/pause and session counters. `FlyingToy`, `SkyArt`, and `PopBurst` keep rendering small; `useFlyingMotion` cleans up and resumes movement. `skyPlayLogic` defines responsive lanes and cycling letter badges. Counts are free-play feedback, not persisted rewards, so existing progress and backups remain compatible. Effects share the global audio controller and stop on navigation/backgrounding.

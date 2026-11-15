@@ -1,3 +1,4 @@
+import { effects } from "./effects";
 import { selectClips } from "./clipSelection";
 import { createAudioPlayer, setAudioModeAsync } from "expo-audio";
 import * as DeviceSpeech from "expo-speech";
@@ -6,7 +7,8 @@ import { recordings } from "./recordings";
 export type SpeechOptions = DeviceSpeech.SpeechOptions;
 let configured = false;
 function startClip(id: string): Playback {
-  if (!(id in recordings)) throw new Error("Recording unavailable");
+  const source = recordings[id] ?? effects[id];
+  if (source === undefined) throw new Error("Audio asset unavailable");
   if (!configured) {
     configured = true;
     void setAudioModeAsync({
@@ -16,8 +18,8 @@ function startClip(id: string): Playback {
       interruptionMode: "doNotMix",
     }).catch(() => {});
   }
-  const player = createAudioPlayer(recordings[id], { updateInterval: 100 });
-  player.volume = id.startsWith("sound-") ? 0.5 : 0.85;
+  const player = createAudioPlayer(source, { updateInterval: 100 });
+  player.volume = id.startsWith("effect-") ? 0.55 : id.startsWith("sound-") ? 0.5 : 0.85;
   let settle: () => void = () => {};
   let finished = false;
   let listener: { remove: () => void } | undefined;
@@ -71,4 +73,8 @@ export function playSequence(ids: string[], fallbackText: string) {
 export function speak(text: string, options: SpeechOptions = {}) {
   const clips = selectClips(text, hasRecording);
   void controller.play(clips, () => DeviceSpeech.speak(text, options));
+}
+
+export function playEffect(name: "pop" | "kite") {
+  void controller.play([`effect-${name}`]);
 }

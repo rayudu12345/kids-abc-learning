@@ -56,3 +56,7 @@ Keep content separate from activity state. Prefer a shared component when two sc
 `audio/AudioController.ts` serializes ownership of native/web recorded audio and device speech. `audio/speech.ts` is the facade used by all activities. Sources and licenses are in the bundled asset manifest. `AnimalArt.tsx` uses a four-column/eight-row pose atlas for animated scenes.
 
 `backupLogic.ts` validates before preview. `backupFiles.ts` uses native file/share APIs; `.web.ts` uses local upload/download. `ProgressProvider.restoreProgress` persists before replacing memory, and blocks navigation while restoring. See the dedicated backup guide for limits.
+
+## Flying toys
+
+`SkyPlay` composes `FlyingToy`, `SkyArt`, and `PopBurst`. `skyPlayLogic` defines responsive lanes and letter cycling; `useFlyingMotion` retains positions when paused and cleans up native animations. Navigation unmounts the session and clears timers/audio. Balloon/kite counts are temporary feedback and do not change persisted progress. Original bundled effects use the shared audio controller alongside recordings.

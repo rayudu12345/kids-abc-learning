@@ -1,4 +1,5 @@
 import React from "react";
+import SkyPlay from "../screens/SkyPlay";
 import ProgressBackup from "../screens/ProgressBackup";
 import ColorsShapes from "../screens/ColorsShapes";
 import Counting from "../screens/Counting";
@@ -21,6 +22,8 @@ export default function ActivityRouter({
 }) {
   const onExit = () => onNavigate("home");
   switch (screen) {
+    case "skyPlay":
+      return <SkyPlay onExit={onExit} />;
     case "backup":
       return <ProgressBackup onExit={onExit} />;
     case "colorsShapes":

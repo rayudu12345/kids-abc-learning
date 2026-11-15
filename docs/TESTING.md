@@ -35,7 +35,7 @@ Randomized content is tested by its invariants, not by expecting a particular ra
 
 `tests/integration/` interacts with the real rendered application. Browser tests verify:
 
-- All eight menu routes and current-activity markers.
+- Core menu routes and current-activity markers, with expansion activities covered by dedicated suites.
 - Sound toggles and full-screen basic/advanced scenes.
 - Wrong/correct letter answers, answer locking, five-question completion, and automatic advancement.
 - Uppercase/lowercase matching.
@@ -61,3 +61,7 @@ Before release, use a physical Android phone and the target Samsung tablet. Test
 Additional unit suites cover audio cancellation/races, asset licenses, lowercase geometry/rewards, counting deduplication/choices, color/shape matching, and strict backup validation/migration. Additional browser tests cover actual recording play requests, changing sprite frames, phonics progression, lowercase persistence, counting gates, drag/tap color and shape matching, backup downloads, invalid files, preview/cancel, failed restore, and successful reload after restoration.
 
 Physical-device tests remain necessary for sound quality, offline TTS voices, native file picker/share destinations, installed-APK cold launches, and native gesture behavior. An exported backup is durable only after the user saves it outside the app.
+
+## Balloon and kite checks
+
+Unit tests cover responsive target lanes, alphabet cycling, and bundled effect presence. Browser integration covers popping, kite taps, effect playback, mute, pause/resume, navigation, and session reset on phone/tablet layouts. On a physical Samsung tablet, verify comfortable pop/chime volume, finger targets while moving/paused, background cleanup, and airplane-mode playback in the installed APK.
