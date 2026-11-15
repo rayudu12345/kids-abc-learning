@@ -20,6 +20,8 @@ An English alphabet-learning app for children, built with React Native, TypeScri
 - **Progress backup:** adult-controlled local JSON export, validated preview, and confirmed restore.
 - **My sticker book:** stars, animal stickers, and tracing progress saved on the device.
 
+Balloon/kite play starts at a gentle speed, offers a playful pace and Start again, and follows the device’s reduce motion setting with still targets and motion-free celebrations. Counts and these controls apply to the current play session.
+
 Every activity is available from the side menu. Parental controls are deferred.
 
 ## Run the app

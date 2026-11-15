@@ -1,17 +1,21 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { AppState, ScrollView, StyleSheet, Text, View, useWindowDimensions } from "react-native";
 import * as Audio from "../audio/speech";
-import { SkyMode, flyingLanes } from "../skyPlayLogic";
+import { SkyMode, FlyingSpeed, flyingLanes } from "../skyPlayLogic";
 import ActivityToolbar from "../components/ui/ActivityToolbar";
 import ActionButton from "../components/ui/ActionButton";
 import FeedbackMessage from "../components/ui/FeedbackMessage";
+import useReducedMotion from "../hooks/useReducedMotion";
 import FlyingToy from "../components/sky/FlyingToy";
 export default function SkyPlay({ onExit }: { onExit: () => void }) {
   const { width, height } = useWindowDimensions();
+  const reducedMotion = useReducedMotion();
+  const [speed, setSpeed] = useState<FlyingSpeed>("gentle");
+  const [session, setSession] = useState(0);
   const [mode, setMode] = useState<SkyMode>("balloons"),
     [muted, setMuted] = useState(false),
     [paused, setPaused] = useState(false),
-    [background, setBackground] = useState(false);
+    [background, setBackground] = useState(AppState.currentState !== "active");
   const [pops, setPops] = useState(0),
     [kites, setKites] = useState(0);
   const stageWidth = Math.max(200, width - 24),
@@ -30,6 +34,12 @@ export default function SkyPlay({ onExit }: { onExit: () => void }) {
   const select = (next: SkyMode) => {
     void Audio.stop();
     setMode(next);
+  };
+  const restart = () => {
+    void Audio.stop();
+    setPops(0);
+    setKites(0);
+    setSession((value) => value + 1);
   };
   const hit = () => {
     if (mode === "balloons") setPops((value) => value + 1);
@@ -63,9 +73,25 @@ export default function SkyPlay({ onExit }: { onExit: () => void }) {
         >
           🪁 Kites
         </ActionButton>
-        <ActionButton onPress={() => setPaused((value) => !value)}>
-          {paused ? "▶ Resume flying" : "⏸ Pause flying"}
-        </ActionButton>
+        {reducedMotion ? (
+          <Text style={styles.still}>🌼 Still play</Text>
+        ) : (
+          <>
+            <ActionButton
+              accessibilityRole="switch"
+              accessibilityLabel="Gentle flying speed"
+              accessibilityState={{ checked: speed === "gentle" }}
+              aria-checked={speed === "gentle"}
+              onPress={() => setSpeed((value) => (value === "gentle" ? "playful" : "gentle"))}
+            >
+              {speed === "gentle" ? "🐢 Gentle speed" : "🦋 Playful speed"}
+            </ActionButton>
+            <ActionButton onPress={() => setPaused((value) => !value)}>
+              {paused ? "▶ Resume flying" : "⏸ Pause flying"}
+            </ActionButton>
+          </>
+        )}
+        <ActionButton onPress={restart}>🌈 Start again</ActionButton>
       </View>
       <Text accessibilityLiveRegion="polite" style={styles.count}>
         {mode === "balloons" ? `Balloons popped: ${pops}` : `Kite taps: ${kites}`}
@@ -79,12 +105,14 @@ export default function SkyPlay({ onExit }: { onExit: () => void }) {
         </View>
         {lanes.map((lane) => (
           <FlyingToy
-            key={`${mode}-${lane.id}`}
+            key={`${session}-${mode}-${lane.id}`}
             mode={mode}
             lane={lane}
             laneCount={lanes.length}
             height={stageHeight}
-            paused={paused || background}
+            paused={paused || background || reducedMotion}
+            reducedMotion={reducedMotion}
+            speed={speed}
             onHit={hit}
           />
         ))}
@@ -95,8 +123,10 @@ export default function SkyPlay({ onExit }: { onExit: () => void }) {
           : "Tap a kite for a happy sparkle! ✨"}
       </FeedbackMessage>
       <Text style={styles.note}>
-        Pause flying for easier tapping. No timer, no penalties—just playful exploring. Counts
-        restart when you leave this activity.
+        {reducedMotion
+          ? "Still play follows your device’s reduce motion setting. Tap a toy to celebrate. "
+          : "Gentle speed gives little fingers more time. Pause flying for easier tapping. "}
+        No timer or penalties. Start again resets both counts; leaving also restarts this activity.
       </Text>
     </ScrollView>
   );
@@ -112,6 +142,7 @@ const styles = StyleSheet.create({
     marginVertical: 14,
   },
   controls: { flexDirection: "row", flexWrap: "wrap", gap: 9, justifyContent: "center" },
+  still: { fontSize: 18, color: "#267866", fontWeight: "800", padding: 13, marginVertical: 6 },
   count: {
     fontSize: 22,
     fontWeight: "900",

@@ -1,6 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Animated, Pressable } from "react-native";
-import { SkyMode, balloonLetter, flyingLanes } from "../../skyPlayLogic";
+import {
+  SkyMode,
+  FlyingSpeed,
+  balloonLetter,
+  flyingLanes,
+  flightDuration,
+} from "../../skyPlayLogic";
 import useFlyingMotion from "../../hooks/useFlyingMotion";
 import { BalloonArt, KiteArt } from "./SkyArt";
 import PopBurst from "./PopBurst";
@@ -11,6 +17,8 @@ export default function FlyingToy({
   laneCount,
   height,
   paused,
+  reducedMotion,
+  speed,
   onHit,
 }: {
   mode: SkyMode;
@@ -18,12 +26,21 @@ export default function FlyingToy({
   laneCount: number;
   height: number;
   paused: boolean;
+  reducedMotion: boolean;
+  speed: FlyingSpeed;
   onHit: () => void;
 }) {
   const [burst, setBurst] = useState(false),
     [round, setRound] = useState(0);
   const hit = useRef(false);
-  const progress = useFlyingMotion(!paused && !burst, lane.duration, lane.phase);
+  const progress = useFlyingMotion(
+    !paused && !burst,
+    flightDuration(lane.duration, speed),
+    lane.phase,
+  );
+  useEffect(() => {
+    if (reducedMotion) progress.setValue(lane.phase);
+  }, [reducedMotion, progress, lane.phase]);
   const kite = mode === "kites",
     letter = balloonLetter(lane.id, round, laneCount);
   useEffect(() => {
@@ -72,7 +89,7 @@ export default function FlyingToy({
       }}
     >
       {burst ? (
-        <PopBurst kite={kite} />
+        <PopBurst kite={kite} reducedMotion={reducedMotion} />
       ) : (
         <Pressable
           accessibilityRole="button"

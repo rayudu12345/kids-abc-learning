@@ -65,3 +65,5 @@ Physical-device tests remain necessary for sound quality, offline TTS voices, na
 ## Balloon and kite checks
 
 Unit tests cover responsive target lanes, alphabet cycling, and bundled effect presence. Browser integration covers popping, kite taps, effect playback, mute, pause/resume, navigation, and session reset on phone/tablet layouts. On a physical Samsung tablet, verify comfortable pop/chime volume, finger targets while moving/paused, background cleanup, and airplane-mode playback in the installed APK.
+
+Sky-play coverage also verifies speed controls, resetting both counters while retaining play settings, and initial/live device reduced-motion changes. Unit tests check gentle/playful timing. Test Android’s Remove animations setting on the physical tablet; confirm still targets, static celebrations, and resumed flight when disabled.

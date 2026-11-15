@@ -60,3 +60,5 @@ Keep content separate from activity state. Prefer a shared component when two sc
 ## Flying toys
 
 `SkyPlay` composes `FlyingToy`, `SkyArt`, and `PopBurst`. `skyPlayLogic` defines responsive lanes and letter cycling; `useFlyingMotion` retains positions when paused and cleans up native animations. Navigation unmounts the session and clears timers/audio. Balloon/kite counts are temporary feedback and do not change persisted progress. Original bundled effects use the shared audio controller alongside recordings.
+
+`useReducedMotion` subscribes to device accessibility changes and guards stale/unmounted reads. Sky play defaults to a slower pace; `flightDuration` defines both speeds. Reduced motion stops flying and confetti while keeping targets tappable. Start again remounts toys to clear pending celebrations and resets session counts without changing mode, mute, pause, speed, or saved rewards.

@@ -1,3 +1,7 @@
+export type FlyingSpeed = "gentle" | "playful";
+export function flightDuration(duration: number, speed: FlyingSpeed) {
+  return duration * (speed === "gentle" ? 1.6 : 1);
+}
 export type SkyMode = "balloons" | "kites";
 export const skyColors = ["#E45376", "#398FD1", "#299D7C", "#9366CA", "#DF9533"];
 export function flyingLanes(width: number) {

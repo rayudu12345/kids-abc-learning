@@ -115,3 +115,5 @@ Parental controls remain deferred. Phonics currently uses full-word recordings t
 ## Balloon and kite release checks
 
 The side menu includes Balloons and kites. Both original synthesized effects are bundled under `assets/effects`; no network or TTS is needed for this activity. Check pop/chime volume on the target tablet, moving target taps, pause/resume, rotation, rapid taps, app backgrounding and navigation. Session counters intentionally reset on exit and do not alter stars or backups. Rebuild the APK to include new bundled assets.
+
+Sky play now defaults to gentle flight; Playful restores the original pace. Start again clears only balloon/kite session counts and pending effects, retaining current controls. Check Android accessibility Remove animations (wording varies) before launch and while playing: targets remain still and confetti does not move, while taps and sounds still work. Disable the setting to resume motion; explicit Pause remains respected.

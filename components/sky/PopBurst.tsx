@@ -1,9 +1,19 @@
 import React, { useEffect, useRef } from "react";
 import { Animated, StyleSheet, Text, View } from "react-native";
 import { skyColors } from "../../skyPlayLogic";
-export default function PopBurst({ kite }: { kite: boolean }) {
+export default function PopBurst({
+  kite,
+  reducedMotion,
+}: {
+  kite: boolean;
+  reducedMotion: boolean;
+}) {
   const progress = useRef(new Animated.Value(0)).current;
   useEffect(() => {
+    if (reducedMotion) {
+      progress.setValue(0);
+      return;
+    }
     const animation = Animated.timing(progress, {
       toValue: 1,
       duration: 650,
@@ -11,39 +21,43 @@ export default function PopBurst({ kite }: { kite: boolean }) {
     });
     animation.start();
     return () => animation.stop();
-  }, [progress]);
+  }, [progress, reducedMotion]);
   return (
     <View pointerEvents="none" style={styles.burst}>
-      {Array.from({ length: 10 }, (_, index) => {
-        const angle = (index * Math.PI * 2) / 10;
-        return (
-          <Animated.View
-            key={index}
-            style={[
-              styles.particle,
-              {
-                backgroundColor: skyColors[index % skyColors.length],
-                opacity: progress.interpolate({ inputRange: [0, 0.6, 1], outputRange: [1, 1, 0] }),
-                transform: [
-                  {
-                    translateX: progress.interpolate({
-                      inputRange: [0, 1],
-                      outputRange: [0, Math.cos(angle) * 58],
-                    }),
-                  },
-                  {
-                    translateY: progress.interpolate({
-                      inputRange: [0, 1],
-                      outputRange: [0, Math.sin(angle) * 58],
-                    }),
-                  },
-                  { rotate: `${index * 36}deg` },
-                ],
-              },
-            ]}
-          />
-        );
-      })}
+      {!reducedMotion &&
+        Array.from({ length: 10 }, (_, index) => {
+          const angle = (index * Math.PI * 2) / 10;
+          return (
+            <Animated.View
+              key={index}
+              style={[
+                styles.particle,
+                {
+                  backgroundColor: skyColors[index % skyColors.length],
+                  opacity: progress.interpolate({
+                    inputRange: [0, 0.6, 1],
+                    outputRange: [1, 1, 0],
+                  }),
+                  transform: [
+                    {
+                      translateX: progress.interpolate({
+                        inputRange: [0, 1],
+                        outputRange: [0, Math.cos(angle) * 58],
+                      }),
+                    },
+                    {
+                      translateY: progress.interpolate({
+                        inputRange: [0, 1],
+                        outputRange: [0, Math.sin(angle) * 58],
+                      }),
+                    },
+                    { rotate: `${index * 36}deg` },
+                  ],
+                },
+              ]}
+            />
+          );
+        })}
       <Text style={styles.word}>{kite ? "Whee! ✨" : "POP! ⭐"}</Text>
     </View>
   );

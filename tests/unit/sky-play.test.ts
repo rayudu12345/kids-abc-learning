@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
-import { balloonLetter, flyingLanes } from "../../skyPlayLogic";
+import { balloonLetter, flyingLanes, flightDuration } from "../../skyPlayLogic";
 test("flying targets have usable, separate lanes on phones and tablets", () => {
   for (const width of [200, 280, 350, 390, 600, 800, 1200]) {
     const lanes = flyingLanes(width);
@@ -27,5 +27,13 @@ test("pop and kite effects are bundled, original short audio assets", () => {
   for (const name of ["pop", "kite"]) {
     const file = readFileSync(`assets/effects/${name}.mp3`);
     assert.ok(file.length > 500 && file.length < 10000);
+  }
+});
+
+test("gentle speed gives more tapping time while playful keeps the original pace", () => {
+  for (const lane of flyingLanes(800)) {
+    assert.equal(flightDuration(lane.duration, "gentle"), lane.duration * 1.6);
+    assert.equal(flightDuration(lane.duration, "playful"), lane.duration);
+    assert.ok(flightDuration(lane.duration, "gentle") > 20000);
   }
 });
