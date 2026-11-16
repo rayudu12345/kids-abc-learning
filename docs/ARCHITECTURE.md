@@ -70,3 +70,11 @@ Keep content separate from activity state. Prefer a shared component when two sc
 ## Animal sound matching
 
 `AnimalSounds` composes shared toolbar, feedback, and `AnimalChoiceCard`. `useAnimalSoundGame` owns audio, question state, immediate answer locks, and automatic advancement; `animalSoundLogic` supplies balanced four-question lessons and shuffled choices. App backgrounding stops audio and pauses celebration timers. Correct answers use existing matching rewards, so old saves and backups require no schema change. Completing four questions counts as one matching adventure.
+
+## Memory, eggs, and coloring
+
+`memoryLogic` supplies balanced decks and guarded flips. `MemoryPairs` uses a synchronous state ref to prevent duplicate rewards; previews restart on deck changes, mismatches close after a gentle delay, and timers pause in the background. Matching pairs use existing matching stars/stickers.
+
+`eggLogic` supplies eight shuffled animal letters and a bounded three-tap reveal. `SurpriseEggs` immediately guards reveal/next actions and saves one letter-adventure star per animal; the eighth reveal completes one adventure. Shared `useActivityAudio` uses only known bundled recordings and stops on background/exit/reset.
+
+`coloringLogic` normalizes input and interpolates fast finger movement with a 1,000-dot cap per picture. `useColoring` holds per-animal session drafts and undo history. `PaintCanvas` paints below reusable animal outlines; `ColoringAnimals` exposes named palettes and brushes. Clear is reversible. Pictures are not stored across navigation or included in progress backups; creative play does not alter rewards.

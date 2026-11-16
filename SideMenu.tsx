@@ -96,6 +96,27 @@ export const activities = [
     color: "#E7D9FF",
   },
   {
+    id: "coloring",
+    icon: "🎨",
+    title: "Coloring animals",
+    detail: "Paint 24 animal pictures freely",
+    color: "#FFE0ED",
+  },
+  {
+    id: "eggs",
+    icon: "🥚",
+    title: "Surprise eggs",
+    detail: "Tap and discover animal letters",
+    color: "#FFE2CC",
+  },
+  {
+    id: "memory",
+    icon: "🧠",
+    title: "Animal memory pairs",
+    detail: "Turn cards and find animal twins",
+    color: "#E7D9FF",
+  },
+  {
     id: "animalSounds",
     icon: "🐾",
     title: "Animal sound match",

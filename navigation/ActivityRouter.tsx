@@ -1,4 +1,7 @@
 import React from "react";
+import ColoringAnimals from "../screens/ColoringAnimals";
+import SurpriseEggs from "../screens/SurpriseEggs";
+import MemoryPairs from "../screens/MemoryPairs";
 import AnimalSounds from "../screens/AnimalSounds";
 import SkyPlay from "../screens/SkyPlay";
 import ProgressBackup from "../screens/ProgressBackup";
@@ -33,6 +36,12 @@ export default function ActivityRouter({
       return <Counting onExit={onExit} />;
     case "phonics":
       return <Phonics onExit={onExit} />;
+    case "coloring":
+      return <ColoringAnimals onExit={onExit} />;
+    case "eggs":
+      return <SurpriseEggs onExit={onExit} />;
+    case "memory":
+      return <MemoryPairs onExit={onExit} />;
     case "animalSounds":
       return <AnimalSounds onExit={onExit} />;
     case "audio":

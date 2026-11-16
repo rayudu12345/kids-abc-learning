@@ -4,6 +4,10 @@ An English alphabet-learning app for children, built with React Native, TypeScri
 
 ## Activities
 
+- **Animal memory pairs:** 2–4 pairs, previews and unlimited peeks, gentle retries, and saved matching rewards.
+- **Surprise eggs:** three taps reveal each of eight animal letters with offline pronunciation and saved stars.
+- **Coloring animals:** 24 outlines, five named colors, an eraser, three brushes, undo, and reversible clear; pictures stay during the activity session.
+
 - **Animal sound match:** four short cat/dog listening questions, real offline recordings, two large animated choices, replay/mute, clues, and saved rewards.
 
 - **Balloons and kites:** colorful floating letter balloons that pop on tap, flying kites with sparkles, bundled gentle effects, mute, and pause controls.
@@ -65,5 +69,6 @@ npm run build:android
 
 - [Audio, licenses, and animation scope](docs/AUDIO_AND_ASSETS.md)
 - [Backup and restore](docs/BACKUP_AND_RESTORE.md)
+- [Feature references and roadmap](docs/FEATURE_ROADMAP.md)
 
 Alphabet animal scenes use larger detailed artwork for cat, dog, elephant, fish, lion, parrot, rabbit, and zebra, with species-specific pose timing and simple habitats. Animations respect reduced motion and stop in the background.

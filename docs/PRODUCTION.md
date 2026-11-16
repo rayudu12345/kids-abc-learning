@@ -61,7 +61,7 @@ This produces an Android App Bundle (AAB) for store distribution, not a directly
 
 On the target Samsung tablet and an Android phone:
 
-- Open all 16 menu destinations; close the menu using its close button, backdrop, and Android back.
+- Open all 19 menu destinations; close the menu using its close button, backdrop, and Android back.
 - Use Android back from an activity to return to the alphabet screen.
 - Complete a five-question letter adventure and try a wrong answer. Rewards must be granted once per correct response.
 - Try both drag-and-drop and tap matching. Check targets after scrolling.
@@ -123,3 +123,11 @@ Check all eight enlarged alphabet animal scenes in portrait, landscape, and full
 ## Animal sound match
 
 Open Animal sound match from the menu or home shortcuts. Four questions use the existing licensed `sound-cat` and `sound-dog` files and human `listen` recording, with two large animated choices. All question audio is recorded and offline; no new audio assets or TTS are required. Replay does not overlap prior clips. Mute reveals Meow/Woof text clues; retries have no penalties. Correct answers save one star and cat/dog stickers; completing four adds one matching adventure. Backgrounding stops audio and pauses pending advancement; leaving cancels the session timer. Verify comfortable volume, replay/mute, touch targets, airplane-mode startup and background/resume in an installed APK. More animals require correctly identified, licensed recordings before they can be added.
+
+## Memory, surprise eggs, and coloring
+
+Memory starts with two pairs and offers three/four-pair boards, previews, unlimited peeks, no penalties, and one saved star per pair. A completed board adds one matching adventure. Surprise eggs reveal eight animal letters after three taps each; all letter/name recordings are bundled, one star is saved per reveal, and the eighth adds a letter adventure. Next actions and taps lock immediately to avoid duplicate rewards or skipped eggs.
+
+Coloring offers 24 existing outlines, five recorded color names, a white eraser, three brushes, undo and reversible clear. Paint is freehand and can extend outside the outline. Per-picture drafts remain only while the activity is mounted; leaving/relaunching discards them, and progress backups do not contain artwork. Use a tablet screenshot to keep a picture. The 1,000-dot page cap bounds native rendering work; Undo/Clear make more room. This creative activity awards no graded rewards. Test large-finger painting and scrolling on the physical tablet.
+
+All three activities are offline, reuse existing assets, respect shared audio cleanup, and add no accounts, advertisements, purchases, analytics or cloud storage. Parental controls remain deferred.
