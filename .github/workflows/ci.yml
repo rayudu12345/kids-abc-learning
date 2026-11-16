@@ -7,31 +7,34 @@ permissions:
   contents: read
 jobs:
   verify:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 20
+    env:
+      CI: "1"
+      EXPO_NO_TELEMETRY: "1"
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Check out repository
+        uses: actions/checkout@v6
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
         with:
           node-version-file: .nvmrc
           cache: npm
-      - run: npm ci
-      - run: npm run check
-      - run: npx expo install --check
-        env:
-          CI: "1"
-          EXPO_NO_TELEMETRY: "1"
-      - run: npx playwright install --with-deps chromium
-      - run: npm run test:integration
-        env:
-          CI: "1"
-          EXPO_NO_TELEMETRY: "1"
-      - run: npm run build:android
-        env:
-          CI: "1"
-          EXPO_NO_TELEMETRY: "1"
-      - uses: actions/upload-artifact@v4
-        if: failure()
+      - name: Install locked dependencies
+        run: npm ci
+      - name: Check formatting, types, and unit tests
+        run: npm run check
+      - name: Check Expo dependency compatibility
+        run: npx expo install --check
+      - name: Install Chromium and system dependencies
+        run: npx playwright install --with-deps chromium
+      - name: Run browser integration tests
+        run: npm run test:integration
+      - name: Bundle Android app
+        run: npm run build:android
+      - name: Upload existing browser failure reports
+        uses: actions/upload-artifact@v6
+        if: ${{ failure() && hashFiles('playwright-report/**', 'test-results/**') != '' }}
         with:
           name: browser-test-results
           path: |

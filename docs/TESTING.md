@@ -69,3 +69,9 @@ Unit tests cover responsive target lanes, alphabet cycling, and bundled effect p
 Sky-play coverage also verifies speed controls, resetting both counters while retaining play settings, and initial/live device reduced-motion changes. Unit tests check gentle/playful timing. Test Android’s Remove animations setting on the physical tablet; confirm still targets, static celebrations, and resumed flight when disabled.
 
 Alphabet animal tests cover all eight large scenes, changing poses, proportional sizing, full-screen display, switching back to Apple, and static/restored motion under device preference changes. Unit tests validate every pose index, loop boundary, movement bound, and species timing. Physical-device checks remain necessary for atlas frame clarity and performance on the Samsung tablet.
+
+## CI dependency and runner maintenance
+
+CI uses Ubuntu 24.04 and Node 24 (from `.nvmrc`), with Node 24-based v6 checkout/setup/upload actions. Named steps identify the failing check. Browser failure reports upload only when report files exist; an earlier dependency failure will not produce a misleading missing-artifact warning.
+
+If `npx expo install --check` fails, read the expected package versions, run `npx expo install --fix`, and commit **both** `package.json` and `package-lock.json`. Reinstall using `npm ci`, then run the compatibility check, app checks, browser suite, and Android export before committing. Do not disable the compatibility check to get a green workflow. SDK 58 patch updates do not change the project's SDK major version.
