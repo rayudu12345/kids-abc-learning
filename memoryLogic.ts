@@ -11,7 +11,7 @@ export function newMemory(pairCount: number, group: MemoryGroup = "all"): Memory
         { id: index * 2, animal },
         { id: index * 2 + 1, animal },
       ]),
-    ),
+    ).map((card, position) => ({ ...card, id: position })),
     revealed: [],
     matched: [],
   };

@@ -9,6 +9,10 @@ test("memory decks have exactly two copies of each animal and unique card IDs", 
       const state = newMemory(count);
       assert.equal(state.cards.length, count * 2);
       assert.equal(new Set(state.cards.map((card) => card.id)).size, count * 2);
+      assert.deepEqual(
+        state.cards.map((card) => card.id),
+        Array.from({ length: count * 2 }, (_, index) => index),
+      );
       for (const letter of new Set(state.cards.map((card) => card.animal.id)))
         assert.equal(state.cards.filter((card) => card.animal.id === letter).length, 2);
     }
