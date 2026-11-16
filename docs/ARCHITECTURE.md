@@ -66,3 +66,7 @@ Keep content separate from activity state. Prefer a shared component when two sc
 ## Larger alphabet animal scenes
 
 `LetterScene` routes eight animal letters to `components/alphabet/AnimalLetterScene`; object scenes retain their existing actions. `data/animalMotion` defines per-species pose orders, rest frames, loop durations, and bounded movement. `AnimatedAnimal` reuses the existing four-pose atlas without stretching the artwork. `useAnimationEnabled` gates animations with AppState and the device reduced-motion preference. Intervals, timelines, and subscriptions clean up on unmount. Alphabet hero/card springs also respect that gate.
+
+## Animal sound matching
+
+`AnimalSounds` composes shared toolbar, feedback, and `AnimalChoiceCard`. `useAnimalSoundGame` owns audio, question state, immediate answer locks, and automatic advancement; `animalSoundLogic` supplies balanced four-question lessons and shuffled choices. App backgrounding stops audio and pauses celebration timers. Correct answers use existing matching rewards, so old saves and backups require no schema change. Completing four questions counts as one matching adventure.

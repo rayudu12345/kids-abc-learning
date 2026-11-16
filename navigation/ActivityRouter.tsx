@@ -1,4 +1,5 @@
 import React from "react";
+import AnimalSounds from "../screens/AnimalSounds";
 import SkyPlay from "../screens/SkyPlay";
 import ProgressBackup from "../screens/ProgressBackup";
 import ColorsShapes from "../screens/ColorsShapes";
@@ -32,6 +33,8 @@ export default function ActivityRouter({
       return <Counting onExit={onExit} />;
     case "phonics":
       return <Phonics onExit={onExit} />;
+    case "animalSounds":
+      return <AnimalSounds onExit={onExit} />;
     case "audio":
       return <AudioLibrary onExit={onExit} />;
     case "advanced":

@@ -4,6 +4,8 @@ An English alphabet-learning app for children, built with React Native, TypeScri
 
 ## Activities
 
+- **Animal sound match:** four short cat/dog listening questions, real offline recordings, two large animated choices, replay/mute, clues, and saved rewards.
+
 - **Balloons and kites:** colorful floating letter balloons that pop on tap, flying kites with sparkles, bundled gentle effects, mute, and pause controls.
 
 - **Alphabet A–Z:** spoken letters, example words, and animated scenes.

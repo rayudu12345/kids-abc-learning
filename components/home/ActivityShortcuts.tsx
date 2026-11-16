@@ -8,6 +8,7 @@ const shortcuts: { screen: Screen; title: string; color: string }[] = [
   { screen: "counting", title: "🔢 Numbers and counting", color: "#267F67" },
   { screen: "colorsShapes", title: "🎨 Colors and shapes", color: "#426EAE" },
   { screen: "traceLowercase", title: "✍️ Trace lowercase a–z", color: "#8B5FA8" },
+  { screen: "animalSounds", title: "🐾 Animal sound match", color: "#287F67" },
   { screen: "audio", title: "🔊 Listen and explore", color: "#9B711D" },
   { screen: "find", title: "🐾 Play: Find the letter!", color: "#6946BC" },
   { screen: "match", title: "🐶 Play: Match the animals!", color: "#287F67" },

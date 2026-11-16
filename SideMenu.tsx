@@ -96,6 +96,13 @@ export const activities = [
     color: "#E7D9FF",
   },
   {
+    id: "animalSounds",
+    icon: "🐾",
+    title: "Animal sound match",
+    detail: "Hear a pet and find its picture",
+    color: "#D4F4E4",
+  },
+  {
     id: "audio",
     icon: "🔊",
     title: "Listen and explore",

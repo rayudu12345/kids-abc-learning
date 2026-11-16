@@ -61,7 +61,7 @@ This produces an Android App Bundle (AAB) for store distribution, not a directly
 
 On the target Samsung tablet and an Android phone:
 
-- Open all 15 menu destinations; close the menu using its close button, backdrop, and Android back.
+- Open all 16 menu destinations; close the menu using its close button, backdrop, and Android back.
 - Use Android back from an activity to return to the alphabet screen.
 - Complete a five-question letter adventure and try a wrong answer. Rewards must be granted once per correct response.
 - Try both drag-and-drop and tap matching. Check targets after scrolling.
@@ -119,3 +119,7 @@ The side menu includes Balloons and kites. Both original synthesized effects are
 Sky play now defaults to gentle flight; Playful restores the original pace. Start again clears only balloon/kite session counts and pending effects, retaining current controls. Check Android accessibility Remove animations (wording varies) before launch and while playing: targets remain still and confetti does not move, while taps and sounds still work. Disable the setting to resume motion; explicit Pause remains respected.
 
 Check all eight enlarged alphabet animal scenes in portrait, landscape, and full screen. Confirm paws/tails/trunks/wings/legs change naturally, fish bubbles and elephant droplets stay inside the scene, and animations stop on backgrounding. Test reduced motion and rapid letter changes. Assets reuse the existing bundled illustrated sprite atlas; no new remote images, videos, or downloads are required. These remain four-pose illustrations; assess frame transitions and tablet rendering quality before release.
+
+## Animal sound match
+
+Open Animal sound match from the menu or home shortcuts. Four questions use the existing licensed `sound-cat` and `sound-dog` files and human `listen` recording, with two large animated choices. All question audio is recorded and offline; no new audio assets or TTS are required. Replay does not overlap prior clips. Mute reveals Meow/Woof text clues; retries have no penalties. Correct answers save one star and cat/dog stickers; completing four adds one matching adventure. Backgrounding stops audio and pauses pending advancement; leaving cancels the session timer. Verify comfortable volume, replay/mute, touch targets, airplane-mode startup and background/resume in an installed APK. More animals require correctly identified, licensed recordings before they can be added.
