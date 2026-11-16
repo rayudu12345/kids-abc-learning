@@ -1,5 +1,8 @@
 import { test, expect } from "@playwright/test";
-import { openActivity, savedProgress } from "./helpers";
+import { openActivity, savedProgress, mockMemoryPhotos } from "./helpers";
+test.beforeEach(async ({ page }) => {
+  await mockMemoryPhotos(page);
+});
 test("memory pairs support previews, retries, saved rewards, replay and levels", async ({
   page,
 }) => {

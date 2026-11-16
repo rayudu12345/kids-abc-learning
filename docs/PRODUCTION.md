@@ -130,4 +130,12 @@ Memory starts with two pairs and offers three/four-pair boards, previews, unlimi
 
 Coloring offers 24 existing outlines, five recorded color names, a white eraser, three brushes, undo and reversible clear. Paint is freehand and can extend outside the outline. Per-picture drafts remain only while the activity is mounted; leaving/relaunching discards them, and progress backups do not contain artwork. Use a tablet screenshot to keep a picture. The 1,000-dot page cap bounds native rendering work; Undo/Clear make more room. This creative activity awards no graded rewards. Test large-finger painting and scrolling on the physical tablet.
 
-All three activities are offline, reuse existing assets, respect shared audio cleanup, and add no accounts, advertisements, purchases, analytics or cloud storage. Parental controls remain deferred.
+Surprise eggs and coloring remain offline; memory now downloads online photos. The activities respect shared audio cleanup, and add no accounts, advertisements, purchases, analytics or cloud storage. Parental controls remain deferred.
+
+## Online memory photos
+
+The user-authorized memory expansion contains 32 animals in All animals, Pets and farm, Wild animals, Water animals, and Birds groups. Boards stay at 2–4 pairs. Pictures require internet; other activities keep their existing bundled assets. Memory waits for photo readiness before starting its preview, shows a readable fallback and Retry photos on errors, and preserves matches/stars when retrying. Slow loads time out after ten seconds. Both cards use the same species identity and photo. Matched new species earn stars; the original eight-animal sticker collection remains unchanged.
+
+Known animal names use bundled recordings; new names use the tablet's English TTS voice and respect mute. Test Wi-Fi/mobile data, slow connections, image failures, retry, group changes during loading, background/resume, photo readability, voice output, and saved rewards on the Samsung tablet. Remote photo availability and native network behavior need physical-device checks. Wikimedia receives normal image requests (including IP address and standard request headers); progress is not sent to it. There are no accounts, ads or added analytics.
+
+Credits and source/license URLs are visible under Photo credits. The committed catalogue is the runtime source of truth. `python scripts/build-memory-catalog.py` resolves fixed reference topics for maintenance, respects API rate-limit waits, and retains prior catalogue output on an incomplete fetch. Its temporary metadata cache is `/tmp/kids-abc-memory-catalog.json`; review all new photos and credits before committing updates. Do not run metadata discovery inside the children's app.

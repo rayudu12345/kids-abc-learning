@@ -9,11 +9,11 @@ These descriptions are feature references, not evidence of hands-on testing. The
 
 ## Implemented in this expansion
 
-- Animal memory pairs, with 2–4 pairs and matching rewards.
+- Animal memory pairs, expanded to 32 online photos and themed groups, with 2–4 pairs and matching rewards.
 - Eight animal surprise eggs, with letter/name recordings and saved stars.
 - Freehand coloring for 24 animal outlines, with brushes, eraser, undo and reversible clear.
 
-Existing alphabet, tracing, counting, colors/shapes, sound matching, balloons, stickers, and progress backup remain available. All activities run offline in the installed app.
+Existing alphabet, tracing, counting, colors/shapes, sound matching, balloons, stickers, and progress backup remain available. The expanded memory game needs internet for animal photos. Other bundled activities retain offline support.
 
 ## Remaining candidates
 

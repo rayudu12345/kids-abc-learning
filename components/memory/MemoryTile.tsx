@@ -1,6 +1,7 @@
 import React from "react";
 import { Pressable, Text, StyleSheet } from "react-native";
-import { AnimalArt } from "../../AnimalArt";
+import MemoryPhoto from "./MemoryPhoto";
+import { PhotoStatus } from "../../hooks/useMemoryPhotos";
 import { MemoryCard } from "../../memoryLogic";
 export default function MemoryTile({
   card,
@@ -9,6 +10,9 @@ export default function MemoryTile({
   disabled,
   columns,
   onPress,
+  photoStatus,
+  attempt,
+  onPhotoError,
 }: {
   card: MemoryCard;
   visible: boolean;
@@ -16,6 +20,9 @@ export default function MemoryTile({
   disabled: boolean;
   columns: number;
   onPress: () => void;
+  photoStatus: PhotoStatus;
+  attempt: number;
+  onPhotoError: () => void;
 }) {
   return (
     <Pressable
@@ -38,7 +45,12 @@ export default function MemoryTile({
     >
       {visible ? (
         <>
-          <AnimalArt letter={card.animal.letter} size={85} />
+          <MemoryPhoto
+            animal={card.animal}
+            status={photoStatus}
+            attempt={attempt}
+            onError={onPhotoError}
+          />
           <Text style={styles.name}>
             {card.animal.word}
             {matched ? " ✓" : ""}

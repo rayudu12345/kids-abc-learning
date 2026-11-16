@@ -1,0 +1,426 @@
+[
+  {
+    "id": "cat",
+    "word": "Cat",
+    "emoji": "🐱",
+    "group": "farm",
+    "photo": {
+      "uri": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/25/Siam_lilacpoint.jpg/500px-Siam_lilacpoint.jpg",
+      "creator": "Karin Langner-Bahmann , upload von Martin Bahmann",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Siam_lilacpoint.jpg"
+    },
+    "stickerLetter": "C"
+  },
+  {
+    "id": "dog",
+    "word": "Dog",
+    "emoji": "🐶",
+    "group": "farm",
+    "photo": {
+      "uri": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bd/Golden_Retriever_Dukedestiny01_drvd.jpg/500px-Golden_Retriever_Dukedestiny01_drvd.jpg",
+      "creator": "Dukedestiny01.jpg : \"Janneke Vreugdenhil\" derivative work: Anka Friedrich ([[User talk:Ankaaswe Trix Friedrich| talk ]])",
+      "license": "Public domain",
+      "licenseUrl": "https://commons.wikimedia.org/wiki/Commons:Copyright_tags#Public_domain",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Golden_Retriever_Dukedestiny01_drvd.jpg"
+    },
+    "stickerLetter": "D"
+  },
+  {
+    "id": "rabbit",
+    "word": "Rabbit",
+    "emoji": "🐇",
+    "group": "farm",
+    "photo": {
+      "uri": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/31/Heimtier_004_2023_08_26.jpg/500px-Heimtier_004_2023_08_26.jpg",
+      "creator": "Friedrich Haag",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Heimtier_004_2023_08_26.jpg"
+    },
+    "stickerLetter": "R"
+  },
+  {
+    "id": "horse",
+    "word": "Horse",
+    "emoji": "🐴",
+    "group": "farm",
+    "photo": {
+      "uri": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/54/Halterstandingshotarabianone.jpg/500px-Halterstandingshotarabianone.jpg",
+      "creator": "Ealdgyth",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Halterstandingshotarabianone.jpg"
+    }
+  },
+  {
+    "id": "cow",
+    "word": "Cow",
+    "emoji": "🐄",
+    "group": "farm",
+    "photo": {
+      "uri": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8c/Cow_%28Fleckvieh_breed%29_Oeschinensee_Slaunger_2009-07-07.jpg/500px-Cow_%28Fleckvieh_breed%29_Oeschinensee_Slaunger_2009-07-07.jpg",
+      "creator": "Kim Hansen",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Cow_(Fleckvieh_breed)_Oeschinensee_Slaunger_2009-07-07.jpg"
+    }
+  },
+  {
+    "id": "sheep",
+    "word": "Sheep",
+    "emoji": "🐑",
+    "group": "farm",
+    "photo": {
+      "uri": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2c/Flock_of_sheep.jpg/500px-Flock_of_sheep.jpg",
+      "creator": "Keith Weller",
+      "license": "Public domain",
+      "licenseUrl": "https://commons.wikimedia.org/wiki/Commons:Copyright_tags#Public_domain",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Flock_of_sheep.jpg"
+    }
+  },
+  {
+    "id": "goat",
+    "word": "Goat",
+    "emoji": "🐐",
+    "group": "farm",
+    "photo": {
+      "uri": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b2/Hausziege_04.jpg/500px-Hausziege_04.jpg",
+      "creator": "Kuebi = Armin Kübelbeck",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Hausziege_04.jpg"
+    }
+  },
+  {
+    "id": "pig",
+    "word": "Pig",
+    "emoji": "🐷",
+    "group": "farm",
+    "photo": {
+      "uri": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3e/Pig_farm_Vampula_1.jpg/500px-Pig_farm_Vampula_1.jpg",
+      "creator": "kallerna",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Pig_farm_Vampula_1.jpg"
+    }
+  },
+  {
+    "id": "donkey",
+    "word": "Donkey",
+    "emoji": "🫏",
+    "group": "farm",
+    "photo": {
+      "uri": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1a/Donkey_in_Clovelly%2C_North_Devon%2C_England.jpg/500px-Donkey_in_Clovelly%2C_North_Devon%2C_England.jpg",
+      "creator": "Adrian Pingstone",
+      "license": "Public domain",
+      "licenseUrl": "https://commons.wikimedia.org/wiki/Commons:Copyright_tags#Public_domain",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Donkey_in_Clovelly,_North_Devon,_England.jpg"
+    }
+  },
+  {
+    "id": "duck",
+    "word": "Duck",
+    "emoji": "🦆",
+    "group": "farm",
+    "photo": {
+      "uri": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bf/Anas_platyrhynchos_male_female_quadrat.jpg/500px-Anas_platyrhynchos_male_female_quadrat.jpg",
+      "creator": "This picture was realized by Richard Bartz by using a Canon EF 70-300mm f/4-5.6 IS USM Lens",
+      "license": "CC BY-SA 2.5",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.5",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Anas_platyrhynchos_male_female_quadrat.jpg"
+    }
+  },
+  {
+    "id": "chicken",
+    "word": "Chicken",
+    "emoji": "🐔",
+    "group": "farm",
+    "photo": {
+      "uri": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/84/Male_and_female_chicken_sitting_together.jpg/500px-Male_and_female_chicken_sitting_together.jpg",
+      "creator": "Andrei Niemimäki from Turku, Finland",
+      "license": "CC BY-SA 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Male_and_female_chicken_sitting_together.jpg"
+    }
+  },
+  {
+    "id": "elephant",
+    "word": "Elephant",
+    "emoji": "🐘",
+    "group": "wild",
+    "photo": {
+      "uri": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/94/178_Male_African_bush_elephant_in_Etosha_National_Park_Photo_by_Giles_Laurent.jpg/500px-178_Male_African_bush_elephant_in_Etosha_National_Park_Photo_by_Giles_Laurent.jpg",
+      "creator": "Giles Laurent",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:178_Male_African_bush_elephant_in_Etosha_National_Park_Photo_by_Giles_Laurent.jpg"
+    },
+    "stickerLetter": "E"
+  },
+  {
+    "id": "lion",
+    "word": "Lion",
+    "emoji": "🦁",
+    "group": "wild",
+    "photo": {
+      "uri": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a6/020_The_lion_king_Snyggve_in_the_Serengeti_National_Park_Photo_by_Giles_Laurent.jpg/500px-020_The_lion_king_Snyggve_in_the_Serengeti_National_Park_Photo_by_Giles_Laurent.jpg",
+      "creator": "Giles Laurent",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:020_The_lion_king_Snyggve_in_the_Serengeti_National_Park_Photo_by_Giles_Laurent.jpg"
+    },
+    "stickerLetter": "L"
+  },
+  {
+    "id": "tiger",
+    "word": "Tiger",
+    "emoji": "🐯",
+    "group": "wild",
+    "photo": {
+      "uri": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b0/Bengal_tiger_%28Panthera_tigris_tigris%29_female_3_crop.jpg/500px-Bengal_tiger_%28Panthera_tigris_tigris%29_female_3_crop.jpg",
+      "creator": "Charles J. Sharp",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Bengal_tiger_(Panthera_tigris_tigris)_female_3_crop.jpg"
+    }
+  },
+  {
+    "id": "zebra",
+    "word": "Zebra",
+    "emoji": "🦓",
+    "group": "wild",
+    "photo": {
+      "uri": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/45/Equus_quagga_burchellii_-_Etosha%2C_2014.jpg/500px-Equus_quagga_burchellii_-_Etosha%2C_2014.jpg",
+      "creator": "Yathin S Krishnappa",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Equus_quagga_burchellii_-_Etosha,_2014.jpg"
+    },
+    "stickerLetter": "Z"
+  },
+  {
+    "id": "giraffe",
+    "word": "Giraffe",
+    "emoji": "🦒",
+    "group": "wild",
+    "photo": {
+      "uri": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/67/Two_Giraffes.PNG/500px-Two_Giraffes.PNG",
+      "creator": "Relative of Brandt Luke Zorn, most likely his father.",
+      "license": "CC BY-SA 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Two_Giraffes.PNG"
+    }
+  },
+  {
+    "id": "panda",
+    "word": "Panda",
+    "emoji": "🐼",
+    "group": "wild",
+    "photo": {
+      "uri": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0f/Grosser_Panda.JPG/500px-Grosser_Panda.JPG",
+      "creator": "J. Patrick Fischer",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Grosser_Panda.JPG"
+    }
+  },
+  {
+    "id": "koala",
+    "word": "Koala",
+    "emoji": "🐨",
+    "group": "wild",
+    "photo": {
+      "uri": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/49/Koala_climbing_tree.jpg/500px-Koala_climbing_tree.jpg",
+      "creator": "Diliff",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Koala_climbing_tree.jpg"
+    }
+  },
+  {
+    "id": "kangaroo",
+    "word": "Kangaroo",
+    "emoji": "🦘",
+    "group": "wild",
+    "photo": {
+      "uri": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9e/Macropus_giganteus_-_Brunkerville.jpg/500px-Macropus_giganteus_-_Brunkerville.jpg",
+      "creator": "JJ Harrison ( https://www.jjharrison.com.au/ )",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Macropus_giganteus_-_Brunkerville.jpg"
+    }
+  },
+  {
+    "id": "fox",
+    "word": "Fox",
+    "emoji": "🦊",
+    "group": "wild",
+    "photo": {
+      "uri": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d2/Portrait_of_a_red_fox_in_Rautas_fj%C3%A4llurskog_%28cropped%29.jpg/500px-Portrait_of_a_red_fox_in_Rautas_fj%C3%A4llurskog_%28cropped%29.jpg",
+      "creator": "ClaudiaTen",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Portrait_of_a_red_fox_in_Rautas_fj%C3%A4llurskog_(cropped).jpg"
+    }
+  },
+  {
+    "id": "bear",
+    "word": "Bear",
+    "emoji": "🐻",
+    "group": "wild",
+    "photo": {
+      "uri": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/71/2010-kodiak-bear-1.jpg/500px-2010-kodiak-bear-1.jpg",
+      "creator": "Yathin S Krishnappa",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:2010-kodiak-bear-1.jpg"
+    }
+  },
+  {
+    "id": "dolphin",
+    "word": "Dolphin",
+    "emoji": "🐬",
+    "group": "water",
+    "photo": {
+      "uri": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bc/Tursiops_truncatus_01-cropped.jpg/500px-Tursiops_truncatus_01-cropped.jpg",
+      "creator": "NASA",
+      "license": "Public domain",
+      "licenseUrl": "https://commons.wikimedia.org/wiki/Commons:Copyright_tags#Public_domain",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Tursiops_truncatus_01-cropped.jpg"
+    }
+  },
+  {
+    "id": "whale",
+    "word": "Whale",
+    "emoji": "🐋",
+    "group": "water",
+    "photo": {
+      "uri": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1c/Anim1754_-_Flickr_-_NOAA_Photo_Library.jpg/500px-Anim1754_-_Flickr_-_NOAA_Photo_Library.jpg",
+      "creator": "NOAA Photo Library",
+      "license": "Public domain",
+      "licenseUrl": "https://commons.wikimedia.org/wiki/Commons:Copyright_tags#Public_domain",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Anim1754_-_Flickr_-_NOAA_Photo_Library.jpg"
+    }
+  },
+  {
+    "id": "turtle",
+    "word": "Turtle",
+    "emoji": "🐢",
+    "group": "water",
+    "photo": {
+      "uri": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a3/Green_sea_turtle_%28Chelonia_mydas%29_Moorea.jpg/500px-Green_sea_turtle_%28Chelonia_mydas%29_Moorea.jpg",
+      "creator": "Charles J. Sharp",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Green_sea_turtle_(Chelonia_mydas)_Moorea.jpg"
+    }
+  },
+  {
+    "id": "octopus",
+    "word": "Octopus",
+    "emoji": "🐙",
+    "group": "water",
+    "photo": {
+      "uri": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/57/Octopus2.jpg/500px-Octopus2.jpg",
+      "creator": "albert kok",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Octopus2.jpg"
+    }
+  },
+  {
+    "id": "fish",
+    "word": "Fish",
+    "emoji": "🐠",
+    "group": "water",
+    "photo": {
+      "uri": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f6/Clown_fish_in_the_Andaman_Coral_Reef.jpg/500px-Clown_fish_in_the_Andaman_Coral_Reef.jpg",
+      "creator": "Ritiks",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Clown_fish_in_the_Andaman_Coral_Reef.jpg"
+    },
+    "stickerLetter": "F"
+  },
+  {
+    "id": "penguin",
+    "word": "Penguin",
+    "emoji": "🐧",
+    "group": "water",
+    "photo": {
+      "uri": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a3/Aptenodytes_forsteri_-Snow_Hill_Island%2C_Antarctica_-adults_and_juvenile-8.jpg/500px-Aptenodytes_forsteri_-Snow_Hill_Island%2C_Antarctica_-adults_and_juvenile-8.jpg",
+      "creator": "Ian Duffy from UK",
+      "license": "CC BY 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Aptenodytes_forsteri_-Snow_Hill_Island,_Antarctica_-adults_and_juvenile-8.jpg"
+    }
+  },
+  {
+    "id": "otter",
+    "word": "Otter",
+    "emoji": "🦦",
+    "group": "water",
+    "photo": {
+      "uri": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/02/Sea_Otter_%28Enhydra_lutris%29_%2825169790524%29_crop.jpg/500px-Sea_Otter_%28Enhydra_lutris%29_%2825169790524%29_crop.jpg",
+      "creator": "Marshal Hedin from San Diego",
+      "license": "CC BY-SA 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Sea_Otter_(Enhydra_lutris)_(25169790524)_crop.jpg"
+    }
+  },
+  {
+    "id": "parrot",
+    "word": "Parrot",
+    "emoji": "🦜",
+    "group": "birds",
+    "photo": {
+      "uri": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/47/Scarlet_macaw_%28Ara_macao_cyanopterus%29_Copan.jpg/500px-Scarlet_macaw_%28Ara_macao_cyanopterus%29_Copan.jpg",
+      "creator": "Charles J. Sharp",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Scarlet_macaw_(Ara_macao_cyanopterus)_Copan.jpg"
+    },
+    "stickerLetter": "P"
+  },
+  {
+    "id": "owl",
+    "word": "Owl",
+    "emoji": "🦉",
+    "group": "birds",
+    "photo": {
+      "uri": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9e/American_Barn_Owl_%28Tyto_furcata_guatemalae%29%2C_Orange_Walk.jpg/500px-American_Barn_Owl_%28Tyto_furcata_guatemalae%29%2C_Orange_Walk.jpg",
+      "creator": "Charles J. Sharp",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:American_Barn_Owl_(Tyto_furcata_guatemalae),_Orange_Walk.jpg"
+    }
+  },
+  {
+    "id": "eagle",
+    "word": "Eagle",
+    "emoji": "🦅",
+    "group": "birds",
+    "photo": {
+      "uri": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/db/Bald_eagle_about_to_fly_in_Alaska_%282016%29.jpg/500px-Bald_eagle_about_to_fly_in_Alaska_%282016%29.jpg",
+      "creator": "Andy Morffew from Itchen Abbas, Hampshire, UK",
+      "license": "CC BY 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Bald_eagle_about_to_fly_in_Alaska_(2016).jpg"
+    }
+  },
+  {
+    "id": "flamingo",
+    "word": "Flamingo",
+    "emoji": "🦩",
+    "group": "birds",
+    "photo": {
+      "uri": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/81/010_Greater_flamingos_male_and_female_in_the_Camargue_during_mating_season_Photo_by_Giles_Laurent.jpg/500px-010_Greater_flamingos_male_and_female_in_the_Camargue_during_mating_season_Photo_by_Giles_Laurent.jpg",
+      "creator": "Giles Laurent",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:010_Greater_flamingos_male_and_female_in_the_Camargue_during_mating_season_Photo_by_Giles_Laurent.jpg"
+    }
+  }
+]

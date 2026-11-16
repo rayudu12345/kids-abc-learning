@@ -1,3 +1,4 @@
+import { memoryAnimals } from "./data/memoryAnimals";
 import {
   LearningActivity,
   validLearningId,
@@ -169,5 +170,24 @@ export function addLearningReward(
       [activity]: progress.completed[activity] + (finished ? 1 : 0),
     },
     [field]: [...new Set([...progress[field], id])],
+  };
+}
+
+/** Online species use stable IDs; shared initials must never award another animal's sticker. */
+export function addMemoryReward(
+  progress: Progress,
+  animalId: string,
+  completed: boolean,
+): Progress {
+  const animal = memoryAnimals.find((item) => item.id === animalId);
+  if (!animal) return progress;
+  if (animal.stickerLetter) return addReward(progress, animal.stickerLetter, "matching", completed);
+  return {
+    ...progress,
+    stars: progress.stars + 1,
+    completed: {
+      ...progress.completed,
+      matching: progress.completed.matching + (completed ? 1 : 0),
+    },
   };
 }

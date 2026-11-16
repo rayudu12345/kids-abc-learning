@@ -4,6 +4,9 @@ import { flipMemory, memoryMismatch, newMemory } from "../memoryLogic";
 import { useProgress } from "../ProgressStore";
 import useActivityAudio from "../hooks/useActivityAudio";
 import useAutoAdvance from "../hooks/useAutoAdvance";
+import { MemoryGroup, memoryAnimals, memoryGroups, memoryAnimalsFor } from "../data/memoryAnimals";
+import useMemoryPhotos from "../hooks/useMemoryPhotos";
+import PhotoCredits from "../components/memory/PhotoCredits";
 import MemoryTile from "../components/memory/MemoryTile";
 import ActivityToolbar from "../components/ui/ActivityToolbar";
 import ActionButton from "../components/ui/ActionButton";
@@ -11,8 +14,10 @@ import FeedbackMessage from "../components/ui/FeedbackMessage";
 export default function MemoryPairs({ onExit }: { onExit: () => void }) {
   const [state, setState] = useState(() => newMemory(2)),
     current = useRef(state);
+  const [group, setGroup] = useState<MemoryGroup>("all");
+  const photos = useMemoryPhotos(state.cards);
   const [peek, setPeek] = useState(true);
-  const { recordAnswer } = useProgress(),
+  const { recordMemoryMatch } = useProgress(),
     audio = useActivityAudio();
   const pairs = state.cards.length / 2,
     finished = state.matched.length === pairs;
@@ -20,9 +25,10 @@ export default function MemoryPairs({ onExit }: { onExit: () => void }) {
     current.current = next;
     setState(next);
   };
-  const reset = (count: number) => {
+  const reset = (count: number, nextGroup = group) => {
     void audio.stop();
-    update(newMemory(count));
+    setGroup(nextGroup);
+    update(newMemory(count, nextGroup));
     setPeek(true);
   };
   const choose = (id: number) => {
@@ -33,15 +39,15 @@ export default function MemoryPairs({ onExit }: { onExit: () => void }) {
     update(next);
     if (next.matched.length > before.matched.length) {
       const animal = next.cards.find((card) => card.id === id)!.animal;
-      recordAnswer(animal.letter, "matching", next.matched.length === pairs);
-      audio.play([animal.word.toLowerCase()]);
+      recordMemoryMatch(animal.id, next.matched.length === pairs);
+      audio.say(animal.word);
     }
   };
   useEffect(() => {
-    if (!peek || !audio.active) return;
+    if (!peek || !audio.active || !photos.ready) return;
     const timer = setTimeout(() => setPeek(false), 2200);
     return () => clearTimeout(timer);
-  }, [peek, audio.active, state.cards]);
+  }, [peek, audio.active, state.cards, photos.ready]);
   useAutoAdvance(
     memoryMismatch(state) && audio.active && !peek,
     () => update({ ...current.current, revealed: [] }),
@@ -57,6 +63,36 @@ export default function MemoryPairs({ onExit }: { onExit: () => void }) {
       />
       <Text style={styles.title}>🐾 Animal memory pairs</Text>
       <Text style={styles.note}>Turn over two cards. Find the same animal!</Text>
+      <Text style={styles.note}>
+        {memoryAnimals.length} animal friends · Pictures need internet
+      </Text>
+      <View style={styles.row}>
+        {memoryGroups.map((item) => (
+          <ActionButton
+            key={item.id}
+            accessibilityState={{ selected: group === item.id }}
+            onPress={() => reset(pairs, item.id)}
+          >
+            {item.name}
+          </ActionButton>
+        ))}
+      </View>
+      <Text style={styles.note}>{memoryAnimalsFor(group).length} animals in this group</Text>
+      {photos.failed && (
+        <>
+          <Text style={styles.note}>
+            Some photos could not load. Check your internet or try again. Your stars are safe.
+          </Text>
+          <ActionButton
+            onPress={() => {
+              photos.retry();
+              setPeek(true);
+            }}
+          >
+            Retry photos
+          </ActionButton>
+        </>
+      )}
       <View style={styles.row}>
         {[2, 3, 4].map((count) => (
           <ActionButton
@@ -74,11 +110,14 @@ export default function MemoryPairs({ onExit }: { onExit: () => void }) {
           <MemoryTile
             key={card.id}
             card={card}
+            photoStatus={photos.status[card.animal.id] ?? "loading"}
+            attempt={photos.attempt}
+            onPhotoError={() => photos.fail(card.animal.id)}
             visible={
-              peek || state.revealed.includes(card.id) || state.matched.includes(card.animal.letter)
+              peek || state.revealed.includes(card.id) || state.matched.includes(card.animal.id)
             }
-            matched={state.matched.includes(card.animal.letter)}
-            disabled={peek || state.matched.includes(card.animal.letter) || memoryMismatch(state)}
+            matched={state.matched.includes(card.animal.id)}
+            disabled={peek || state.matched.includes(card.animal.id) || memoryMismatch(state)}
             columns={pairs === 3 ? 3 : 2}
             onPress={() => choose(card.id)}
           />
@@ -88,7 +127,9 @@ export default function MemoryPairs({ onExit }: { onExit: () => void }) {
         {finished
           ? "All pairs found! Your stars are saved! ⭐"
           : peek
-            ? "Have a little peek at your animal friends!"
+            ? !photos.ready
+              ? "Getting animal photos…"
+              : "Have a little peek at your animal friends!"
             : memoryMismatch(state)
               ? "Different friends! They will turn back. Try again!"
               : "Take your time. Every pair earns one star!"}
@@ -102,7 +143,11 @@ export default function MemoryPairs({ onExit }: { onExit: () => void }) {
         </ActionButton>
         <ActionButton onPress={() => reset(pairs)}>🌈 Play memory again</ActionButton>
       </View>
-      <Text style={styles.note}>No timer, no penalties. Peeking is always welcome.</Text>
+      <Text style={styles.note}>
+        No timer, no penalties. Peeking is always welcome. New animal names use the tablet’s English
+        voice.
+      </Text>
+      <PhotoCredits animals={photos.animals} />
     </ScrollView>
   );
 }

@@ -75,6 +75,12 @@ Keep content separate from activity state. Prefer a shared component when two sc
 
 `memoryLogic` supplies balanced decks and guarded flips. `MemoryPairs` uses a synchronous state ref to prevent duplicate rewards; previews restart on deck changes, mismatches close after a gentle delay, and timers pause in the background. Matching pairs use existing matching stars/stickers.
 
-`eggLogic` supplies eight shuffled animal letters and a bounded three-tap reveal. `SurpriseEggs` immediately guards reveal/next actions and saves one letter-adventure star per animal; the eighth reveal completes one adventure. Shared `useActivityAudio` uses only known bundled recordings and stops on background/exit/reset.
+`eggLogic` supplies eight shuffled animal letters and a bounded three-tap reveal. `SurpriseEggs` immediately guards reveal/next actions and saves one letter-adventure star per animal; the eighth reveal completes one adventure. Shared `useActivityAudio` plays known bundled recordings and optionally uses the device English voice for new memory animal names; playback stops on background/exit/reset.
 
 `coloringLogic` normalizes input and interpolates fast finger movement with a 1,000-dot cap per picture. `useColoring` holds per-animal session drafts and undo history. `PaintCanvas` paints below reusable animal outlines; `ColoringAnimals` exposes named palettes and brushes. Clear is reversible. Pictures are not stored across navigation or included in progress backups; creative play does not alter rewards.
+
+## Online memory expansion
+
+`data/memoryPhotos.json` is a curated catalogue of 32 fixed Wikimedia Commons photo URLs, authors, source pages and licenses. `memoryAnimals` defines groups; `memoryLogic` matches by stable species IDs rather than initial letters. Runtime performs no searches or metadata discovery. `useMemoryPhotos` loads at most four unique photos per board, waits for readiness before preview timing, bounds failed loads to ten seconds, ignores stale responses after leaving/changing boards, and supports explicit retry. Shared statuses give both copies the same fallback when a photo fails.
+
+`addMemoryReward` awards stars for every valid species and only awards one of the eight existing stickers for its actual original animal. New animals sharing an initial do not award an unrelated sticker. Progress format and backup validation remain unchanged. Photo credits are available in the activity. No photos are bundled in the APK; OS image caching may retain recently viewed pictures.

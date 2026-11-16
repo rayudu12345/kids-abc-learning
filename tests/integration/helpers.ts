@@ -38,3 +38,13 @@ export async function traceOutline(page: Page, id: string) {
     page.getByText(`Wonderful! You traced ${item.name}! One saved star! ⭐`, { exact: true }),
   ).toBeVisible();
 }
+
+/** CI tests isolate Wikimedia from the network; real URLs are checked during asset review. */
+export async function mockMemoryPhotos(page: Page) {
+  await page.route(/https:\/\/(?:thumb|upload)\.wikimedia\.org\//, (route) =>
+    route.fulfill({
+      contentType: "image/gif",
+      body: Buffer.from("R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7", "base64"),
+    }),
+  );
+}

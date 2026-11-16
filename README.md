@@ -4,7 +4,7 @@ An English alphabet-learning app for children, built with React Native, TypeScri
 
 ## Activities
 
-- **Animal memory pairs:** 2–4 pairs, previews and unlimited peeks, gentle retries, and saved matching rewards.
+- **Animal memory pairs:** 32 online animal photos, themed groups, 2–4 pairs, previews, gentle retries, and saved matching rewards.
 - **Surprise eggs:** three taps reveal each of eight animal letters with offline pronunciation and saved stars.
 - **Coloring animals:** 24 outlines, five named colors, an eraser, three brushes, undo, and reversible clear; pictures stay during the activity session.
 
@@ -47,7 +47,7 @@ For a browser preview:
 npm run web
 ```
 
-The installed Android APK can use bundled pictures and activities offline. 82 bundled human recordings play offline. Unrecorded prompts/examples use the device's text-to-speech engine and need an installed offline English voice. See the audio guide for remaining recording gaps. Expo Go development still needs access to the computer running Expo.
+Animal memory pairs downloads real photos from Wikimedia Commons and needs internet for those pictures. Other bundled activities and pictures remain usable offline. 82 bundled human recordings play offline. Unrecorded prompts/examples use the device's text-to-speech engine and need an installed offline English voice. See the audio guide for remaining recording gaps. Expo Go development still needs access to the computer running Expo.
 
 ## Check the code
 

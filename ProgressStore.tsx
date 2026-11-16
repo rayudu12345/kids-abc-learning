@@ -1,4 +1,4 @@
-import { addLearningReward } from "./progressLogic";
+import { addLearningReward, addMemoryReward } from "./progressLogic";
 import { LearningActivity } from "./data/learningCatalog";
 import React, { createContext, useCallback, useContext, useEffect, useRef, useState } from "react";
 import { Text, View } from "react-native";
@@ -11,6 +11,7 @@ type Store = {
   progress: Progress;
   saveError: boolean;
   recordAnswer: (letter: string, activity: Activity, completed: boolean) => void;
+  recordMemoryMatch: (animalId: string, completed: boolean) => void;
   recordTracing: (id: string, kind: "letter" | "lowercase" | "animal") => void;
   recordLearning: (activity: LearningActivity, id: string, finished: boolean) => void;
   restoreProgress: (progress: Progress) => Promise<void>;
@@ -62,6 +63,16 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
   const recordAnswer = useCallback(
     (letter: string, activity: Activity, completed: boolean) => {
       const next = addReward(current.current, letter, activity, completed);
+      current.current = next;
+      setProgress(next);
+      save(next);
+    },
+    [save],
+  );
+  const recordMemoryMatch = useCallback(
+    (animalId: string, completed: boolean) => {
+      const next = addMemoryReward(current.current, animalId, completed);
+      if (next === current.current) return;
       current.current = next;
       setProgress(next);
       save(next);
@@ -146,6 +157,7 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
         progress,
         saveError,
         recordAnswer,
+        recordMemoryMatch,
         recordTracing,
         recordLearning,
         restoreProgress,

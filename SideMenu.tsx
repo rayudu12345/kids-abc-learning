@@ -113,7 +113,7 @@ export const activities = [
     id: "memory",
     icon: "🧠",
     title: "Animal memory pairs",
-    detail: "Turn cards and find animal twins",
+    detail: "32 animals with online photo cards",
     color: "#E7D9FF",
   },
   {
