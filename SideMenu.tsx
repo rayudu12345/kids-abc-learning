@@ -96,6 +96,13 @@ export const activities = [
     color: "#E7D9FF",
   },
   {
+    id: "paint",
+    icon: "🖌",
+    title: "Paint Studio",
+    detail: "Draw, fill shapes and save pictures",
+    color: "#FFE0ED",
+  },
+  {
     id: "coloring",
     icon: "🎨",
     title: "Coloring animals",

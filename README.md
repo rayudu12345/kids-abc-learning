@@ -4,6 +4,8 @@ An English alphabet-learning app for children, built with React Native, TypeScri
 
 ## Activities
 
+- **Paint Studio:** a blank canvas with brush, pencil, eraser, lines, rectangles, ovals, shape/page fill, ten colors, undo/redo, local autosave, and PNG/SVG export.
+
 - **Animal memory pairs:** 32 online animal photos, themed groups, 2–4 pairs, previews, gentle retries, and saved matching rewards.
 - **Surprise eggs:** three taps reveal each of eight animal letters with offline pronunciation and saved stars.
 - **Coloring animals:** 24 outlines, five named colors, an eraser, three brushes, undo, and reversible clear; pictures stay during the activity session.

@@ -1,4 +1,5 @@
 import React from "react";
+import PaintStudio from "../screens/PaintStudio";
 import ColoringAnimals from "../screens/ColoringAnimals";
 import SurpriseEggs from "../screens/SurpriseEggs";
 import MemoryPairs from "../screens/MemoryPairs";
@@ -36,8 +37,10 @@ export default function ActivityRouter({
       return <Counting onExit={onExit} />;
     case "phonics":
       return <Phonics onExit={onExit} />;
+    case "paint":
+      return <PaintStudio onExit={onExit} />;
     case "coloring":
-      return <ColoringAnimals onExit={onExit} />;
+      return <ColoringAnimals onExit={onExit} onOpenStudio={() => onNavigate("paint")} />;
     case "eggs":
       return <SurpriseEggs onExit={onExit} />;
     case "memory":

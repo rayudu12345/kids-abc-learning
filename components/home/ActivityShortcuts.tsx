@@ -3,6 +3,7 @@ import { View } from "react-native";
 import { Screen } from "../../SideMenu";
 import ActionButton from "../ui/ActionButton";
 const shortcuts: { screen: Screen; title: string; color: string }[] = [
+  { screen: "paint", title: "🖌 Paint Studio", color: "#9F4E8F" },
   { screen: "skyPlay", title: "🎈 Balloons and kites", color: "#AD4D83" },
   { screen: "phonics", title: "👄 Letter sounds", color: "#A24475" },
   { screen: "counting", title: "🔢 Numbers and counting", color: "#267F67" },

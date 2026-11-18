@@ -61,7 +61,7 @@ This produces an Android App Bundle (AAB) for store distribution, not a directly
 
 On the target Samsung tablet and an Android phone:
 
-- Open all 19 menu destinations; close the menu using its close button, backdrop, and Android back.
+- Open all 20 menu destinations; close the menu using its close button, backdrop, and Android back.
 - Use Android back from an activity to return to the alphabet screen.
 - Complete a five-question letter adventure and try a wrong answer. Rewards must be granted once per correct response.
 - Try both drag-and-drop and tap matching. Check targets after scrolling.
@@ -139,3 +139,11 @@ The user-authorized memory expansion contains 32 animals in All animals, Pets an
 Known animal names use bundled recordings; new names use the tablet's English TTS voice and respect mute. Test Wi-Fi/mobile data, slow connections, image failures, retry, group changes during loading, background/resume, photo readability, voice output, and saved rewards on the Samsung tablet. Remote photo availability and native network behavior need physical-device checks. Wikimedia receives normal image requests (including IP address and standard request headers); progress is not sent to it. There are no accounts, ads or added analytics.
 
 Credits and source/license URLs are visible under Photo credits. The committed catalogue is the runtime source of truth. `python scripts/build-memory-catalog.py` resolves fixed reference topics for maintenance, respects API rate-limit waits, and retains prior catalogue output on an incomplete fetch. Its temporary metadata cache is `/tmp/kids-abc-memory-catalog.json`; review all new photos and credits before committing updates. Do not run metadata discovery inside the children's app.
+
+## Paint Studio release checks
+
+Open the new Paint Studio button on home, the activity menu, or animal coloring. This is a standalone blank-canvas activity; animal coloring keeps its existing behavior. Tools include brush, pencil, eraser, line, rectangle, oval and fill, ten named colors, three brush sizes, filled/outlined shapes, page color, undo/redo and clear. The pencil is always fine. Fill applies to geometric shapes or the page; it is not pixel flood-fill for freehand regions. Drawings are bounded to 200 marks and 1,800 points; Undo/Clear makes room. Tapping creates dots or small shapes.
+
+The latest picture autosaves locally after completed actions. Undo/redo covers the last 30 actions while the activity stays open. Read errors preserve the saved picture and offer Retry opening picture; save errors preserve the visible drawing and offer Retry saving picture. Paint data has its own key and is not part of the learning-progress JSON backup. Export PNG/SVG copies separately and save them outside the app to survive uninstalling or clearing app data. PNG is 1200 × 1200; SVG remains editable vector geometry. The app keeps one latest painting rather than an in-app picture gallery. Text, photo import/cropping and selection tools are outside this first paint release.
+
+`react-native-svg` is aligned with Expo SDK 58. Rebuild the APK to include the dependency and updated Expo patch packages; keep Expo Go on SDK 58. Native PNG capture/sharing requires a physical-device check. Exports use the system share sheet and do not automatically publish artwork. File writes complete before sharing, including progress backup export. No accounts, ads, purchases, analytics or cloud artwork storage were added.

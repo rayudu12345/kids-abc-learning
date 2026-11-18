@@ -65,3 +65,7 @@ See [audio and assets](docs/AUDIO_AND_ASSETS.md) and [backup and restore](docs/B
 ## Balloon and kite play
 
 `SkyPlay` owns mode, mute/pause and session counters. `FlyingToy`, `SkyArt`, and `PopBurst` keep rendering small; `useFlyingMotion` cleans up and resumes movement. `skyPlayLogic` defines responsive lanes and cycling letter badges. Counts are free-play feedback, not persisted rewards, so existing progress and backups remain compatible. Effects share the global audio controller and stop on navigation/backgrounding.
+
+## Paint Studio
+
+`PaintStudio` composes `StudioTools`, `StudioCanvas`, and `StudioMarkArt`. `studioLogic` owns document validation, geometry, history, fill hit-testing and SVG export. `usePaintStudio` owns gestures and save status. `studioPersistence` serializes saves and waits for pending writes before reopening; its singleton survives activity navigation. `studioFiles.ts` uses native SVG capture and sharing; `.web.ts` rasterizes SVG to PNG and downloads files. The additional Paint Studio button is available from home, the side menu and animal coloring.

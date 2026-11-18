@@ -12,11 +12,12 @@ These descriptions are feature references, not evidence of hands-on testing. The
 - Animal memory pairs, expanded to 32 online photos and themed groups, with 2–4 pairs and matching rewards.
 - Eight animal surprise eggs, with letter/name recordings and saved stars.
 - Freehand coloring for 24 animal outlines, with brushes, eraser, undo and reversible clear.
+- Separate Paint Studio with blank-canvas drawing, shapes/fill, undo/redo, persistent latest picture and PNG/SVG export.
 
 Existing alphabet, tracing, counting, colors/shapes, sound matching, balloons, stickers, and progress backup remain available. The expanded memory game needs internet for animal photos. Other bundled activities retain offline support.
 
 ## Remaining candidates
 
-Simple picture puzzles, fruit/vegetable sorting, musical play with original or licensed samples, and gentle daily-routine scenes are possible later additions. Full songs, stories, and more realistic sound games need suitable licensed recordings or original assets. Coloring artwork currently stays only during its activity session; local artwork saving/export is a separate future improvement.
+Simple picture puzzles, fruit/vegetable sorting, musical play with original or licensed samples, and gentle daily-routine scenes are possible later additions. Full songs, stories, and more realistic sound games need suitable licensed recordings or original assets. Animal-coloring artwork stays only during its activity session. The separate Paint Studio now saves its latest picture locally and exports PNG/SVG; a multi-picture gallery remains a possible future improvement.
 
 Keep activities short, use large targets and gentle retries, and introduce difficulty gradually for a three-year-old. Parental controls remain deferred; do not introduce accounts, ads, purchases, analytics or cloud services.

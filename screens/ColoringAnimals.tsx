@@ -8,7 +8,13 @@ import PaintCanvas from "../components/coloring/PaintCanvas";
 import ActivityToolbar from "../components/ui/ActivityToolbar";
 import ActionButton from "../components/ui/ActionButton";
 import FeedbackMessage from "../components/ui/FeedbackMessage";
-export default function ColoringAnimals({ onExit }: { onExit: () => void }) {
+export default function ColoringAnimals({
+  onExit,
+  onOpenStudio,
+}: {
+  onExit: () => void;
+  onOpenStudio: () => void;
+}) {
   const { width, height } = useWindowDimensions(),
     paint = useColoring(),
     audio = useActivityAudio();
@@ -27,6 +33,7 @@ export default function ColoringAnimals({ onExit }: { onExit: () => void }) {
         soundLabel="Color names"
       />
       <Text style={styles.title}>🎨 Color animal friends</Text>
+      <ActionButton onPress={onOpenStudio}>🖌 Open Paint Studio</ActionButton>
       <Text style={styles.name}>{item.name}</Text>
       <View style={styles.row}>
         {paintColors.map((color) => (

@@ -20,7 +20,7 @@ export async function exportBackupFile(text: string): Promise<void> {
     throw new Error("File sharing is not available on this device.");
   const file = new File(Paths.cache, `kids-abc-backup-${Date.now()}.json`);
   file.create({ overwrite: true });
-  file.write(text);
+  await file.write(text);
   await Sharing.shareAsync(file.uri, {
     mimeType: "application/json",
     dialogTitle: "Save your progress backup outside the app",
