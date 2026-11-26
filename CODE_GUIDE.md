@@ -14,7 +14,7 @@ Start with `App.tsx`. It now only assembles the error boundary, progress provide
 | `components/ui/StarProgress.tsx`          | Reusable earned-star display.                                          |
 | `components/ui/FeedbackMessage.tsx`       | Screen-reader-friendly activity feedback.                              |
 | `components/ui/SceneModal.tsx`            | Full-screen illustration wrapper used by basic and advanced letters.   |
-| `components/home/`                        | Alphabet home, shortcuts, card grid, and selected-letter scene.        |
+| `components/home/`                        | Alphabet home, card grid, and selected-letter scene.                   |
 | `components/matching/DraggableAnimal.tsx` | Animal tile with its own responder and return animation.               |
 | `components/tracing/TraceCanvas.tsx`      | Scaled tracing paths, starting point, moving guide, and touch surface. |
 | `components/tracing/TracingPicker.tsx`    | Letter/animal selection cards and completed markers.                   |
@@ -42,7 +42,7 @@ Activity screens remain at the repository root: `FindLetter.tsx`, `MatchAnimals.
 
 ## Make changes
 
-- **Add an activity:** add the screen entry to `SideMenu.tsx`, add its route to `ActivityRouter.tsx`, and optionally add a home shortcut.
+- **Add an activity:** add the screen entry to `data/activities.ts`, its introduction to `data/activityGuide.ts`, and its route to `ActivityRouter.tsx`. The side menu lists every activity; home stays focused on the alphabet.
 - **Add an animal outline:** add a unique catalogue entry in `traceCatalog.ts`. Picker cards, saved-data validation, menu counts, and totals use that catalogue. Optional animal-sticker mappings are in `addTracingReward`.
 - **Change advanced vocabulary:** update `advancedAlphabet.ts` and its illustration in `AdvancedScene.tsx`.
 - **Change an activity's controls:** use the shared components instead of duplicating buttons or toolbar markup.
@@ -68,7 +68,7 @@ See [audio and assets](docs/AUDIO_AND_ASSETS.md) and [backup and restore](docs/B
 
 ## Paint Studio
 
-`PaintStudio` composes `StudioTools`, `StudioCanvas`, and `StudioMarkArt`. `studioLogic` owns document validation, geometry, history, fill hit-testing and SVG export. `usePaintStudio` owns gestures and save status. `studioPersistence` serializes saves and waits for pending writes before reopening; its singleton survives activity navigation. `studioFiles.ts` uses native SVG capture and sharing; `.web.ts` rasterizes SVG to PNG and downloads files. The additional Paint Studio button is available from home, the side menu and animal coloring.
+`PaintStudio` composes `StudioTools`, `StudioCanvas`, and `StudioMarkArt`. `studioLogic` owns document validation, geometry, history, fill hit-testing and SVG export. `usePaintStudio` owns gestures and save status. `studioPersistence` serializes saves and waits for pending writes before reopening; its singleton survives activity navigation. `studioFiles.ts` uses native SVG capture and sharing; `.web.ts` rasterizes SVG to PNG and downloads files. The additional Paint Studio button is available from the side menu and animal coloring.
 
 ## Play discovery and puzzles
 

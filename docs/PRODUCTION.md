@@ -122,7 +122,7 @@ Check all eight enlarged alphabet animal scenes in portrait, landscape, and full
 
 ## Animal sound match
 
-Open Animal sound match from the menu or home shortcuts. Four questions use the existing licensed `sound-cat` and `sound-dog` files and human `listen` recording, with two large animated choices. All question audio is recorded and offline; no new audio assets or TTS are required. Replay does not overlap prior clips. Mute reveals Meow/Woof text clues; retries have no penalties. Correct answers save one star and cat/dog stickers; completing four adds one matching adventure. Backgrounding stops audio and pauses pending advancement; leaving cancels the session timer. Verify comfortable volume, replay/mute, touch targets, airplane-mode startup and background/resume in an installed APK. More animals require correctly identified, licensed recordings before they can be added.
+Open Animal sound match from the side menu. Four questions use the existing licensed `sound-cat` and `sound-dog` files and human `listen` recording, with two large animated choices. All question audio is recorded and offline; no new audio assets or TTS are required. Replay does not overlap prior clips. Mute reveals Meow/Woof text clues; retries have no penalties. Correct answers save one star and cat/dog stickers; completing four adds one matching adventure. Backgrounding stops audio and pauses pending advancement; leaving cancels the session timer. Verify comfortable volume, replay/mute, touch targets, airplane-mode startup and background/resume in an installed APK. More animals require correctly identified, licensed recordings before they can be added.
 
 ## Memory, surprise eggs, and coloring
 
@@ -142,7 +142,7 @@ Credits and source/license URLs are visible under Photo credits. The committed c
 
 ## Paint Studio release checks
 
-Open the new Paint Studio button on home, the activity menu, or animal coloring. This is a standalone blank-canvas activity; animal coloring keeps its existing behavior. Tools include brush, pencil, eraser, line, rectangle, oval and fill, ten named colors, three brush sizes, filled/outlined shapes, page color, undo/redo and clear. The pencil is always fine. Fill applies to geometric shapes or the page; it is not pixel flood-fill for freehand regions. Drawings are bounded to 200 marks and 1,800 points; Undo/Clear makes room. Tapping creates dots or small shapes.
+Open the new Paint Studio button in the activity menu or animal coloring. This is a standalone blank-canvas activity; animal coloring keeps its existing behavior. Tools include brush, pencil, eraser, line, rectangle, oval and fill, ten named colors, three brush sizes, filled/outlined shapes, page color, undo/redo and clear. The pencil is always fine. Fill applies to geometric shapes or the page; it is not pixel flood-fill for freehand regions. Drawings are bounded to 200 marks and 1,800 points; Undo/Clear makes room. Tapping creates dots or small shapes.
 
 The latest picture autosaves locally after completed actions. Undo/redo covers the last 30 actions while the activity stays open. Read errors preserve the saved picture and offer Retry opening picture; save errors preserve the visible drawing and offer Retry saving picture. Paint data has its own key and is not part of the learning-progress JSON backup. Export PNG/SVG copies separately and save them outside the app to survive uninstalling or clearing app data. PNG is 1200 × 1200; SVG remains editable vector geometry. The app keeps one latest painting rather than an in-app picture gallery. Text, photo import/cropping and selection tools are outside this first paint release.
 
@@ -150,7 +150,7 @@ The latest picture autosaves locally after completed actions. Undo/redo covers t
 
 ## Play discovery and animal puzzles
 
-The menu now contains 22 destinations including Play and learn and Animal picture puzzles. Home has six featured shortcuts plus More activities. The guide introduces all 21 other options; With a grown-up labels backup tools but is not a parental gate. All introductions are available as text. Spoken introductions require an installed English TTS voice; download a voice before testing airplane mode. No new recordings are bundled.
+The menu now contains 22 destinations including Play and learn and Animal picture puzzles. Home shows the alphabet without activity shortcuts; use the side menu to open any activity. The guide introduces all 21 other options; With a grown-up labels backup tools but is not a parental gate. All introductions are available as text. Spoken introductions require an installed English TTS voice; download a voice before testing airplane mode. No new recordings are bundled.
 
 Puzzle lessons contain three of eight bundled animal pictures, default two pieces and optional four. Hints and retries have no penalty. Each picture earns one existing matching star; the third marks a completed matching adventure. Progress/backup format remains version 1. Puzzles and guide assets work offline; the existing online-photo memory game still requires internet.
 

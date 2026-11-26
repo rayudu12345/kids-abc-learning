@@ -90,6 +90,6 @@ Physical Samsung tablet checks remain necessary: finger drawing, fine pencil, sh
 
 ## Discovery and picture puzzles
 
-`activity-guide.test.ts` verifies exhaustive introduction coverage and safe nonrepeating suggestions. `puzzle.test.ts` checks unique pieces, exact image coverage, forgiving retries, invalid input and duplicate-placement rejection. Browser suites `activity-guide.spec.ts` and `puzzles.spec.ts` cover every introduction, replay/mute, launching, expandable home shortcuts, two/four pieces, hints, actual pointer dragging, saved rewards, automatic progression, reload persistence and leaving during celebrations. They run at phone and tablet sizes.
+`activity-guide.test.ts` verifies exhaustive introduction coverage and safe nonrepeating suggestions. `puzzle.test.ts` checks unique pieces, exact image coverage, forgiving retries, invalid input and duplicate-placement rejection. Browser suites `activity-guide.spec.ts` and `puzzles.spec.ts` cover every introduction, replay/mute, launching, alphabet-only home and complete side-menu access, two/four pieces, hints, actual pointer dragging, saved rewards, automatic progression, reload persistence and leaving during celebrations. They run at phone and tablet sizes.
 
 On the Samsung tablet, check finger dragging and tap placement in both orientations, TalkBack labels, Android Back from introductions, offline English voice availability and audio stopping when backgrounding/leaving. Browser speech is stubbed to verify complete narration requests; it cannot verify native voice quality.

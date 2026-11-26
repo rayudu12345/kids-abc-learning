@@ -1,14 +1,12 @@
 import React, { useState } from "react";
 import { ScrollView, StyleSheet, Text, View, useWindowDimensions } from "react-native";
-import { Screen } from "../../SideMenu";
 import LetterScene from "../../LetterScene";
 import useAlphabetPlayback from "../../hooks/useAlphabetPlayback";
 import ActionButton from "../ui/ActionButton";
 import SceneModal from "../ui/SceneModal";
-import ActivityShortcuts from "./ActivityShortcuts";
 import AlphabetGrid from "./AlphabetGrid";
 import AlphabetHero from "./AlphabetHero";
-export default function AlphabetHome({ onNavigate }: { onNavigate: (screen: Screen) => void }) {
+export default function AlphabetHome() {
   const { width, height } = useWindowDimensions();
   const [expanded, setExpanded] = useState(false);
   const playback = useAlphabetPlayback();
@@ -32,7 +30,6 @@ export default function AlphabetHome({ onNavigate }: { onNavigate: (screen: Scre
             {playback.muted ? "🔇 Sound off" : "🔊 Sound on"}
           </ActionButton>
         </View>
-        <ActivityShortcuts onNavigate={onNavigate} />
         <AlphabetHero
           item={playback.activeItem}
           version={playback.sceneVersion}

@@ -28,4 +28,8 @@ Physical Samsung tablet, native Android gesture/audio behavior, APK installation
 
 The 1.1.0 expansion adds licensed offline audio, initial-sound practice, lowercase tracing, counting, colors/shapes, validated backup/restore, and four-pose animal sprites. Audio gaps and native-device verification requirements are detailed in [Audio and assets](AUDIO_AND_ASSETS.md) and [Backup and restore](BACKUP_AND_RESTORE.md).
 
-The latest checks include the Play and learn introductions, expandable home shortcuts and two/four-piece animal picture puzzles. All 12 new phone/tablet integration cases also passed independently before the full regression run. Existing audio cleanup, storage migration and invalid-backup suites remain passing. No dependency changes or new media assets were required.
+The latest checks include the Play and learn introductions, alphabet-only home with all activities in the side menu and two/four-piece animal picture puzzles. All 12 new phone/tablet integration cases also passed independently before the full regression run. Existing audio cleanup, storage migration and invalid-backup suites remain passing. No dependency changes or new media assets were required.
+
+## Alphabet home follow-up — 26 November 2026
+
+Removed the home activity shortcuts while preserving every side-menu destination. Formatting, TypeScript, all 112 unit tests, the 18 targeted phone/tablet navigation and app integration cases, and Android Hermes export passed. The full 66-case result above records the preceding feature expansion; CI runs the full suite again for this follow-up. Physical APK checks remain as described above.

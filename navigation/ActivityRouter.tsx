@@ -82,6 +82,6 @@ export default function ActivityRouter({
     case "find":
       return <FindLetter onExit={onExit} />;
     default:
-      return <AlphabetHome onNavigate={onNavigate} />;
+      return <AlphabetHome />;
   }
 }

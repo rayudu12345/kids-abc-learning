@@ -64,14 +64,25 @@ test("surprise chooser explains a child-friendly game before launching", async (
     page.getByRole("button", { name: "Close activity introduction", exact: true }),
   ).toBeHidden();
 });
-test("home keeps more games available behind its expandable shortcuts", async ({ page }) => {
+test("alphabet home has no activity shortcuts and every activity stays in the side menu", async ({
+  page,
+}) => {
   await page.goto("/");
+  await expect(page.getByRole("switch", { name: "Alphabet sound", exact: true })).toBeVisible();
+  await expect(page.getByText("Choose a letter A–Z", { exact: true })).toBeVisible();
+  await expect(page.getByRole("button", { name: "Show more activities", exact: true })).toHaveCount(
+    0,
+  );
   await expect(
     page.getByRole("button", { name: "🎉 Play and learn · How to play", exact: true }),
-  ).toBeVisible();
-  await expect(page.getByRole("button", { name: "👄 Letter sounds", exact: true })).toHaveCount(0);
-  await page.getByRole("button", { name: "Show more activities", exact: true }).click();
-  await expect(page.getByRole("button", { name: "👄 Letter sounds", exact: true })).toBeVisible();
-  await page.getByRole("button", { name: "Show fewer activities", exact: true }).click();
-  await expect(page.getByRole("button", { name: "👄 Letter sounds", exact: true })).toHaveCount(0);
+  ).toHaveCount(0);
+  await expect(page.getByRole("button", { name: "🖌 Paint Studio", exact: true })).toHaveCount(0);
+  await page.getByRole("button", { name: "Open activity menu", exact: true }).click();
+  for (const activity of activities)
+    await expect(
+      page.getByRole("button", { name: `Open ${activity.title}`, exact: true }),
+    ).toHaveCount(1);
+  await page.getByRole("button", { name: "Open Play and learn", exact: true }).click();
+  await expect(page.getByRole("button", { name: "Close menu", exact: true })).toBeHidden();
+  await expect(page.getByRole("button", { name: "Pick a game for me", exact: true })).toBeVisible();
 });
