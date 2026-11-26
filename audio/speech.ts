@@ -78,3 +78,8 @@ export function speak(text: string, options: SpeechOptions = {}) {
 export function playEffect(name: "pop" | "kite") {
   void controller.play([`effect-${name}`]);
 }
+
+/** Full instructions use one owned TTS request rather than partial word-clip matching. */
+export function narrate(text: string) {
+  void controller.play([], () => DeviceSpeech.speak(text, { language: "en-US", rate: 0.78 }));
+}

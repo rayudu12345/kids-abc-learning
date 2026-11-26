@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { View } from "react-native";
 import { Screen } from "../../SideMenu";
 import ActionButton from "../ui/ActionButton";
 const shortcuts: { screen: Screen; title: string; color: string }[] = [
+  { screen: "guide", title: "🎉 Play and learn · How to play", color: "#8C489F" },
+  { screen: "puzzles", title: "🧩 Animal picture puzzles", color: "#287F67" },
   { screen: "paint", title: "🖌 Paint Studio", color: "#9F4E8F" },
   { screen: "skyPlay", title: "🎈 Balloons and kites", color: "#AD4D83" },
   { screen: "phonics", title: "👄 Letter sounds", color: "#A24475" },
@@ -27,6 +29,9 @@ export default function ActivityShortcuts({
 }: {
   onNavigate: (screen: Screen) => void;
 }) {
+  const [expanded, setExpanded] = useState(false);
+  const featured = new Set<Screen>(["guide", "puzzles", "paint", "skyPlay", "coloring", "find"]);
+  const visible = expanded ? shortcuts : shortcuts.filter((item) => featured.has(item.screen));
   return (
     <View
       style={{
@@ -38,7 +43,7 @@ export default function ActivityShortcuts({
         paddingHorizontal: 12,
       }}
     >
-      {shortcuts.map((item) => (
+      {visible.map((item) => (
         <ActionButton
           key={item.screen}
           variant="primary"
@@ -48,6 +53,12 @@ export default function ActivityShortcuts({
           {item.title}
         </ActionButton>
       ))}
+      <ActionButton
+        accessibilityLabel={expanded ? "Show fewer activities" : "Show more activities"}
+        onPress={() => setExpanded((value) => !value)}
+      >
+        {expanded ? "Show fewer activities" : "More activities 🌈"}
+      </ActionButton>
     </View>
   );
 }

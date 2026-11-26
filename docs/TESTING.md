@@ -87,3 +87,9 @@ Online-memory unit coverage checks 32 species, group sizes, fixed HTTPS photo so
 Unit coverage includes input/version/coordinate validation, mark and point limits, shape geometry and tap alternatives, fill behavior, undo/redo branches and bounds, SVG export, eraser/page-color consistency, serialized writes, failed reads, failed saves and reopening during an in-flight save. Browser tests cover shapes/fill, erasing, undo/redo/clear, navigation and reload autosave, the coloring-to-studio link, learning-progress preservation, read/write retries, PNG signatures, SVG downloads and export failures. A real 1200 × 1200 PNG is produced by the web test.
 
 Physical Samsung tablet checks remain necessary: finger drawing, fine pencil, shape taps/drags, fill selection, scrolling, rapid navigation during saving, background/resume, native PNG capture and sharing to Files/Photos, and reopening the saved image. Verify PNG and SVG match the visible drawing, including erased areas and page colors. Browser downloads do not establish native share-target behavior.
+
+## Discovery and picture puzzles
+
+`activity-guide.test.ts` verifies exhaustive introduction coverage and safe nonrepeating suggestions. `puzzle.test.ts` checks unique pieces, exact image coverage, forgiving retries, invalid input and duplicate-placement rejection. Browser suites `activity-guide.spec.ts` and `puzzles.spec.ts` cover every introduction, replay/mute, launching, expandable home shortcuts, two/four pieces, hints, actual pointer dragging, saved rewards, automatic progression, reload persistence and leaving during celebrations. They run at phone and tablet sizes.
+
+On the Samsung tablet, check finger dragging and tap placement in both orientations, TalkBack labels, Android Back from introductions, offline English voice availability and audio stopping when backgrounding/leaving. Browser speech is stubbed to verify complete narration requests; it cannot verify native voice quality.

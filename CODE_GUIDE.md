@@ -69,3 +69,10 @@ See [audio and assets](docs/AUDIO_AND_ASSETS.md) and [backup and restore](docs/B
 ## Paint Studio
 
 `PaintStudio` composes `StudioTools`, `StudioCanvas`, and `StudioMarkArt`. `studioLogic` owns document validation, geometry, history, fill hit-testing and SVG export. `usePaintStudio` owns gestures and save status. `studioPersistence` serializes saves and waits for pending writes before reopening; its singleton survives activity navigation. `studioFiles.ts` uses native SVG capture and sharing; `.web.ts` rasterizes SVG to PNG and downloads files. The additional Paint Studio button is available from home, the side menu and animal coloring.
+
+## Play discovery and puzzles
+
+- Add routes in `data/activities.ts` and introduce them in `data/activityGuide.ts`; TypeScript and coverage tests enforce completeness.
+- Guide UI is split into `screens/PlayAndLearn.tsx` and small `components/guide` cards/modal.
+- Picture puzzle rules live in `puzzleLogic.ts`, lesson/reward state in `hooks/useAnimalPuzzle.ts`, and clipped artwork/drag interaction in `components/puzzles`. The screen composes these with shared controls.
+- Keep the synchronous placement guard and generation check when changing rewards or asynchronous drop measurements.

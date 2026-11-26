@@ -61,7 +61,7 @@ This produces an Android App Bundle (AAB) for store distribution, not a directly
 
 On the target Samsung tablet and an Android phone:
 
-- Open all 20 menu destinations; close the menu using its close button, backdrop, and Android back.
+- Open all 22 menu destinations; close the menu using its close button, backdrop, and Android back.
 - Use Android back from an activity to return to the alphabet screen.
 - Complete a five-question letter adventure and try a wrong answer. Rewards must be granted once per correct response.
 - Try both drag-and-drop and tap matching. Check targets after scrolling.
@@ -147,3 +147,11 @@ Open the new Paint Studio button on home, the activity menu, or animal coloring.
 The latest picture autosaves locally after completed actions. Undo/redo covers the last 30 actions while the activity stays open. Read errors preserve the saved picture and offer Retry opening picture; save errors preserve the visible drawing and offer Retry saving picture. Paint data has its own key and is not part of the learning-progress JSON backup. Export PNG/SVG copies separately and save them outside the app to survive uninstalling or clearing app data. PNG is 1200 × 1200; SVG remains editable vector geometry. The app keeps one latest painting rather than an in-app picture gallery. Text, photo import/cropping and selection tools are outside this first paint release.
 
 `react-native-svg` is aligned with Expo SDK 58. Rebuild the APK to include the dependency and updated Expo patch packages; keep Expo Go on SDK 58. Native PNG capture/sharing requires a physical-device check. Exports use the system share sheet and do not automatically publish artwork. File writes complete before sharing, including progress backup export. No accounts, ads, purchases, analytics or cloud artwork storage were added.
+
+## Play discovery and animal puzzles
+
+The menu now contains 22 destinations including Play and learn and Animal picture puzzles. Home has six featured shortcuts plus More activities. The guide introduces all 21 other options; With a grown-up labels backup tools but is not a parental gate. All introductions are available as text. Spoken introductions require an installed English TTS voice; download a voice before testing airplane mode. No new recordings are bundled.
+
+Puzzle lessons contain three of eight bundled animal pictures, default two pieces and optional four. Hints and retries have no penalty. Each picture earns one existing matching star; the third marks a completed matching adventure. Progress/backup format remains version 1. Puzzles and guide assets work offline; the existing online-photo memory game still requires internet.
+
+Before APK release, rebuild the Android package and check actual tablet touch dragging, smaller-screen tap alternatives, native audio cancellation, voice installation, Android modal Back and landscape layout. Android JS/Hermes export is a bundling check, not a signed APK.

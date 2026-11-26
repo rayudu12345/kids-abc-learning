@@ -1,4 +1,6 @@
 import React from "react";
+import AnimalPuzzles from "../screens/AnimalPuzzles";
+import PlayAndLearn from "../screens/PlayAndLearn";
 import PaintStudio from "../screens/PaintStudio";
 import ColoringAnimals from "../screens/ColoringAnimals";
 import SurpriseEggs from "../screens/SurpriseEggs";
@@ -27,6 +29,10 @@ export default function ActivityRouter({
 }) {
   const onExit = () => onNavigate("home");
   switch (screen) {
+    case "puzzles":
+      return <AnimalPuzzles onExit={onExit} />;
+    case "guide":
+      return <PlayAndLearn onExit={onExit} onNavigate={onNavigate} />;
     case "skyPlay":
       return <SkyPlay onExit={onExit} />;
     case "backup":

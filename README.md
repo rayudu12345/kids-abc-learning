@@ -74,3 +74,9 @@ npm run build:android
 - [Feature references and roadmap](docs/FEATURE_ROADMAP.md)
 
 Alphabet animal scenes use larger detailed artwork for cat, dog, elephant, fish, lion, parrot, rabbit, and zebra, with species-specific pose timing and simple habitats. Animations respect reduced motion and stop in the background.
+
+## Play, explore and learn how
+
+Open **Play and learn** from Home or the side menu to browse all activities by Learn, Play games, Create, or With a grown-up. Every activity has a short introduction, a replay button and a direct start button. “Pick a game for me” suggests a child-friendly bundled game and explains it first. Spoken introductions use the tablet’s English text-to-speech voice; they are not new recordings. Home shows six featured shortcuts, with More activities revealing the others.
+
+**Animal picture puzzles** adds eight bundled animal illustrations in short three-picture lessons. Start with two pieces, then try four. Tap a piece and its space, or drag it; whole-picture hints and unlimited retries help. Each finished picture saves one star and the third completes a matching adventure. No new internet dependency or storage migration is introduced.

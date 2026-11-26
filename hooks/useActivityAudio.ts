@@ -24,9 +24,12 @@ export default function useActivityAudio() {
     if (Audio.hasRecording(id)) Audio.playRecording(id);
     else Audio.speak(name, { language: "en-US", rate: 0.78 });
   };
+  const introduce = (text: string) => {
+    if (!muted && active) Audio.narrate(text);
+  };
   const toggleSound = () => {
     void Audio.stop();
     setMuted((value) => !value);
   };
-  return { muted, active, play, say, toggleSound, stop: Audio.stop };
+  return { muted, active, play, say, introduce, toggleSound, stop: Audio.stop };
 }
