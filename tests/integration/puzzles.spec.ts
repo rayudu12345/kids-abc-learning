@@ -71,3 +71,69 @@ test("a picture piece can be dragged into its matching space", async ({ page }) 
   await expect(page.getByText("Pieces 1 of 2", { exact: false })).toBeVisible();
   expect(errors).toEqual([]);
 });
+test("larger puzzle levels reset safely and 36 pieces award one star", async ({ page }) => {
+  test.setTimeout(120000);
+  await page.goto("/");
+  await openActivity(page, "Animal picture puzzles");
+  for (const parts of [6, 9, 12, 16, 25, 36]) {
+    await page.getByRole("button", { name: `${parts} pieces`, exact: true }).click();
+    await expect(page.getByRole("button", { name: /^Puzzle space / })).toHaveCount(parts);
+    await expect(page.getByRole("button", { name: /^Choose .* piece / })).toHaveCount(
+      Math.min(parts, 6),
+    );
+  }
+  await expect(
+    page.getByRole("button", { name: "Previous puzzle pieces", exact: true }),
+  ).toBeDisabled();
+  await page.getByRole("button", { name: "Next puzzle pieces", exact: true }).click();
+  await expect(page.getByText("Pieces page 2 of 6", { exact: true })).toBeVisible();
+  await page.getByRole("button", { name: "Previous puzzle pieces", exact: true }).click();
+  for (let tray = 0; tray < 6; tray++) {
+    const labels = await page
+      .getByRole("button", { name: /^Choose .* piece / })
+      .evaluateAll((nodes) => nodes.map((node) => node.getAttribute("aria-label")!));
+    for (const label of labels) {
+      const piece = Number(label.match(/piece (\d+)$/)![1]);
+      await page.getByRole("button", { name: label, exact: true }).click();
+      if (tray === 0 && label === labels[0]) {
+        await slot(page, piece === 1 ? 2 : 1);
+        await expect(page.getByText("Try the highlighted space:", { exact: false })).toBeVisible();
+      }
+      await slot(page, piece);
+    }
+    if (tray < 5) {
+      expect((await savedProgress(page))?.stars ?? 0).toBe(0);
+      await page.getByRole("button", { name: "Next puzzle pieces", exact: true }).click();
+    }
+  }
+  await expect.poll(async () => (await savedProgress(page))?.stars).toBe(1);
+  await expect(page.getByText("Picture 2 of 3 · Pieces 0 of 36", { exact: true })).toBeVisible();
+  await expect(page.getByText("Pieces page 1 of 6", { exact: true })).toBeVisible();
+  await page.getByRole("button", { name: "2 pieces", exact: true }).click();
+  await expect(page.getByRole("button", { name: /^Puzzle space / })).toHaveCount(2);
+  await expect(page.getByRole("button", { name: "Next puzzle pieces", exact: true })).toHaveCount(
+    0,
+  );
+  expect((await savedProgress(page)).stars).toBe(1);
+});
+
+test("36-piece targets stay finger-sized and support dragging", async ({ page }) => {
+  await page.goto("/");
+  await openActivity(page, "Animal picture puzzles");
+  await page.getByRole("button", { name: "36 pieces", exact: true }).click();
+  const source = page.getByRole("button", { name: /^Choose .* piece / }).first();
+  const label = (await source.getAttribute("aria-label"))!;
+  const id = Number(label.match(/piece (\d+)$/)![1]);
+  await source.scrollIntoViewIfNeeded();
+  const target = page.getByRole("button", { name: new RegExp(`^Puzzle space ${id}:`) });
+  const from = (await source.boundingBox())!,
+    to = (await target.boundingBox())!;
+  expect(to.width).toBeGreaterThanOrEqual(48);
+  expect(to.height).toBeGreaterThanOrEqual(48);
+  await page.mouse.move(from.x + from.width / 2, from.y + from.height / 2);
+  await page.mouse.down();
+  await page.mouse.move(to.x + to.width / 2, to.y + to.height / 2, { steps: 15 });
+  await page.mouse.up();
+  await expect(source).toBeDisabled();
+  await expect(page.getByText("Pieces 1 of 36", { exact: false })).toBeVisible();
+});

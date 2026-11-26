@@ -1,3 +1,4 @@
+import type { PuzzleParts } from "../../puzzleLogic";
 import React from "react";
 import { View } from "react-native";
 import { AnimalArt } from "../../AnimalArt";
@@ -10,7 +11,7 @@ export default function PuzzlePieceArt({
   faded = false,
 }: {
   letter: string;
-  parts: 2 | 4;
+  parts: PuzzleParts;
   piece: number;
   size: number;
   faded?: boolean;

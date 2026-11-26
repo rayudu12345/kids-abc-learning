@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Pressable, ScrollView, StyleSheet, Text, View, useWindowDimensions } from "react-native";
 import { AnimalArt, AnimatedAnimal } from "../AnimalArt";
 import { DropBox, findDropTarget } from "../matchLogic";
-import { puzzlePartName, puzzleSlice } from "../puzzleLogic";
+import { puzzlePartName, puzzleSlice, puzzleGrid, puzzleLevels } from "../puzzleLogic";
 import { activityGuide } from "../data/activityGuide";
 import useAnimalPuzzle from "../hooks/useAnimalPuzzle";
 import PuzzlePieceArt from "../components/puzzles/PuzzlePieceArt";
@@ -15,7 +15,16 @@ export default function AnimalPuzzles({ onExit }: { onExit: () => void }) {
     latest = useRef(game);
   latest.current = game;
   const { width, height } = useWindowDimensions();
-  const size = Math.max(220, Math.min(width - 36, height * 0.34, 400));
+  const size = Math.min(
+    width - 36,
+    Math.max(220, Math.min(height * 0.34, 400), puzzleGrid(game.board.parts).columns * 56),
+  );
+  const [trayPage, setTrayPage] = useState(0);
+  const pageCount = Math.ceil(game.board.parts / 6);
+  const generation = game.generation.current;
+  useEffect(() => {
+    setTrayPage(0);
+  }, [generation]);
   const [dragging, setDragging] = useState(false),
     [showPicture, setShowPicture] = useState(false);
   const targets = useRef<Record<string, React.ComponentRef<typeof View> | null>>({}),
@@ -63,9 +72,10 @@ export default function AnimalPuzzles({ onExit }: { onExit: () => void }) {
       />
       <Text style={styles.title}>🧩 Animal picture puzzles</Text>
       <View style={styles.row}>
-        {([2, 4] as const).map((parts) => (
+        {puzzleLevels.map((parts) => (
           <ActionButton
             key={parts}
+            variant={game.board.parts === parts ? "primary" : "soft"}
             accessibilityState={{ selected: game.board.parts === parts }}
             onPress={() => game.restart(parts)}
           >{`${parts} pieces`}</ActionButton>
@@ -155,8 +165,29 @@ export default function AnimalPuzzles({ onExit }: { onExit: () => void }) {
                 ? `Try the highlighted space: ${puzzlePartName(game.board.parts, game.board.hint)}.`
                 : "Tap a piece, then its space. Or drag it there!"}
           </FeedbackMessage>
+          {pageCount > 1 && (
+            <View style={styles.row}>
+              <ActionButton
+                accessibilityLabel="Previous puzzle pieces"
+                disabled={trayPage === 0}
+                onPress={() => setTrayPage((value) => value - 1)}
+              >
+                ◀ Previous pieces
+              </ActionButton>
+              <Text style={styles.note}>
+                Pieces page {trayPage + 1} of {pageCount}
+              </Text>
+              <ActionButton
+                accessibilityLabel="Next puzzle pieces"
+                disabled={trayPage === pageCount - 1}
+                onPress={() => setTrayPage((value) => value + 1)}
+              >
+                Next pieces ▶
+              </ActionButton>
+            </View>
+          )}
           <View style={[styles.row, styles.tray]}>
-            {game.board.order.map((piece) => (
+            {game.board.order.slice(trayPage * 6, (trayPage + 1) * 6).map((piece) => (
               <DraggablePuzzlePiece
                 key={`${game.generation.current}-${piece}`}
                 piece={piece}

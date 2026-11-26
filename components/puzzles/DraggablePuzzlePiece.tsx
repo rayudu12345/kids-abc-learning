@@ -1,7 +1,8 @@
+import type { PuzzleParts } from "../../puzzleLogic";
 import React, { useEffect, useRef, useState } from "react";
 import { Animated, PanResponder, Pressable, StyleSheet, Text } from "react-native";
 import useReducedMotion from "../../hooks/useReducedMotion";
-import { puzzlePartName } from "../../puzzleLogic";
+import { puzzlePartName, puzzleGrid } from "../../puzzleLogic";
 import PuzzlePieceArt from "./PuzzlePieceArt";
 export default function DraggablePuzzlePiece({
   piece,
@@ -15,7 +16,7 @@ export default function DraggablePuzzlePiece({
   onDrag,
 }: {
   piece: number;
-  parts: 2 | 4;
+  parts: PuzzleParts;
   letter: string;
   name: string;
   selected: boolean;
@@ -80,7 +81,12 @@ export default function DraggablePuzzlePiece({
         {disabled ? (
           <Text style={styles.star}>⭐</Text>
         ) : (
-          <PuzzlePieceArt letter={letter} parts={parts} piece={piece} size={160} />
+          <PuzzlePieceArt
+            letter={letter}
+            parts={parts}
+            piece={piece}
+            size={Math.max(160, puzzleGrid(parts).columns * 70)}
+          />
         )}
         <Text style={styles.label}>
           {puzzlePartName(parts, piece)}

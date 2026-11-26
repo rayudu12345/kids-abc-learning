@@ -15,7 +15,7 @@ export const activityGuide: Record<
   puzzles: {
     group: "play",
     instruction:
-      "Choose a picture piece, then tap its matching space. You can drag a piece there too! A whole-picture hint can help. Finish the picture to earn a star, then meet another animal!",
+      "Start with two pieces, or choose up to thirty-six! Tap a piece and its space, or drag it there. Use Next pieces to see more pieces. The whole-picture hint can help. Finish the picture to earn a star!",
   },
   home: {
     group: "learn",

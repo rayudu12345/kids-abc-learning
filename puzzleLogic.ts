@@ -1,12 +1,18 @@
 import { shuffle } from "./quizLogic";
+export const puzzleLevels = [2, 4, 6, 9, 12, 16, 25, 36] as const;
+export type PuzzleParts = (typeof puzzleLevels)[number];
+export function puzzleGrid(parts: PuzzleParts) {
+  const columns = parts === 2 ? 2 : Math.ceil(Math.sqrt(parts));
+  return { columns, rows: parts / columns };
+}
 export type PuzzleState = {
-  parts: 2 | 4;
+  parts: PuzzleParts;
   order: number[];
   selected: number | null;
   placed: number[];
   hint: number | null;
 };
-export function newPuzzle(parts: 2 | 4): PuzzleState {
+export function newPuzzle(parts: PuzzleParts): PuzzleState {
   return {
     parts,
     order: shuffle(Array.from({ length: parts }, (_, id) => id)),
@@ -31,13 +37,15 @@ export function placePuzzle(state: PuzzleState, piece: number, slot: number): Pu
   if (piece !== slot) return { ...state, selected: piece, hint: piece };
   return { ...state, selected: null, hint: null, placed: [...state.placed, piece] };
 }
-export function puzzleSlice(parts: 2 | 4, id: number, size: number) {
-  const width = size / 2,
-    height = size / (parts / 2);
-  return { x: (id % 2) * width, y: Math.floor(id / 2) * height, width, height };
+export function puzzleSlice(parts: PuzzleParts, id: number, size: number) {
+  const { columns, rows } = puzzleGrid(parts);
+  const width = size / columns,
+    height = size / rows;
+  return { x: (id % columns) * width, y: Math.floor(id / columns) * height, width, height };
 }
-export function puzzlePartName(parts: 2 | 4, id: number) {
-  return parts === 2
-    ? ["Left half", "Right half"][id]
-    : ["Top left", "Top right", "Bottom left", "Bottom right"][id];
+export function puzzlePartName(parts: PuzzleParts, id: number) {
+  if (parts === 2) return ["Left half", "Right half"][id];
+  if (parts === 4) return ["Top left", "Top right", "Bottom left", "Bottom right"][id];
+  const { columns } = puzzleGrid(parts);
+  return `Row ${Math.floor(id / columns) + 1}, column ${(id % columns) + 1}`;
 }

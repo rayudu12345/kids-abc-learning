@@ -4,7 +4,7 @@ export const activities = [
     id: "puzzles",
     icon: "🧩",
     title: "Animal picture puzzles",
-    detail: "Build animal pictures with 2 or 4 pieces",
+    detail: "Build animal pictures with 2–36 pieces",
     color: "#D4F4E4",
   },
   {

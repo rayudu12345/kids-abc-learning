@@ -33,3 +33,7 @@ The latest checks include the Play and learn introductions, alphabet-only home w
 ## Alphabet home follow-up — 26 November 2026
 
 Removed the home activity shortcuts while preserving every side-menu destination. Formatting, TypeScript, all 112 unit tests, the 18 targeted phone/tablet navigation and app integration cases, and Android Hermes export passed. The full 66-case result above records the preceding feature expansion; CI runs the full suite again for this follow-up. Physical APK checks remain as described above.
+
+## Larger animal puzzles — 26 November 2026
+
+Added optional 6, 9, 12, 16, 25 and 36-piece levels alongside 2/4. All 112 unit tests and 16 targeted phone/tablet puzzle and guide integration cases passed, including complete 36-piece placement, one-star rewards, tray paging/reset, hints and actual dragging with targets at least 48 CSS pixels wide/high. Formatting, TypeScript and Android Hermes export passed. No dependency, asset or progress-schema changes. Verify native finger dragging and landscape layout on the Samsung tablet after rebuilding the APK.

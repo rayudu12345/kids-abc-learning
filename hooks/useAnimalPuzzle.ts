@@ -1,3 +1,4 @@
+import type { PuzzleParts } from "../puzzleLogic";
 import { useRef, useState } from "react";
 import { animals, shuffle } from "../quizLogic";
 import { newPuzzle, placePuzzle, selectPuzzle, PuzzleState } from "../puzzleLogic";
@@ -35,7 +36,7 @@ export default function useAnimalPuzzle() {
       audio.play([animal.word.toLowerCase()]);
     }
   };
-  const restart = (parts: 2 | 4) => {
+  const restart = (parts: PuzzleParts) => {
     generation.current++;
     void audio.stop();
     setLesson(shuffle(animals).slice(0, 3));

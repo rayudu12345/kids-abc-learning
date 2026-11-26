@@ -13,7 +13,7 @@ These descriptions are feature references, not evidence of hands-on testing. The
 - Eight animal surprise eggs, with letter/name recordings and saved stars.
 - Freehand coloring for 24 animal outlines, with brushes, eraser, undo and reversible clear.
 - Separate Paint Studio with blank-canvas drawing, shapes/fill, undo/redo, persistent latest picture and PNG/SVG export.
-- Animal picture puzzles with two/four pieces, whole-picture hints, tap/drag controls and saved rewards.
+- Animal picture puzzles with 2–36 pieces, whole-picture hints, tap/drag controls and saved rewards.
 - Play and learn discovery hub with introductions for every option, spoken replay and safe game suggestions.
 
 Existing alphabet, tracing, counting, colors/shapes, sound matching, balloons, stickers, and progress backup remain available. The expanded memory game needs internet for animal photos. Other bundled activities retain offline support.
