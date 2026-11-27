@@ -32,7 +32,7 @@ test("offline human recordings play and realistic animal poses change", async ({
       ),
     )
     .toBe(true);
-  await page.getByRole("button", { name: "Dog bark 🐶", exact: true }).click();
+  await page.getByRole("button", { name: "Dog: Woof!", exact: true }).click();
   await expect
     .poll(() =>
       page.evaluate(() =>
@@ -44,11 +44,15 @@ test("offline human recordings play and realistic animal poses change", async ({
   const frame = page.getByTestId("animal-motion-frame").first();
   await expect(frame).toBeVisible();
   const initial = await frame
+    .getByTestId("animal-current-pose")
     .locator("img")
     .evaluate((image) => getComputedStyle(image.parentElement!).left);
   await expect
     .poll(() =>
-      frame.locator("img").evaluate((image) => getComputedStyle(image.parentElement!).left),
+      frame
+        .getByTestId("animal-current-pose")
+        .locator("img")
+        .evaluate((image) => getComputedStyle(image.parentElement!).left),
     )
     .not.toBe(initial);
 });

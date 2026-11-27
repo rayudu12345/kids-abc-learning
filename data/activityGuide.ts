@@ -85,7 +85,7 @@ export const activityGuide: Record<
   animalSounds: {
     group: "play",
     instruction:
-      "Listen to a real cat or dog sound. Tap the animal that makes it! You can hear it again and keep trying. The next sound comes after a little cheer!",
+      "Listen to a real cat, dog, elephant, lion or parrot sound. Tap the animal that makes it! You can hear it again and keep trying. The next sound comes after a little cheer!",
   },
   memory: {
     group: "play",

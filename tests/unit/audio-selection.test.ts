@@ -36,3 +36,32 @@ test("unrecorded guidance and definitions are kept for device speech, not silent
     [],
   );
 });
+
+test("expanded alphabet calls use actual species recordings and never substitute garden birds", () => {
+  const has = (id: string) =>
+    [
+      "letter-E",
+      "elephant",
+      "sound-elephant",
+      "letter-L",
+      "lion",
+      "sound-lion",
+      "letter-P",
+      "parrot",
+      "sound-parrot",
+      "letter-F",
+      "fish",
+      "sound-birds",
+    ].includes(id);
+  for (const [letter, word, clip] of [
+    ["E", "Elephant", "elephant"],
+    ["L", "Lion", "lion"],
+    ["P", "Parrot", "parrot"],
+  ])
+    assert.deepEqual(selectClips(`${letter}! ${letter} is for ${word}!`, has), [
+      `letter-${letter}`,
+      clip,
+      `sound-${clip}`,
+    ]);
+  assert.deepEqual(selectClips("F! F is for Fish!", has), ["letter-F", "fish"]);
+});

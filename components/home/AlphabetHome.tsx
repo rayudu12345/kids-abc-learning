@@ -1,3 +1,5 @@
+import { animalCall } from "../../data/animalSounds";
+import * as Audio from "../../audio/speech";
 import React, { useState } from "react";
 import { ScrollView, StyleSheet, Text, View, useWindowDimensions } from "react-native";
 import LetterScene from "../../LetterScene";
@@ -10,6 +12,7 @@ export default function AlphabetHome() {
   const { width, height } = useWindowDimensions();
   const [expanded, setExpanded] = useState(false);
   const playback = useAlphabetPlayback();
+  const call = animalCall(playback.activeLetter ?? "");
   const sceneWidth = Math.max(180, width - 40);
   return (
     <View style={{ flex: 1 }}>
@@ -30,6 +33,17 @@ export default function AlphabetHome() {
             {playback.muted ? "🔇 Sound off" : "🔊 Sound on"}
           </ActionButton>
         </View>
+        {call && (
+          <View style={{ alignItems: "center" }}>
+            <ActionButton
+              accessibilityLabel={`Hear real ${call.name} sound`}
+              disabled={playback.muted}
+              onPress={() => Audio.playRecording(call.clip, "This recording is unavailable.")}
+            >
+              {`🔊 Hear the ${call.name.toLowerCase()}`}
+            </ActionButton>
+          </View>
+        )}
         <AlphabetHero
           item={playback.activeItem}
           version={playback.sceneVersion}

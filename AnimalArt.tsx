@@ -1,9 +1,9 @@
-import { motionRows, animalMotion, animalPoseAtTick } from "./data/animalMotion";
-import React, { useEffect, useRef, useState } from "react";
+import AnimalMotionSprite from "./components/ui/AnimalMotionSprite";
+import { motionRows, animalMotion } from "./data/animalMotion";
+import React, { useEffect, useRef } from "react";
 import { Animated, Easing, Image, View } from "react-native";
 import useAnimationEnabled from "./hooks/useAnimationEnabled";
 const atlas = require("./assets/animal-atlas.png");
-const motionAtlas = require("./assets/animal-motion.png");
 const cells: Record<string, number> = { C: 0, D: 1, E: 2, F: 3, L: 4, P: 5, R: 6, Z: 7 };
 export const animalLetters: Record<string, string> = {
   "🐱": "C",
@@ -57,16 +57,8 @@ export function AnimatedAnimal({
   size?: number;
   animate?: boolean;
 }) {
-  const [frame, setFrame] = useState(0);
   const active = useAnimationEnabled(animate);
   const profile = animalMotion[letter];
-  useEffect(() => {
-    setFrame(0);
-    if (!active || !profile) return;
-    let tick = 0;
-    const timer = setInterval(() => setFrame(animalPoseAtTick(letter, ++tick)), profile.frameMs);
-    return () => clearInterval(timer);
-  }, [letter, active, profile]);
   const progress = useRef(new Animated.Value(0)).current;
   useEffect(() => {
     progress.setValue(0);
@@ -95,6 +87,12 @@ export function AnimatedAnimal({
               { translateX: sample(profile.x) },
               { translateY: sample(profile.y) },
               {
+                scaleY: progress.interpolate({
+                  inputRange: [0, 0.5, 1],
+                  outputRange: [1, 1.012, 1],
+                }),
+              },
+              {
                 rotate: progress.interpolate({
                   inputRange: profile.tilt.map((_, index) => index / (profile.tilt.length - 1)),
                   outputRange: profile.tilt.map((value) => `${value}deg`),
@@ -105,25 +103,7 @@ export function AnimatedAnimal({
       }}
     >
       {motionRows[letter] !== undefined ? (
-        <View
-          pointerEvents="none"
-          testID="animal-motion-frame"
-          accessibilityValue={{ now: frame, min: 0, max: 3 }}
-          style={{ width: size, height: size, overflow: "hidden" }}
-        >
-          <Image
-            source={motionAtlas}
-            accessible={false}
-            fadeDuration={0}
-            style={{
-              position: "absolute",
-              width: size * 4,
-              height: size * 8,
-              left: -frame * size,
-              top: -motionRows[letter] * size,
-            }}
-          />
-        </View>
+        <AnimalMotionSprite letter={letter} size={size} active={active} />
       ) : (
         <AnimalArt letter={letter} size={size} />
       )}

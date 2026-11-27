@@ -58,9 +58,8 @@ export default function useAlphabetPlayback() {
       ]).start();
     }
     Speech.stop();
-    const sound = letter === "C" ? " Meow!" : letter === "L" ? " A soft roar!" : "";
     if (!muted)
-      Speech.speak(`${letter}! ${letter} is for ${word}!${sound}`, {
+      Speech.speak(`${letter}! ${letter} is for ${word}!`, {
         language: "en-US",
         rate: 0.78,
         pitch: 1.08,

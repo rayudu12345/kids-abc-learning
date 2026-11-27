@@ -1,3 +1,4 @@
+import { soundAnimals } from "../../data/animalSounds";
 import { test, expect } from "@playwright/test";
 import { openActivity, savedProgress } from "./helpers";
 test("real animal sounds, gentle retry, mute clues, automatic rounds and saved rewards", async ({
@@ -17,16 +18,20 @@ test("real animal sounds, gentle retry, mute clues, automatic rounds and saved r
   await page.goto("/");
   await openActivity(page, "Animal sound match");
   await expect
-    .poll(async () => (await played()).some((url) => /sound-(cat|dog)/.test(url)))
+    .poll(async () =>
+      (await played()).some((url) => soundAnimals.some((animal) => url.includes(animal.clip))),
+    )
     .toBe(true);
-  const first = (await played())
-    .findLast((url) => /sound-(cat|dog)/.test(url))!
-    .includes("sound-cat")
-    ? "Cat"
-    : "Dog";
-  await page
-    .getByRole("button", { name: `Choose ${first === "Cat" ? "Dog" : "Cat"}`, exact: true })
-    .click();
+  const firstClip = (await played()).findLast((url) =>
+    soundAnimals.some((animal) => url.includes(animal.clip)),
+  )!;
+  const first = soundAnimals.find((animal) => firstClip.includes(animal.clip))!.name;
+  const choices = await page.getByRole("button", { name: /^Choose / }).all();
+  for (const choice of choices)
+    if ((await choice.getAttribute("aria-label")) !== `Choose ${first}`) {
+      await choice.click();
+      break;
+    }
   await expect(
     page.getByText("Let's try again. The star shows your animal friend!", { exact: true }),
   ).toBeVisible();
@@ -36,13 +41,16 @@ test("real animal sounds, gentle retry, mute clues, automatic rounds and saved r
   await expect.poll(async () => (await played()).length).toBeGreaterThan(requests);
   await page.getByRole("switch", { name: "Animal sound game audio", exact: true }).click();
   const mutedRequests = (await played()).length;
+  const collected: string[] = [];
   for (let round = 1; round <= 4; round++) {
     await expect(page.getByText(`Sound ${round} of 4`, { exact: true })).toBeVisible();
     await expect(
       page.getByRole("button", { name: "Replay animal sound", exact: true }),
     ).toBeDisabled();
     const clue = await page.getByText(/^Sound clue:/).innerText();
-    const name = clue.includes("Meow") ? "Cat" : "Dog";
+    const animal = soundAnimals.find((animal) => clue.includes(animal.clue))!;
+    const name = animal.name;
+    collected.push(animal.letter);
     await page.getByRole("button", { name: `Choose ${name}`, exact: true }).evaluate((button) => {
       (button as HTMLElement).click();
       (button as HTMLElement).click();
@@ -55,7 +63,7 @@ test("real animal sounds, gentle retry, mute clues, automatic rounds and saved r
   ).toBeVisible();
   const progress = await savedProgress(page);
   expect(progress.completed.matching).toBe(1);
-  expect(progress.stickers.sort()).toEqual(["C", "D"]);
+  expect(progress.stickers.sort()).toEqual([...new Set(collected)].sort());
   expect((await played()).length).toBe(mutedRequests);
   await page.getByRole("button", { name: "🌈 Play sounds again", exact: true }).click();
   await expect(page.getByText("Sound 1 of 4", { exact: true })).toBeVisible();
@@ -72,7 +80,10 @@ test("leaving sound play cancels its pending advance", async ({ page }) => {
   await page.getByRole("switch", { name: "Animal sound game audio", exact: true }).click();
   const clue = await page.getByText(/^Sound clue:/).innerText();
   await page
-    .getByRole("button", { name: `Choose ${clue.includes("Meow") ? "Cat" : "Dog"}`, exact: true })
+    .getByRole("button", {
+      name: `Choose ${soundAnimals.find((animal) => clue.includes(animal.clue))!.name}`,
+      exact: true,
+    })
     .click();
   await openActivity(page, "Alphabet A–Z");
   await page.waitForTimeout(2400);

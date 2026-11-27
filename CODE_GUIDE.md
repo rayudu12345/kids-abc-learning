@@ -76,3 +76,9 @@ See [audio and assets](docs/AUDIO_AND_ASSETS.md) and [backup and restore](docs/B
 - Guide UI is split into `screens/PlayAndLearn.tsx` and small `components/guide` cards/modal.
 - Picture puzzle rules live in `puzzleLogic.ts`, lesson/reward state in `hooks/useAnimalPuzzle.ts`, and clipped artwork/drag interaction in `components/puzzles`. The screen composes these with shared controls.
 - Keep the synchronous placement guard and generation check when changing rewards or asynchronous drop measurements.
+
+## Natural calls and smooth animal motion
+
+`data/animalSounds.ts` lists verified species recordings shared by alphabet playback, call-only replay, sound matching and the audio library. Add a species only with a licensed, attributed local clip. `scripts/fetch-animal-calls.py` regenerates the reviewed expansion and strips embedded source metadata while retaining credits separately.
+
+`components/ui/AnimalMotionSprite.tsx` owns short pose blends and their cleanup. `AnimatedAnimal` composes it with existing species movement and subtle breathing. Keep reduced-motion/background guards and avoid blending identical resting frames. The artwork remains an illustrated four-pose atlas.

@@ -20,7 +20,7 @@ export default function AnimalSounds({ onExit }: { onExit: () => void }) {
         <>
           <Text style={styles.celebration}>⭐ 🐱 🐶 ⭐</Text>
           <FeedbackMessage>Wonderful listening! Four stars saved! 🎉</FeedbackMessage>
-          <Text style={styles.note}>Your cat and dog stickers are in your sticker book.</Text>
+          <Text style={styles.note}>Your animal stickers are in your sticker book.</Text>
           <ActionButton onPress={game.restart}>🌈 Play sounds again</ActionButton>
         </>
       ) : (
@@ -62,7 +62,8 @@ export default function AnimalSounds({ onExit }: { onExit: () => void }) {
         </>
       )}
       <Text style={styles.note}>
-        Real cat and dog recordings, ready to play offline. No timer or penalties.
+        Real cat, dog, elephant, lion and parrot recordings, ready to play offline. No timer or
+        penalties.
       </Text>
     </ScrollView>
   );

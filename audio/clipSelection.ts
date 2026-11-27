@@ -1,3 +1,4 @@
+import { animalCall } from "../data/animalSounds";
 /** Select recordings without substituting letter names for phonemes or dropping definitions. */
 export function selectClips(text: string, available: (id: string) => boolean): string[] {
   const trimmed = text.trim(),
@@ -12,7 +13,7 @@ export function selectClips(text: string, available: (id: string) => boolean): s
   const id = basic[2].toLowerCase().replace(/ /g, "-");
   if (!available(`letter-${basic[1]}`) || !available(id)) return [];
   const clips = [`letter-${basic[1]}`, id];
-  const sound = basic[1] === "C" ? "sound-cat" : basic[1] === "D" ? "sound-dog" : null;
+  const sound = animalCall(basic[1])?.clip;
   if (sound && available(sound)) clips.push(sound);
   return clips;
 }

@@ -1,4 +1,4 @@
-// Bundled, licensed human recordings. See assets/audio/attribution.json.
+// Bundled, licensed recordings. See assets/audio/attribution.json.
 export const recordings: Record<string, number> = {
   "letter-A": require("../assets/audio/letter-A.mp3"),
   "letter-B": require("../assets/audio/letter-B.mp3"),
@@ -82,4 +82,7 @@ export const recordings: Record<string, number> = {
   "sound-cat": require("../assets/audio/sound-cat.mp3"),
   "sound-dog": require("../assets/audio/sound-dog.mp3"),
   "sound-birds": require("../assets/audio/sound-birds.mp3"),
+  "sound-elephant": require("../assets/audio/sound-elephant.mp3"),
+  "sound-lion": require("../assets/audio/sound-lion.mp3"),
+  "sound-parrot": require("../assets/audio/sound-parrot.mp3"),
 };

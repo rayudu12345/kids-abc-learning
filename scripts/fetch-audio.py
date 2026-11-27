@@ -45,3 +45,7 @@ with concurrent.futures.ThreadPoolExecutor(max_workers=1) as pool:results=[entry
 missing=[key for key in requests if key not in {entry['id'] for entry in results}]
 (ROOT/'audio/recordings.ts').write_text('// Bundled, licensed human recordings. See assets/audio/attribution.json.\nexport const recordings: Record<string, number> = {\n'+''.join(f'  "{entry["id"]}": require("../assets/audio/{entry["file"]}"),\n' for entry in results)+'};\n')
 print(json.dumps({'recordings':len(results),'missing':missing}))
+
+# Restore the reviewed call expansion and rebuild the complete asset registry.
+import runpy
+runpy.run_path(str(ROOT/"scripts/fetch-animal-calls.py"),run_name="__main__")

@@ -1,15 +1,17 @@
 import { shuffle } from "./quizLogic";
-/** Only include animals with a correctly identified, licensed bundled recording. */
-export const soundAnimals = [
-  { letter: "C", name: "Cat", clip: "sound-cat", clue: "Meow!" },
-  { letter: "D", name: "Dog", clip: "sound-dog", clue: "Woof!" },
-] as const;
+import { soundAnimals } from "./data/animalSounds";
+export { soundAnimals } from "./data/animalSounds";
 export type SoundAnimal = (typeof soundAnimals)[number];
 export function newSoundLesson() {
-  return shuffle([...soundAnimals, ...soundAnimals]).map((target) => ({
-    target,
-    choices: shuffle(soundAnimals),
-  }));
+  return shuffle(soundAnimals)
+    .slice(0, 4)
+    .map((target) => ({
+      target,
+      choices: shuffle([
+        target,
+        shuffle(soundAnimals.filter((animal) => animal.letter !== target.letter))[0],
+      ]),
+    }));
 }
 export function soundAnswer(target: string, choice: string, locked: boolean) {
   if (locked || !soundAnimals.some((animal) => animal.letter === choice)) return "ignored";

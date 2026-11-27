@@ -1,6 +1,6 @@
 # Recorded audio credits and licenses
 
-The MP3 files in this directory are **human recordings**, obtained from Wikimedia Commons. Each file's author, source page, original URL, license, and transformation are listed in `attribution.json`. The source page is the authoritative record. Preserve this file and the attribution manifest when distributing the recordings.
+The MP3 files in this directory are **recorded voices and animal calls**, obtained from Wikimedia Commons. Each file's author, source page, original URL, license, and transformation are listed in `attribution.json`. The source page is the authoritative record. Preserve this file and the attribution manifest when distributing the recordings.
 
 CC BY-SA recordings and their converted versions remain available under the exact Creative Commons Attribution-ShareAlike license identified for that file. Other recordings are CC BY or public domain/CC0 as individually identified. These licenses apply to the audio assets, not automatically to unrelated application code.
 
@@ -9,3 +9,5 @@ Changes: pronunciation clips were converted to mono 22,050 Hz MP3 at 48 kbps and
 Letter-name clips are the `En-us-a.ogg` through `En-us-z.ogg` series referenced by English letter entries on Wiktionary (for example, <https://en.wiktionary.org/wiki/A#English>). They are letter names, not phonemes. Phonics activities label full-word recordings as examples of initial sounds; they do not mislabel letter-name clips as consonant sounds.
 
 Use `python scripts/fetch-audio.py` with Python 3 and FFmpeg to regenerate assets. The script accepts only explicitly supported licenses, preserves attribution, caches downloaded clips, and honors HTTP 429 retry delays. Unavailable clips use visibly identified device speech rather than unlicensed replacement audio.
+
+The 27 November 2026 elephant and lion call additions are CC0/public domain; the vernal hanging parrot call is CC BY-SA 4.0. See their individual manifest entries for source authors and URLs. These three excerpts are up to 2.5 seconds, mono 22,050 Hz/48 kbps MP3, normalized with a -23 LUFS/-6 dBTP target and short fade-in/out. The converted parrot clip remains CC BY-SA 4.0. Rebuild them with `python3 scripts/fetch-animal-calls.py` (also run by the main fetch script).

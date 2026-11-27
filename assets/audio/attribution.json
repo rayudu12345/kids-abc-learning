@@ -818,5 +818,35 @@
     "license": "CC0",
     "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
     "changes": "Converted to mono 22050 Hz MP3, normalized to -20 LUFS, excerpt limited to 2.5 seconds and reduced in volume."
+  },
+  {
+    "id": "sound-elephant",
+    "file": "sound-elephant.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:Elephant_voice_-_trumpeting.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/4/40/Elephant_voice_-_trumpeting.ogg",
+    "artist": "தகவலுழவன்",
+    "license": "CC0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "changes": "Leading silence removed; excerpt up to 2.5 seconds, mono 22050 Hz MP3 at 48 kbps, normalized to -23 LUFS/-6 dBTP, with short fade-in/out. Embedded source metadata stripped; attribution retained separately. Playback uses reduced animal-sound volume."
+  },
+  {
+    "id": "sound-lion",
+    "file": "sound-lion.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:Lion_raring-sound1TamilNadu178.ogg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/7/7d/Lion_raring-sound1TamilNadu178.ogg",
+    "artist": "த*உழவன்",
+    "license": "Public domain",
+    "licenseUrl": "",
+    "changes": "Leading silence removed; excerpt up to 2.5 seconds, mono 22050 Hz MP3 at 48 kbps, normalized to -23 LUFS/-6 dBTP, with short fade-in/out. Embedded source metadata stripped; attribution retained separately. Playback uses reduced animal-sound volume."
+  },
+  {
+    "id": "sound-parrot",
+    "file": "sound-parrot.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:Vernal_hanging_parrot_flight_call_recorded_in_February_2010_at_Kulgi,_Karnataka.wav",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/c/c6/Vernal_hanging_parrot_flight_call_recorded_in_February_2010_at_Kulgi%2C_Karnataka.wav",
+    "artist": "Sharadapte",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "changes": "Leading silence removed; excerpt up to 2.5 seconds, mono 22050 Hz MP3 at 48 kbps, normalized to -23 LUFS/-6 dBTP, with short fade-in/out. Embedded source metadata stripped; attribution retained separately. Playback uses reduced animal-sound volume."
   }
 ]

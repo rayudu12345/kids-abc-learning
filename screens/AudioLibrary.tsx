@@ -1,3 +1,4 @@
+import { soundAnimals } from "../data/animalSounds";
 import React, { useEffect, useState } from "react";
 import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import ActivityToolbar from "../components/ui/ActivityToolbar";
@@ -39,15 +40,17 @@ export default function AudioLibrary({ onExit }: { onExit: () => void }) {
       />
       <Text style={styles.title}>🔊 Listen and explore</Text>
       <Text style={styles.note}>
-        Human recordings are stored in the app and play offline. A “Device voice” label means that
-        clip needs your tablet's offline English voice.
+        Recorded voices and animal calls are stored in the app and play offline. A “Device voice”
+        label means that clip needs your tablet's offline English voice.
       </Text>
       <ActionButton onPress={() => play(last.id, last.text)}>↻ Replay last sound</ActionButton>
       <Text style={styles.section}>Animal sounds</Text>
       <View style={styles.row}>
         {[
-          { id: "sound-cat", title: "Cat meow 🐱" },
-          { id: "sound-dog", title: "Dog bark 🐶" },
+          ...soundAnimals.map((animal) => ({
+            id: animal.clip,
+            title: `${animal.name}: ${animal.clue}`,
+          })),
           { id: "sound-birds", title: "Garden birds 🐦" },
         ].map((sound) => (
           <ActionButton

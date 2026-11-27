@@ -1,3 +1,4 @@
+import { soundAnimals } from "../../data/animalSounds";
 import test from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync, existsSync } from "node:fs";
@@ -14,6 +15,6 @@ test("bundled recordings have attribution, allowed licenses and files", () => {
   }
   for (const letter of "ABCDEFGHIJKLMNOPQRSTUVWXYZ")
     assert.ok(entries.some((entry: { id: string }) => entry.id === `letter-${letter}`));
-  for (const id of ["sound-cat", "sound-dog", "sound-birds"])
+  for (const id of [...soundAnimals.map((animal) => animal.clip), "sound-birds"])
     assert.ok(entries.some((entry: { id: string }) => entry.id === id));
 });

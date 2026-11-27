@@ -76,7 +76,7 @@ Record the tested device model, Android version, app version, build identifier, 
 
 Pictures, outline coordinates, vocabulary, and game logic are bundled. Progress uses local device storage and does not require an account or network.
 
-82 human recordings are bundled. Longer prompts and unavailable examples use the device's English text-to-speech voice. See [Audio and assets](AUDIO_AND_ASSETS.md) for exact gaps. Download an offline English voice in Android's text-to-speech settings; exact menu names vary by Samsung/Android version. Test an installed APK by turning on airplane mode, closing it completely, and reopening it. Check pronunciation and activities. Expo Go's development connection is not the offline production experience.
+85 voice and animal recordings are bundled. Longer prompts and unavailable examples use the device's English text-to-speech voice. See [Audio and assets](AUDIO_AND_ASSETS.md) for exact gaps. Download an offline English voice in Android's text-to-speech settings; exact menu names vary by Samsung/Android version. Test an installed APK by turning on airplane mode, closing it completely, and reopening it. Check pronunciation and activities. Expo Go's development connection is not the offline production experience.
 
 ## Data protection and recovery
 
@@ -99,7 +99,7 @@ A write failure keeps the latest rewards in memory and offers **Try saving again
 
 ## New-feature release checks
 
-- Play recorded letter/word clips, cat/dog/bird sounds, and fallback guidance with Wi-Fi disabled. Confirm readable Recording/Device voice labels and appropriate volume.
+- Play recorded letter/word clips, cat/dog/elephant/lion/parrot and garden-bird sounds, and fallback guidance with Wi-Fi disabled. Confirm readable Recording/Device voice labels and appropriate volume.
 - Switch activities rapidly and background the app while audio plays. No old speech or clip should continue over the next activity.
 - Practice the six initial sounds, keeping letter names separate. Have an early-literacy adult review pronunciation; isolated phoneme recordings are not bundled.
 - Trace lowercase letters with ascenders/descenders and single-storey handwriting a/g. Confirm uppercase rewards remain unchanged.
@@ -122,7 +122,7 @@ Check all eight enlarged alphabet animal scenes in portrait, landscape, and full
 
 ## Animal sound match
 
-Open Animal sound match from the side menu. Four questions use the existing licensed `sound-cat` and `sound-dog` files and human `listen` recording, with two large animated choices. All question audio is recorded and offline; no new audio assets or TTS are required. Replay does not overlap prior clips. Mute reveals Meow/Woof text clues; retries have no penalties. Correct answers save one star and cat/dog stickers; completing four adds one matching adventure. Backgrounding stops audio and pauses pending advancement; leaving cancels the session timer. Verify comfortable volume, replay/mute, touch targets, airplane-mode startup and background/resume in an installed APK. More animals require correctly identified, licensed recordings before they can be added.
+Open Animal sound match from the side menu. Four questions are drawn without repeats from five licensed calls: cat, dog, elephant, lion and parrot. Each uses the human `listen` recording and two large animated choices. All question audio is recorded and offline; no TTS is required for the game. Replay does not overlap prior clips. Mute reveals named sound clues; retries have no penalties. Correct answers save one star and the corresponding animal sticker; completing four adds one matching adventure. Backgrounding stops audio and pauses pending advancement; leaving cancels the session timer. Verify comfortable volume, replay/mute, touch targets, airplane-mode startup and background/resume in an installed APK. More animals require correctly identified, licensed recordings before they can be added.
 
 ## Memory, surprise eggs, and coloring
 
@@ -155,3 +155,11 @@ The menu now contains 22 destinations including Play and learn and Animal pictur
 Puzzle lessons contain three of eight bundled animal pictures, default two pieces and optional 4, 6, 9, 12, 16, 25 or 36. Larger levels use a paged tray of six pieces, labeled rows/columns, and a board that expands to keep touch targets usable on the supported phone/tablet layouts. Changing difficulty starts a fresh lesson without clearing earned rewards. Hints and retries have no penalty. Each picture earns one existing matching star; the third marks a completed matching adventure. Progress/backup format remains version 1. Puzzles and guide assets work offline; the existing online-photo memory game still requires internet.
 
 Before APK release, rebuild the Android package and check actual tablet touch dragging, smaller-screen tap alternatives, native audio cancellation, voice installation, Android modal Back and landscape layout. Android JS/Hermes export is a bundling check, not a signed APK.
+
+## Natural calls and smoother poses
+
+Check the five real calls both after alphabet letter/word playback and with the separate Hear the animal control. Mute must disable call replay, rapid selections must cancel old clips, and leaving/backgrounding must stop audio. Sound matching keeps four questions with two large choices each, selected from five animals without target repetition. Confirm all five recordings in Listen and explore and review their credits. The new three clips add about 40 KB, not a runtime network dependency.
+
+Verify blended pose transitions and subtle breathing at portrait/landscape sizes. Reduced motion should show the resting pose without blending or breathing. Test native app background/resume, gentle speaker volume and airplane-mode cold launch. Fish/rabbit/zebra call recordings remain unavailable; do not advertise all animals as having real calls.
+
+The 27 November compatibility check aligns Expo to ~58.1.0, expo-file-system to ~58.0.15 and expo-sharing to ~58.0.24, retaining Expo SDK 58 and the current React Native version. Use the committed lockfile with `npm ci`, and rebuild the APK after updating.

@@ -69,7 +69,7 @@ Keep content separate from activity state. Prefer a shared component when two sc
 
 ## Animal sound matching
 
-`AnimalSounds` composes shared toolbar, feedback, and `AnimalChoiceCard`. `useAnimalSoundGame` owns audio, question state, immediate answer locks, and automatic advancement; `animalSoundLogic` supplies balanced four-question lessons and shuffled choices. App backgrounding stops audio and pauses celebration timers. Correct answers use existing matching rewards, so old saves and backups require no schema change. Completing four questions counts as one matching adventure.
+`AnimalSounds` composes shared toolbar, feedback, and `AnimalChoiceCard`. `useAnimalSoundGame` owns audio, question state, immediate answer locks, and automatic advancement; `animalSoundLogic` supplies four unique questions from five recorded species and shuffled choices. App backgrounding stops audio and pauses celebration timers. Correct answers use existing matching rewards, so old saves and backups require no schema change. Completing four questions counts as one matching adventure.
 
 ## Memory, eggs, and coloring
 
@@ -100,3 +100,9 @@ Native PNG export captures the SVG at 1200 × 1200 using `toDataURL`; web PNG ex
 `puzzleLogic` owns pure selection/placement and rectangular picture slicing. `PuzzlePieceArt` clips the existing bundled atlas; no image downloads are needed. `useAnimalPuzzle` owns three-picture lessons, a synchronous placement ref preventing duplicate rewards, audio and cancellable automatic progression. `puzzleLevels` and `PuzzleParts` define 2, 4, 6, 9, 12, 16, 25 and 36 pieces. `puzzleGrid` supplies rectangular/square layouts to all artwork and target calculations. Six pieces per tray page bound rendering; page state resets on lesson generation changes. Larger board sizing preserves touch targets in supported layouts. Two-piece halves remain the default. Each picture uses existing `recordAnswer(..., "matching", lastPicture)` so stars/stickers and backup schema remain compatible.
 
 `DraggablePuzzlePiece` handles movement and reduced-motion snapping. `AnimalPuzzles` measures drop targets in window coordinates, with a tap alternative. Asynchronous drop measurement checks both mount state and lesson generation to reject stale drops after reset/advance. A whole-picture hint and spatial labels supplement the ghost image.
+
+## Natural animal calls and pose blending
+
+`data/animalSounds.ts` is the shared verified species/clip catalogue for alphabet playback, call-only replay, audio library and sound matching. `clipSelection` appends only the correct available species recording after the letter and example word. `newSoundLesson` chooses four unique targets from five calls with one distractor per round; existing matching rewards and storage format are unchanged. All call assets use the single audio controller and reduced animal playback volume.
+
+`AnimalMotionSprite` owns the pose timer and short native opacity blend between adjacent atlas frames; `AnimatedAnimal` retains body paths and adds 1.2% breathing. The shared animation-enabled hook gates both; cleanup cancels timers and blend/body animations. No atlas downloads or new image assets are required.
